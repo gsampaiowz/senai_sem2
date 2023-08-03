@@ -31,9 +31,8 @@
 	('Keller','920839524'),
 	('Yuri','897494338');
  
- INSERT INTO Pessoa VALUES('Possarle', '123122333');
- INSERT INTO Email VALUES(13,'possarle@email.com');
- INSERT INTO Telefone VALUES(13, '11943978122');
+ INSERT INTO Email VALUES(2,'fabio@email.com');
+ INSERT INTO Telefone VALUES(2, '11943214321');
  
 SELECT * FROM Pessoa; 
 SELECT * FROM Email; 
@@ -47,17 +46,22 @@ SELECT * FROM Telefone;
 	 Telefone AS T
  WHERE 
 	P.IdPessoa = E.IdPessoa
-	AND P.IdPessoa = T.IdPessoa
+	AND P.IdPessoa = T.IdPessoa;
 
+--
 SELECT 
 	*
 FROM
-	Pessoa inner join Telefone on pessoa.IdPessoa = telefone.IdPessoa
+	Pessoa join Telefone on pessoa.IdPessoa = telefone.IdPessoa;
 
-	
+--
 SELECT 
 	*
 FROM
-	Pessoa left join Telefone on pessoa.IdPessoa = telefone.IdPessoa
+	Pessoa left join Telefone on pessoa.IdPessoa = telefone.IdPessoa;
 
-SELECT IdPessoa, numero 
+--
+SELECT 
+	*
+FROM
+	pessoa join email on pessoa.IdPessoa = email.IdPessoa;
