@@ -4,7 +4,7 @@ INSERT INTO Clinica VALUES('Rua Corinthians, 123'),('Rua Palmeiras, 10');
 
 INSERT INTO TipoPet VALUES('Cachorro'),('Gato');
 
-INSERT INTO Raca VALUES('Caramelo'),('Preto');
+INSERT INTO Raca VALUES(1,'Caramelo'),(2 ,'Preto'),(1,'ShihTzu');
 
 INSERT INTO Dono VALUES('Jonas'),('Goku');
 
