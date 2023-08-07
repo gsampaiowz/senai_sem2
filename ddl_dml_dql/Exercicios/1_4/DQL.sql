@@ -25,11 +25,11 @@ WHERE
 
 SELECT	
 	Artistas.Nome AS Artista,
-	Estilos.Nome AS Estilo,
+	AlbunsEstilos.IdEstilo,
 	Albuns.Titulo AS Titulo
 FROM Albuns
-	inner join AlbunsEstilos on Albuns.IdAlbum = AlbunsEstilos.IdAlbum join AlbunsEstilos on Estilos.IdEstilo = AlbunsEstilos.IdEstilo
-	inner join Artistas on Albuns.IdArtista = Artistas.IdArtista
+	JOIN AlbunsEstilos on Albuns.IdAlbum = AlbunsEstilos.IdAlbum
+	JOIN Artistas on Albuns.IdArtista = Artistas.IdArtista
 WHERE
 	Albuns.IdAtivo = 1
 
