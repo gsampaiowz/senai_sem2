@@ -17,9 +17,33 @@ VALUES
 	('yuri');
 
 INSERT INTO
-	Cliente
+	Itens
 VALUES
-	('Sampas'),
-	('Gusta'),
-	('Isaque'),
-	('Duds');
+	('TV'),
+	('Notebook'),
+	('Caixa de som'),
+	('Computador');
+
+INSERT INTO
+	TiposConsertos
+VALUES
+	('Reparo'),
+	('Formatação'),
+	('Configurção'),
+	('Limpeza');
+
+INSERT INTO
+	Pedidos
+VALUES
+	(1,2,1,'5'),
+	(2,1,1,'2'),
+	(3,3,3,'3'),
+	(4,4,4,'4');
+
+INSERT INTO
+	PedidosColaboradores
+VALUES
+	(6,3),
+	(2,4),
+	(3,1),
+	(4,3);
