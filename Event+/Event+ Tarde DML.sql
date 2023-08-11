@@ -9,7 +9,7 @@ INSERT INTO TiposDeEvento (NomeTipoDeEvento)
 VALUES ('SQL Server');
 
 INSERT INTO Instituicao (CNPJ, Endereco, NomeFantasia)
-VALUES ('55434321000196','Rua Nitéroi, 180 São Caetano do Sul ','DevSchool');
+VALUES ('55434321000193','Rua Nitéroi, 180 São Caetano do Sul ','DevSchool');
 
 INSERT INTO Usuario (IdTipoDeUsuario,Nome,Email,Senha)
 VALUES (1,'Gabriel','gabriel@email.com','123'), (2,'Eduardo','eduardo@email.com','123');
@@ -21,7 +21,7 @@ INSERT INTO PresencasEvento (IdUsuario,IdEvento,Situacao)
 VALUES (2,1,1);
 
 INSERT INTO ComentarioEvento (IdUsuario, IdEvento, DataComentario, Descricao, Exibe)
-VALUES (2,1,'2023-08-10','Evento muito bom!',1);
+VALUES (2,1,'2023-08-10','Evento muito legal!',0);
 
 SELECT * FROM TiposDeUsuario
 SELECT * FROM TiposDeEvento
@@ -30,3 +30,7 @@ SELECT * FROM Usuario
 SELECT * FROM Evento
 SELECT * FROM PresencasEvento
 SELECT * FROM ComentarioEvento
+
+UPDATE TiposDeEvento
+SET NomeTipoDeEvento = 'REACT'
+WHERE IdTipoDeEvento = 2
