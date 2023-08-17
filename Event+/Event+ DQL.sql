@@ -39,6 +39,8 @@ FROM
 WHERE
 	Ev.IdEvento = PE.IdEvento
 
+-- CORRECAO DO PROFESSOR ABAIXO
+
 SELECT 
 	Us.Nome AS NomeUsuario,
 	TU.NomeTipoDeUsuario AS TipoUsuario,
