@@ -1,0 +1,26 @@
+REST -> Conjunto de regras (padrões)
+
+RESTFUL -> Implementação de todas as regras do padrão Rest
+
+CLIENTE acessa HTTP:
+GET - acessar dados 
+POST - enviar dados
+DELETE - deletar dados
+PUT - atualizar dados
+
+URLS acessam o SERVIDOR
+
+JSON armazanena os dados, objetos, etc. // é o corpo da requisição
+
+MVC
+MODEL: classe e regras de negocio
+VIEW: parte visual
+CONTROLLER: acesso do front com o back
+
+DOMAINS: Definição da classe - propriedades
+
+CONTROLLERS: Métodos controladores - autenticação - autorização
+
+INTERFACES: Definição dos métodos diagnósticos - contrato
+
+REPOSITORIES: Implementação dos métodos (Regras de negocio)
