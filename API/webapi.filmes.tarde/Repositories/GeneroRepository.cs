@@ -31,7 +31,7 @@ namespace webapi.filmes.tarde.Repositories
 
         public GeneroDomain BuscarPorId(int id)
         {
-            //Cria uma lista de gêneros para armazená-los
+            //Instância o genero a ser buscado
             GeneroDomain generoBuscado = new();
 
             //Declara a SqlConnection passando a String de Conexão como parâmetro
@@ -71,10 +71,28 @@ namespace webapi.filmes.tarde.Repositories
             //Retorna a lista de gêneros
             return generoBuscado;
         }
-
+        /// <summary>
+        /// Cadadtrar um novo genero
+        /// </summary>
+        /// <param name="novoGenero">Objeto com as informações que serão cadastradas</param>
         public void Cadastrar(GeneroDomain novoGenero)
         {
-            throw new NotImplementedException();
+            //Declara a SqlConnection passando a string de conexão como parametro
+            using (SqlConnection con = new(StringConexao))
+            {
+
+                //Declara a instrução a ser executada
+                string queryInsert = $"INSERT INTO Genero(Nome) VALUES (' {novoGenero.Nome} ')";
+
+                //Declara o SqlCommand passando a query que será executada e a conexão
+                using SqlCommand cmd = new(queryInsert, con);
+
+                //Abre a conexão com o banco de dados
+                con.Open();
+
+                //Apenas executa a instrução (query/consulta)
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public void Deletar(int id)
