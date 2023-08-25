@@ -60,19 +60,19 @@ namespace webapi.filmes.tarde.Controllers
 
         [HttpGet]
         [Route("BuscarPorId")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById()
         {
             try
             {
-                ////Cria um objeto para recebe os genero
-                //GeneroDomain generoBuscado = _generoRepository.BuscarPorId(6);
+                //Cria um objeto para recebe os genero
+                GeneroDomain generoBuscado = _generoRepository.BuscarPorId(6);
 
-                ////Retorna o status code 200 Ok e o genero no formato JSON
-                //return Ok(generoBuscado);
-                ////return new OkObjectResult(generoBuscado);
-                ////return StatusCode(200, generoBuscado);
+                //Retorna o status code 200 Ok e o genero no formato JSON
+                return Ok(generoBuscado);
+                //return new OkObjectResult(generoBuscado);
+                //return StatusCode(200, generoBuscado);
 
-                return _generoRepository.ListarTodos().Where(e => e.IdGenero == id);
+                //return _generoRepository.ListarTodos().Where(e => e.IdGenero == id);
             }
             catch (Exception erro)
             {

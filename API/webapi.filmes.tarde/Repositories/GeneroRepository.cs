@@ -18,7 +18,7 @@ namespace webapi.filmes.tarde.Repositories
         ///     - SqlServer : User Id = sa; Pwd = Senha
         /// </summary>
         //private string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; Integrated Security = True;";
-        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
+        private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=FilmesTarde; User ID=sa; Pwd=123;";
         public void AtualizarIdCorpo(GeneroDomain genero)
         {
             throw new NotImplementedException();
@@ -132,9 +132,9 @@ namespace webapi.filmes.tarde.Repositories
                     GeneroDomain genero = new()
                     {
                         //Atribui à propriedade IdGenero o valor da primeira coluna
-                        IdGenero = Convert.ToInt32(rdr[0]),
+                        IdGenero = Convert.ToInt32(rdr["IdGenero"]),
                         //Atribui à propriedade IdGenero o valor da primeira coluna
-                        Nome = rdr[1].ToString(),
+                        Nome = rdr["Nome"].ToString(),
                     };
 
                     //Adiciona o objeto criado dentro da lista
