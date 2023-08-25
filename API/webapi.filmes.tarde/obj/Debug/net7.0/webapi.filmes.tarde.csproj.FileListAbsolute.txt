@@ -123,3 +123,10 @@ C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\sco
 C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\webapi.filmes.tarde.csproj.CopyComplete
 C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\webapi.filmes.tarde.genruntimeconfig.cache
 C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\ref\webapi.filmes.tarde.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\webapi.filmes.tarde.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\webapi.filmes.tarde.xml
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\webapi.filmes.tarde.xml

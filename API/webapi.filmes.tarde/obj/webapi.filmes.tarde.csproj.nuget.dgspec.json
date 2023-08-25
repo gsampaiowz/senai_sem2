@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj": {}
+    "C:\\Users\\42591939888\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj": {
+    "C:\\Users\\42591939888\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj",
+        "projectUniqueName": "C:\\Users\\42591939888\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj",
         "projectName": "webapi.filmes.tarde",
-        "projectPath": "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj",
-        "packagesPath": "C:\\Users\\Sampaio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\obj\\",
+        "projectPath": "C:\\Users\\42591939888\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\webapi.filmes.tarde.csproj",
+        "packagesPath": "C:\\Users\\42591939888\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\42591939888\\Desktop\\senai_sem2\\API\\webapi.filmes.tarde\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sampaio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\42591939888\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.5, )"
