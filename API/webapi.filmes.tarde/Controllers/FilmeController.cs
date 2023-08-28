@@ -57,7 +57,7 @@ namespace webapi.filmes.tarde.Controllers
 			try
 				{
 				//Cria um objeto para recebe os Filme
-				FilmeDomain FilmeBuscado = _FilmeRepository.BuscarPorId(id);
+				FilmeDomain FilmeBuscado = _filmeRepository.BuscarPorId(id);
 
 				//Retorna o status code 200 Ok e o Filme no formato JSON
 				return Ok(FilmeBuscado);
@@ -84,7 +84,7 @@ namespace webapi.filmes.tarde.Controllers
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_FilmeRepository.Cadastrar(novoFilme);
+				_filmeRepository.Cadastrar(novoFilme);
 
 				//Retorna o status code 201 e o Filme no formato JSON
 				//return Created("Teste", novoFilme);
@@ -108,7 +108,7 @@ namespace webapi.filmes.tarde.Controllers
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_FilmeRepository.Deletar(id);
+				_filmeRepository.Deletar(id);
 
 				//Retorna o status code 204
 				return StatusCode(204);
@@ -129,7 +129,7 @@ namespace webapi.filmes.tarde.Controllers
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_FilmeRepository.AtualizarIdUrl(id, FilmeAtualizado);
+				_filmeRepository.AtualizarIdUrl(id, FilmeAtualizado);
 
 				//Retorna o status code 200
 				return StatusCode(200);
@@ -151,7 +151,7 @@ namespace webapi.filmes.tarde.Controllers
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_FilmeRepository.AtualizarIdCorpo(FilmeAtualizado);
+				_filmeRepository.AtualizarIdCorpo(FilmeAtualizado);
 
 				//Retorna o status code 200
 				return StatusCode(200);
