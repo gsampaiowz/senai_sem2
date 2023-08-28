@@ -11,45 +11,38 @@ namespace webapi.filmes.tarde.Controllers
 	/// exemplo: http://lobalhost:5000/api/Genero
 	/// </summary>
 	[Route("api/[controller]")]
-	/// <summary>
-	/// Define que é um controlador de API
-	/// </summary>
 	[ApiController]
-	/// <summary>
-	/// Define que o tipo de resposta da API é JSON
-	/// </summary>
-	[Produces("application/json")]
-	public class GeneroController : ControllerBase
+	public class FilmeController : ControllerBase
 		{
 		/// <summary>
 		/// Objeto que receberá os métodos definidos na interface
 		/// </summary>
-		private IGeneroRepository _generoRepository { get; set; }
+		private IFilmeRepository _filmeRepository { get; set; }
 
 		/// <summary>
-		/// Instância do objeto generoRepository para que haja referência aos métodos no repositório
+		/// Instância do objeto FilmeRepository para que haja referência aos métodos no repositório
 		/// </summary>
-		public GeneroController()
+		public FilmeController()
 			{
-			_generoRepository = new GeneroRepository();
+			_filmeRepository = new FilmeRepository();
 			}
 
 		/// <summary>
-		/// Endpoint que acessa o método de listar os generos
+		/// Endpoint que acessa o método de listar os Filmes
 		/// </summary>
-		/// <returns>Lista de generos e um status code</returns>
+		/// <returns>Lista de Filmes e um status code</returns>
 		[HttpGet]
 		public IActionResult GetAll()
 			{
 			try
 				{
-				//Cria uma lista para receber os generos
-				List<GeneroDomain> listaGeneros = _generoRepository.ListarTodos();
+				//Cria uma lista para receber os Filmes
+				List<FilmeDomain> listaFilmes = _filmeRepository.ListarTodos();
 
-				//Retorna o status code 200 ok e a lista de generos no formato JSON
-				return Ok(listaGeneros);
-				//return new OkObjectResult(listaGeneros);
-				//return StatusCode(200, listaGeneros);
+				//Retorna o status code 200 ok e a lista de Filmes no formato JSON
+				return Ok(listaFilmes);
+				//return new OkObjectResult(listaFilmes);
+				//return StatusCode(200, listaFilmes);
 				}
 			catch (Exception erro)
 				{
@@ -58,30 +51,20 @@ namespace webapi.filmes.tarde.Controllers
 				}
 			}
 
-		/// <summary>
-		/// Buscar um genero pelo seu ID
-		/// </summary>
-		/// <param name="id">ID do genero a ser buscado</param>
-		/// <returns>Status code 200 e o objeto buscado</returns>
 		[HttpGet("{id}")]
 		public IActionResult GetById(int id)
 			{
 			try
 				{
-				//Cria um objeto para recebe os genero
-				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
+				//Cria um objeto para recebe os Filme
+				FilmeDomain FilmeBuscado = _FilmeRepository.BuscarPorId(id);
 
-				if (generoBuscado == null)
-				{
-					return NotFound("O Gênero buscado não foi encontrado.");
-				}
+				//Retorna o status code 200 Ok e o Filme no formato JSON
+				return Ok(FilmeBuscado);
+				//return new OkObjectResult(FilmeBuscado);
+				//return StatusCode(200, FilmeBuscado);
 
-				//Retorna o status code 200 Ok e o genero no formato JSON
-				return Ok(generoBuscado);
-				//return new OkObjectResult(generoBuscado);
-				//return StatusCode(200, generoBuscado);
-
-				//return _generoRepository.ListarTodos().Where(e => e.IdGenero == id);
+				//return _FilmeRepository.ListarTodos().Where(e => e.IdFilme == id);
 				}
 			catch (Exception erro)
 				{
@@ -91,21 +74,21 @@ namespace webapi.filmes.tarde.Controllers
 			}
 
 		/// <summary>
-		/// Endpoint que acessa o método de cadastrar genero
+		/// Endpoint que acessa o método de cadastrar Filme
 		/// </summary>
-		/// <param name="novoGenero">Objeto recebido na requisição</param>
+		/// <param name="novoFilme">Objeto recebido na requisição</param>
 		/// <returns>Status Code</returns>
 		[HttpPost]
-		public IActionResult Post(GeneroDomain novoGenero)
+		public IActionResult Post(FilmeDomain novoFilme)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_generoRepository.Cadastrar(novoGenero);
+				_FilmeRepository.Cadastrar(novoFilme);
 
-				//Retorna o status code 201 e o genero no formato JSON
-				//return Created("Teste", novoGenero);
-				return StatusCode(201, novoGenero);
+				//Retorna o status code 201 e o Filme no formato JSON
+				//return Created("Teste", novoFilme);
+				return StatusCode(201, novoFilme);
 				//return StatusCode(201); -> Retorna somente o status code
 				}
 			catch (Exception erro)
@@ -116,7 +99,7 @@ namespace webapi.filmes.tarde.Controllers
 			}
 
 		/// <summary>
-		/// Endpoint que acessa o método de deletar genero
+		/// Endpoint que acessa o método de deletar Filme
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpDelete("{id}")]
@@ -125,7 +108,7 @@ namespace webapi.filmes.tarde.Controllers
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_generoRepository.Deletar(id);
+				_FilmeRepository.Deletar(id);
 
 				//Retorna o status code 204
 				return StatusCode(204);
@@ -137,16 +120,16 @@ namespace webapi.filmes.tarde.Controllers
 				}
 			}
 		/// <summary>
-		/// Endpoint que acessa o método de atualizar genero com id na url
+		/// Endpoint que acessa o método de atualizar Filme com id na url
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut("{id}")]
-		public IActionResult PutById(int id, GeneroDomain generoAtualizado)
+		public IActionResult PutById(int id, FilmeDomain FilmeAtualizado)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_generoRepository.AtualizarIdUrl(id, generoAtualizado);
+				_FilmeRepository.AtualizarIdUrl(id, FilmeAtualizado);
 
 				//Retorna o status code 200
 				return StatusCode(200);
@@ -159,16 +142,16 @@ namespace webapi.filmes.tarde.Controllers
 			}
 
 		/// <summary>
-		/// Endpoint que acessa o método de atualizar genero com id no corpo JSON
+		/// Endpoint que acessa o método de atualizar Filme com id no corpo JSON
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut]
-		public IActionResult Put(GeneroDomain generoAtualizado)
+		public IActionResult Put(FilmeDomain FilmeAtualizado)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_generoRepository.AtualizarIdCorpo(generoAtualizado);
+				_FilmeRepository.AtualizarIdCorpo(FilmeAtualizado);
 
 				//Retorna o status code 200
 				return StatusCode(200);
@@ -181,5 +164,4 @@ namespace webapi.filmes.tarde.Controllers
 			}
 		}
 	}
-
 

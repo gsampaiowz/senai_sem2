@@ -20,10 +20,35 @@ namespace webapi.filmes.tarde.Repositories
 		//private string StringConexao = "Data Source = SAMPAIO; Initial Catalog=FilmesTarde; Integrated Security = True;";
 		private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
 
-		///
+		/// <summary>
+		/// Atualiza um genero atraves do seu id, passando este pelo corpo JSON
+		/// </summary>
+		/// <param name="genero">Objeto do genero a ser atualizado</param>
 		public void AtualizarIdCorpo(GeneroDomain genero)
 			{
+			//Instância o genero a ser atualizado
+			genero = new()
+				{
+				IdGenero = genero.IdGenero,
+				Nome = "",
+				};
 
+			//Declara a SqlConnection passando a string de conexão como parametro
+			using SqlConnection con = new(StringConexao);
+
+			//Declara a instrução a ser executada
+			string queryUpdate = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE {genero.IdGenero}";
+
+			//Declara o SqlCommand passando a query que será executada e a conexão
+			using SqlCommand cmd = new(queryUpdate, con);
+
+			cmd.Parameters.AddWithValue("@Nome", genero.Nome);
+
+			//Abre a conexão com o banco de dados
+			con.Open();
+
+			//Apenas executa a instrução (query/consulta)
+			cmd.ExecuteNonQuery();
 			}
 
 		/// <summary>
@@ -34,19 +59,19 @@ namespace webapi.filmes.tarde.Repositories
 		public void AtualizarIdUrl(int id, GeneroDomain genero)
 			{
 			//Instância o genero a ser atualizado
-			_ = new GeneroDomain()
+			genero = new()
 				{
-				Nome = "ERRO. GENERO NAO ENCONTRADO"
+				Nome = "ERRO. GENERO NAO ENCONTRADO",
 				};
 
 			//Declara a SqlConnection passando a string de conexão como parametro
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdate = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE {id}";
+			string queryUpdateById = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE {id}";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
-			using SqlCommand cmd = new(queryUpdate, con);
+			using SqlCommand cmd = new(queryUpdateById, con);
 
 			cmd.Parameters.AddWithValue("@Nome", genero.Nome);
 
@@ -62,52 +87,8 @@ namespace webapi.filmes.tarde.Repositories
 		/// </summary>
 		/// <param name="id">Id do genero a ser buscado</param>
 		/// <returns>Genero que possui o id buscado</returns>
-		public GeneroDomain BuscarPorId(int id)
-			{
-			//Instância o genero a ser buscado
-			GeneroDomain generoBuscado = new()
-				{
-				IdGenero = id,
-				Nome = "ERRO. GENERO NAO ENCONTRADO"
-				};
+		public GeneroDomain BuscarPorId(int id) => ListarTodos().FirstOrDefault(genero => genero.IdGenero == id)!;
 
-			//Declara a SqlConnection passando a String de Conexão como parâmetro
-			using (SqlConnection con = new(StringConexao))
-				{
-				//Declara a instrução a ser executada
-				string queryFindById = $"SELECT IdGenero, Nome FROM Genero WHERE IdGenero Like {id}";
-
-				//Abre a conexão com o banco de dados
-				con.Open();
-
-				//Declara o SqlDataReader para percorrer (ler) a tabela no banco de dados
-				SqlDataReader rdr;
-
-				//Declara o SqlCommand passando a query que será executada e a conexão
-				using SqlCommand cmd = new(queryFindById, con);
-				//Executa a query e armazena os dados no rdr
-				rdr = cmd.ExecuteReader();
-
-				//Enquanto houver registros para serem lidos no rdr, o laço se repetirá.
-				while (rdr.Read())
-					{
-					//if (Convert.ToInt32(rdr[0]) == id)
-					//	{
-					generoBuscado = new()
-						{
-						//Atribui à propriedade IdGenero o valor da primeira coluna
-						IdGenero = Convert.ToInt32(rdr["IdGenero"]),
-						//Atribui à propriedade IdGenero o valor da primeira coluna
-						Nome = rdr["Nome"].ToString(),
-						};
-
-					//};
-					};
-				};
-
-			//Retorna a lista de gêneros
-			return generoBuscado;
-			}
 		/// <summary>
 		/// Cadadtrar um novo genero
 		/// </summary>
@@ -168,7 +149,7 @@ namespace webapi.filmes.tarde.Repositories
 			using (SqlConnection con = new(StringConexao))
 				{
 				//Declara a instrução a ser executada
-				string querySelectAll = "SELECT IdGenero, Nome FROM Genero";
+				string querySelectAll = "SELECT * FROM Genero";
 
 				//Abre a conexão com o banco de dados
 				con.Open();
@@ -186,9 +167,8 @@ namespace webapi.filmes.tarde.Repositories
 					{
 					GeneroDomain genero = new()
 						{
-						//Atribui à propriedade IdGenero o valor da primeira coluna
+						//Atribui à propriedade IdGenero os valores das colunas
 						IdGenero = Convert.ToInt32(rdr["IdGenero"]),
-						//Atribui à propriedade IdGenero o valor da primeira coluna
 						Nome = rdr["Nome"].ToString(),
 						};
 
