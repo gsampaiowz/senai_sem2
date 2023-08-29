@@ -26,23 +26,17 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="genero">Objeto do genero a ser atualizado</param>
 		public void AtualizarIdCorpo(GeneroDomain genero)
 			{
-			//Instância o genero a ser atualizado
-			genero = new()
-				{
-				IdGenero = genero.IdGenero,
-				Nome = "",
-				};
-
 			//Declara a SqlConnection passando a string de conexão como parametro
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdate = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE {genero.IdGenero}";
+			string queryUpdateIdBody = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE (@IdGenero)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
-			using SqlCommand cmd = new(queryUpdate, con);
+			using SqlCommand cmd = new(queryUpdateIdBody, con);
 
 			cmd.Parameters.AddWithValue("@Nome", genero.Nome);
+			cmd.Parameters.AddWithValue("@IdGenero", genero.IdGenero);
 
 			//Abre a conexão com o banco de dados
 			con.Open();
@@ -58,22 +52,17 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="genero">Objeto do genero a ser atualizado</param>
 		public void AtualizarIdUrl(int id, GeneroDomain genero)
 			{
-			//Instância o genero a ser atualizado
-			genero = new()
-				{
-				Nome = "ERRO. GENERO NAO ENCONTRADO",
-				};
-
 			//Declara a SqlConnection passando a string de conexão como parametro
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdateById = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE {id}";
+			string queryUpdateIdUrl = $"UPDATE Genero SET Nome = (@Nome) WHERE IdGenero LIKE (@IdGenero)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
-			using SqlCommand cmd = new(queryUpdateById, con);
+			using SqlCommand cmd = new(queryUpdateIdUrl, con);
 
 			cmd.Parameters.AddWithValue("@Nome", genero.Nome);
+			cmd.Parameters.AddWithValue("@IdGenero", id);
 
 			//Abre a conexão com o banco de dados
 			con.Open();

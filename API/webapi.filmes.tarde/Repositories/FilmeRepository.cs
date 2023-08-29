@@ -17,24 +17,19 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="filme"></param>
 		public void AtualizarIdCorpo(FilmeDomain filme)
 			{
-			//Instância o Filme a ser atualizado
-			filme = new()
-				{
-				IdFilme = filme.IdFilme,
-				IdGenero = filme.IdGenero,
-				Titulo = "",
-				};
 
 			//Declara a SqlConnection passando a string de conexão como parametro
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdate = $"UPDATE Filme SET Titulo = (@Titulo) WHERE IdFilme LIKE {filme.IdFilme}";
+			string queryUpdate = $"UPDATE Filme SET Titulo = (@Titulo), IdGenero = (@IdGenero) WHERE IdFilme LIKE (@IdFilme)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
 			using SqlCommand cmd = new(queryUpdate, con);
 
 			cmd.Parameters.AddWithValue("@Titulo", filme.Titulo);
+			cmd.Parameters.AddWithValue("@IdFilme", filme.IdFilme);
+			cmd.Parameters.AddWithValue("@IdGenero", filme.IdGenero);
 
 			//Abre a conexão com o banco de dados
 			con.Open();
@@ -50,23 +45,19 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="filme">Objeto do Filme a ser atualizado</param>
 		public void AtualizarIdUrl(int id, FilmeDomain filme)
 			{
-			//Instância o Filme a ser atualizado
-			_ = new FilmeDomain()
-				{
-				IdGenero = 0,
-				Titulo = "ERRO. FILME NAO ENCONTRADO",
-				};
 
 			//Declara a SqlConnection passando a string de conexão como parametro
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdateById = $"UPDATE Filme SET Titulo = (@Titulo) WHERE IdFilme LIKE {id}";
+			string queryUpdateById = $"UPDATE Filme SET Titulo = (@Titulo), IdGenero = (@IdGenero) WHERE IdFilme LIKE (@IdFilme)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
 			using SqlCommand cmd = new(queryUpdateById, con);
 
 			cmd.Parameters.AddWithValue("@Titulo", filme.Titulo);
+			cmd.Parameters.AddWithValue("@IdFilme", id);
+			cmd.Parameters.AddWithValue("@IdGenero", filme.IdGenero);
 
 			//Abre a conexão com o banco de dados
 			con.Open();
@@ -80,49 +71,7 @@ namespace webapi.filmes.tarde.Repositories
 		/// </summary>
 		/// <param name="id">Id do Filme a ser buscado</param>
 		/// <returns>Filme que possui o id buscado</returns>
-		public FilmeDomain BuscarPorId(int id)
-			{
-			//Instância o Filme a ser buscado
-			FilmeDomain FilmeBuscado = new()
-				{
-				IdFilme = id,
-				IdGenero = 0,
-				Titulo = "",
-				};
-
-			//Declara a SqlConnection passando a String de Conexão como parâmetro
-			using (SqlConnection con = new(StringConexao))
-				{
-				//Declara a instrução a ser executada
-				string queryFindById = $"SELECT * FROM Filme WHERE IdFilme LIKE {id}";
-
-				//Abre a conexão com o banco de dados
-				con.Open();
-
-				//Declara o SqlDataReader para percorrer (ler) a tabela no banco de dados
-				SqlDataReader rdr;
-
-				//Declara o SqlCommand passando a query que será executada e a conexão
-				using SqlCommand cmd = new(queryFindById, con);
-				//Executa a query e armazena os dados no rdr
-				rdr = cmd.ExecuteReader();
-
-				//Enquanto houver registros para serem lidos no rdr, o laço se repetirá.
-				if (rdr.Read())
-					{
-					FilmeBuscado = new()
-						{
-						//Atribui à propriedade IdFilme os valores das colunas
-						IdFilme = Convert.ToInt32(rdr["IdFilme"]),
-						IdGenero = Convert.ToInt32(rdr["IdGenero"]),
-						Titulo = rdr["Titulo"].ToString(),
-						};
-					};
-				};
-
-			//Retorna a lista de gêneros
-			return FilmeBuscado;
-			}
+		public FilmeDomain BuscarPorId(int id) => ListarTodos().FirstOrDefault(filme => filme.IdGenero == id)!;
 
 		/// <summary>
 		/// Cadadtrar um novo Filme
@@ -134,7 +83,7 @@ namespace webapi.filmes.tarde.Repositories
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryInsert = $"INSERT INTO Filme(Titulo) VALUES (@Titulo)";
+			string queryInsert = $"INSERT INTO Filme(Titulo, IdGenero) VALUES (@Titulo, {novoFilme.IdGenero})";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
 			using SqlCommand cmd = new(queryInsert, con);
@@ -184,7 +133,7 @@ namespace webapi.filmes.tarde.Repositories
 			using (SqlConnection con = new(StringConexao))
 				{
 				//Declara a instrução a ser executada
-				string querySelectAll = "SELECT * FROM Filme";
+				string querySelectAll = "SELECT F.IdFilme, F.IdGenero, F.Titulo, G.Nome FROM Filme AS F INNER JOIN Genero AS G ON F.IdGenero = G.IdGenero";
 
 				//Abre a conexão com o banco de dados
 				con.Open();
@@ -206,7 +155,11 @@ namespace webapi.filmes.tarde.Repositories
 						IdFilme = Convert.ToInt32(rdr["IdFilme"]),
 						IdGenero = Convert.ToInt32(rdr["IdGenero"]),
 						Titulo = rdr["Titulo"].ToString(),
-						//Genero = rdr[3].ToString(),
+						Genero = new GeneroDomain()
+							{
+							IdGenero = Convert.ToInt32(rdr["IdGenero"]),
+							Nome = rdr["Nome"].ToString(),
+							}
 						};
 
 					//Adiciona o objeto criado dentro da lista

@@ -15,7 +15,7 @@ namespace webapi.filmes.tarde.Interfaces
         /// <summary>
         /// Cadastrar um novo Filme
         /// </summary>
-        /// <param name="novoGenero">Objeto que será cadastrado</param>
+        /// <param name="novoFilme">Objeto que será cadastrado</param>
         void Cadastrar(FilmeDomain novoFilme);
 
         /// <summary>
@@ -34,14 +34,14 @@ namespace webapi.filmes.tarde.Interfaces
         /// <summary>
         /// Atualizar um filme existente passando o id pelo corpo da requisição (JSON)
         /// </summary>
-        /// <param name="genero">Objeto com as novas informações</param>
+        /// <param name="filme">Objeto com as novas informações</param>
         void AtualizarIdCorpo(FilmeDomain filme);
 
         /// <summary>
         /// Atualizar um filme existente passando o id na URL da requisição
         /// </summary>
         /// <param name="id">Id do objeto a ser atualizado</param>
-        /// <param name="genero">Objeto com as novas informações</param>
+        /// <param name="filme">Objeto com as novas informações</param>
         void AtualizarIdUrl(int id,FilmeDomain filme);
 
         /// <summary>

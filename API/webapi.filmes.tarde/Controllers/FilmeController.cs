@@ -50,7 +50,11 @@ namespace webapi.filmes.tarde.Controllers
 				return BadRequest(erro.Message);
 				}
 			}
-
+		/// <summary>
+		/// Endpoint que acessa o metodo Buscar um filme pelo seu ID
+		/// </summary>
+		/// <param name="id">ID do filme a ser buscado</param>
+		/// <returns>Status code 200 e o objeto buscado</returns>
 		[HttpGet("{id}")]
 		public IActionResult GetById(int id)
 			{
@@ -124,15 +128,29 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut("{id}")]
-		public IActionResult PutById(int id, FilmeDomain FilmeAtualizado)
+		public IActionResult PutById(int id, FilmeDomain filme)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_filmeRepository.AtualizarIdUrl(id, FilmeAtualizado);
+				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(id);
 
-				//Retorna o status code 200
-				return StatusCode(200);
+				if (filmeBuscado != null)
+					{
+
+					try
+						{
+						_filmeRepository.AtualizarIdUrl(id,filme);
+
+						return NoContent();
+						}
+					catch (Exception erro)
+						{
+
+						return BadRequest(erro.Message);
+						}
+					}
+				return NotFound();
 				}
 			catch (Exception erro)
 				{
@@ -146,15 +164,29 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut]
-		public IActionResult Put(FilmeDomain FilmeAtualizado)
+		public IActionResult Put(FilmeDomain filme)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_filmeRepository.AtualizarIdCorpo(FilmeAtualizado);
+				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(filme.IdFilme);
 
-				//Retorna o status code 200
-				return StatusCode(200);
+				if (filmeBuscado != null)
+					{
+
+					try
+						{
+						_filmeRepository.AtualizarIdCorpo(filme);
+
+						return NoContent();
+						}
+					catch (Exception erro)
+						{
+
+						return BadRequest(erro.Message);
+						}
+					}
+				return NotFound();
 				}
 			catch (Exception erro)
 				{

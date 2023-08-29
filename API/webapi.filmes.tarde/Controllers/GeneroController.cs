@@ -11,13 +11,13 @@ namespace webapi.filmes.tarde.Controllers
 	/// exemplo: http://lobalhost:5000/api/Genero
 	/// </summary>
 	[Route("api/[controller]")]
-	/// <summary>
-	/// Define que é um controlador de API
-	/// </summary>
+	// <summary>
+	// Define que é um controlador de API
+	// </summary>
 	[ApiController]
-	/// <summary>
-	/// Define que o tipo de resposta da API é JSON
-	/// </summary>
+	// <summary>
+	// Define que o tipo de resposta da API é JSON
+	// </summary>
 	[Produces("application/json")]
 	public class GeneroController : ControllerBase
 		{
@@ -59,7 +59,7 @@ namespace webapi.filmes.tarde.Controllers
 			}
 
 		/// <summary>
-		/// Buscar um genero pelo seu ID
+		/// Endpoint que acessa o metodo Buscar um genero pelo seu ID
 		/// </summary>
 		/// <param name="id">ID do genero a ser buscado</param>
 		/// <returns>Status code 200 e o objeto buscado</returns>
@@ -72,9 +72,9 @@ namespace webapi.filmes.tarde.Controllers
 				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
 
 				if (generoBuscado == null)
-				{
+					{
 					return NotFound("O Gênero buscado não foi encontrado.");
-				}
+					}
 
 				//Retorna o status code 200 Ok e o genero no formato JSON
 				return Ok(generoBuscado);
@@ -141,15 +141,29 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut("{id}")]
-		public IActionResult PutById(int id, GeneroDomain generoAtualizado)
+		public IActionResult PutById(int id, GeneroDomain genero)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_generoRepository.AtualizarIdUrl(id, generoAtualizado);
+				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
 
-				//Retorna o status code 200
-				return StatusCode(200);
+				if (generoBuscado != null)
+					{
+
+					try
+						{
+						_generoRepository.AtualizarIdUrl(id, genero);
+
+						return NoContent();
+						}
+					catch (Exception erro)
+						{
+
+						return BadRequest(erro.Message);
+						}
+					}
+				return NotFound();
 				}
 			catch (Exception erro)
 				{
@@ -163,15 +177,29 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut]
-		public IActionResult Put(GeneroDomain generoAtualizado)
+		public IActionResult Put(GeneroDomain genero)
 			{
 			try
 				{
 				//Faz a chamada para o método cadastrar
-				_generoRepository.AtualizarIdCorpo(generoAtualizado);
+				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(genero.IdGenero);
 
-				//Retorna o status code 200
-				return StatusCode(200);
+				if (generoBuscado != null)
+					{
+
+					try
+						{
+						_generoRepository.AtualizarIdCorpo(genero);
+
+						return NoContent();
+						}
+					catch (Exception erro)
+						{
+
+						return BadRequest(erro.Message);
+						}
+					}
+				return NotFound();
 				}
 			catch (Exception erro)
 				{
