@@ -47,13 +47,13 @@
             </summary>
             <returns>Status Code</returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Controllers.FilmeController.PutById(System.Int32,webapi.filmes.tarde.Domains.FilmeDomain)">
+        <member name="M:webapi.filmes.tarde.Controllers.FilmeController.PutByUrl(System.Int32,webapi.filmes.tarde.Domains.FilmeDomain)">
             <summary>
             Endpoint que acessa o método de atualizar Filme com id na url
             </summary>
             <returns>Status Code</returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Controllers.FilmeController.Put(webapi.filmes.tarde.Domains.FilmeDomain)">
+        <member name="M:webapi.filmes.tarde.Controllers.FilmeController.PutByBody(webapi.filmes.tarde.Domains.FilmeDomain)">
             <summary>
             Endpoint que acessa o método de atualizar Filme com id no corpo JSON
             </summary>
@@ -247,9 +247,19 @@
             Classe responsável pelo repositório dos filmes
             </summary>
         </member>
+        <member name="F:webapi.filmes.tarde.Repositories.FilmeRepository.StringConexao">
+            <summary>
+            String de conexão com o banco de dados que recebe os seguintes parâmetros:
+            Data Source : Nome do servidor do banco
+            Initial Catalog: Nome do banco de dados
+            Autenticação
+                - windows : Integrated Security = True
+                - SqlServer : User Id = sa; Pwd = Senha
+            </summary>
+        </member>
         <member name="M:webapi.filmes.tarde.Repositories.FilmeRepository.AtualizarIdCorpo(webapi.filmes.tarde.Domains.FilmeDomain)">
             <summary>
-            
+            Atualiza um filme atraves do seu id, passando pelo corpo JSON
             </summary>
             <param name="filme"></param>
         </member>

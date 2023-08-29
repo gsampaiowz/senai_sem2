@@ -60,11 +60,15 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Cria um objeto para recebe os Filme
-				FilmeDomain FilmeBuscado = _filmeRepository.BuscarPorId(id);
+				//Cria um objeto para recebe o Filme
+				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(id);
 
+				if (filmeBuscado == null)
+					{
+					return NotFound("O Filme buscado não foi encontrado.");
+					}
 				//Retorna o status code 200 Ok e o Filme no formato JSON
-				return Ok(FilmeBuscado);
+				return Ok(filmeBuscado);
 				//return new OkObjectResult(FilmeBuscado);
 				//return StatusCode(200, FilmeBuscado);
 
@@ -128,7 +132,7 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut("{id}")]
-		public IActionResult PutById(int id, FilmeDomain filme)
+		public IActionResult PutByUrl(int id, FilmeDomain filme)
 			{
 			try
 				{
@@ -140,7 +144,7 @@ namespace webapi.filmes.tarde.Controllers
 
 					try
 						{
-						_filmeRepository.AtualizarIdUrl(id,filme);
+						_filmeRepository.AtualizarIdUrl(id, filme);
 
 						return NoContent();
 						}
@@ -150,7 +154,7 @@ namespace webapi.filmes.tarde.Controllers
 						return BadRequest(erro.Message);
 						}
 					}
-				return NotFound();
+				return NotFound("O Filme buscado não foi encontrado.");
 				}
 			catch (Exception erro)
 				{
@@ -164,7 +168,7 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut]
-		public IActionResult Put(FilmeDomain filme)
+		public IActionResult PutByBody(FilmeDomain filme)
 			{
 			try
 				{
@@ -186,7 +190,7 @@ namespace webapi.filmes.tarde.Controllers
 						return BadRequest(erro.Message);
 						}
 					}
-				return NotFound();
+				return NotFound("O Filme buscado não foi encontrado.");
 				}
 			catch (Exception erro)
 				{

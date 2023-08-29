@@ -9,10 +9,19 @@ namespace webapi.filmes.tarde.Repositories
 	/// </summary>
 	public class FilmeRepository : IFilmeRepository
 		{
-		private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
+		/// <summary>
+		/// String de conexão com o banco de dados que recebe os seguintes parâmetros:
+		/// Data Source : Nome do servidor do banco
+		/// Initial Catalog: Nome do banco de dados
+		/// Autenticação
+		///     - windows : Integrated Security = True
+		///     - SqlServer : User Id = sa; Pwd = Senha
+		/// </summary>
+		private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=FilmesTarde; Integrated Security = True;";
+		//private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
 
 		/// <summary>
-		/// 
+		/// Atualiza um filme atraves do seu id, passando pelo corpo JSON
 		/// </summary>
 		/// <param name="filme"></param>
 		public void AtualizarIdCorpo(FilmeDomain filme)
@@ -71,7 +80,7 @@ namespace webapi.filmes.tarde.Repositories
 		/// </summary>
 		/// <param name="id">Id do Filme a ser buscado</param>
 		/// <returns>Filme que possui o id buscado</returns>
-		public FilmeDomain BuscarPorId(int id) => ListarTodos().FirstOrDefault(filme => filme.IdGenero == id)!;
+		public FilmeDomain BuscarPorId(int id) => ListarTodos().FirstOrDefault(filme => filme.IdFilme == id)!;
 
 		/// <summary>
 		/// Cadadtrar um novo Filme
@@ -83,16 +92,17 @@ namespace webapi.filmes.tarde.Repositories
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryInsert = $"INSERT INTO Filme(Titulo, IdGenero) VALUES (@Titulo, {novoFilme.IdGenero})";
+			string queryInsert = $"INSERT INTO Filme(Titulo, IdGenero) VALUES (@Titulo, @IdGenero)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
 			using SqlCommand cmd = new(queryInsert, con);
 
 			//Defini o valor do parametro (variavel) incluido na query
 			cmd.Parameters.AddWithValue("@Titulo", novoFilme.Titulo);
+            cmd.Parameters.AddWithValue("@IdGenero", novoFilme.IdGenero);
 
-			//Abre a conexão com o banco de dados
-			con.Open();
+            //Abre a conexão com o banco de dados
+            con.Open();
 
 			//Apenas executa a instrução (query/consulta)
 			cmd.ExecuteNonQuery();

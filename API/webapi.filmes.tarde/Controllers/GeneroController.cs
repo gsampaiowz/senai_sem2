@@ -163,7 +163,7 @@ namespace webapi.filmes.tarde.Controllers
 						return BadRequest(erro.Message);
 						}
 					}
-				return NotFound();
+				return NotFound("O Gênero buscado não foi encontrado.");
 				}
 			catch (Exception erro)
 				{
@@ -199,7 +199,7 @@ namespace webapi.filmes.tarde.Controllers
 						return BadRequest(erro.Message);
 						}
 					}
-				return NotFound();
+				return NotFound("O Gênero buscado não foi encontrado.");
 				}
 			catch (Exception erro)
 				{
