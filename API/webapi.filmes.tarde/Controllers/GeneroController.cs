@@ -126,7 +126,6 @@ namespace webapi.filmes.tarde.Controllers
 				{
 				//Faz a chamada para o método cadastrar
 				_generoRepository.Deletar(id);
-				//TESTE
 
 				//Retorna o status code 204
 				return StatusCode(204);
