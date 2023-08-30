@@ -114,6 +114,22 @@
             </summary>
             <returns>Status Code</returns>
         </member>
+        <member name="T:webapi.filmes.tarde.Controllers.UsuarioController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.Login(System.String,System.String)">
+            <summary>
+            Endpoint que acessa o método de Login
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:webapi.filmes.tarde.Domains.FilmeDomain">
             <summary>
             Classe que representa a entidade(tabela) Filme
@@ -152,6 +168,31 @@
         <member name="P:webapi.filmes.tarde.Domains.GeneroDomain.Nome">
             <summary>
             Atributo Nome
+            </summary>
+        </member>
+        <member name="T:webapi.filmes.tarde.Domains.UsuarioDomain">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:webapi.filmes.tarde.Domains.UsuarioDomain.IdUsuario">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:webapi.filmes.tarde.Domains.UsuarioDomain.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:webapi.filmes.tarde.Domains.UsuarioDomain.Senha">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:webapi.filmes.tarde.Domains.UsuarioDomain.Permissao">
+             <summary>
+             
             </summary>
         </member>
         <member name="T:webapi.filmes.tarde.Interfaces.IFilmeRepository">
@@ -241,6 +282,19 @@
             Deletar um gênero existente
             </summary>
             <param name="id">Id do objeto a ser deletado</param>
+        </member>
+        <member name="T:webapi.filmes.tarde.Interfaces.IUsuarioRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:webapi.filmes.tarde.Interfaces.IUsuarioRepository.Login(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="email"></param>
+            <param name="senha"></param>
+            <returns></returns>
         </member>
         <member name="T:webapi.filmes.tarde.Repositories.FilmeRepository">
             <summary>
@@ -347,6 +401,20 @@
             Retornar todos os gêneros cadastrados
             </summary>
             <returns>Uma lista de objetos</returns>
+        </member>
+        <member name="T:webapi.filmes.tarde.Repositories.UsuarioRepository">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:webapi.filmes.tarde.Repositories.UsuarioRepository.Login(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="email"></param>
+            <param name="senha"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
     </members>
 </doc>

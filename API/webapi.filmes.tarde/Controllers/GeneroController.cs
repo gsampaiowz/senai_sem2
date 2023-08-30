@@ -68,20 +68,15 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Cria um objeto para recebe os genero
+				//Cria um objeto para recebe o genero
 				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
 
-				if (generoBuscado == null)
-					{
-					return NotFound("O Gênero buscado não foi encontrado.");
-					}
-
 				//Retorna o status code 200 Ok e o genero no formato JSON
-				return Ok(generoBuscado);
+				return generoBuscado == null ? NotFound("O Gênero buscado não foi encontrado.") : Ok(generoBuscado);
+
 				//return new OkObjectResult(generoBuscado);
 				//return StatusCode(200, generoBuscado);
 
-				//return _generoRepository.ListarTodos().Where(e => e.IdGenero == id);
 				}
 			catch (Exception erro)
 				{
@@ -124,7 +119,15 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Faz a chamada para o método cadastrar
+
+				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
+
+				if (generoBuscado == null)
+					{
+					return NotFound("O genero buscado não foi encontrado.");
+					}
+
+				//Faz a chamada para o método deletar
 				_generoRepository.Deletar(id);
 
 				//Retorna o status code 204
@@ -136,6 +139,7 @@ namespace webapi.filmes.tarde.Controllers
 				return BadRequest(erro.Message);
 				}
 			}
+
 		/// <summary>
 		/// Endpoint que acessa o método de atualizar genero com id na url
 		/// </summary>
@@ -145,7 +149,7 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Faz a chamada para o método cadastrar
+				//Faz a chamada para achar o objeto a ser atualizado
 				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
 
 				if (generoBuscado != null)
@@ -181,7 +185,7 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Faz a chamada para o método cadastrar
+				//Faz a chamada para achar o objeto a ser atualizado
 				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(genero.IdGenero);
 
 				if (generoBuscado != null)

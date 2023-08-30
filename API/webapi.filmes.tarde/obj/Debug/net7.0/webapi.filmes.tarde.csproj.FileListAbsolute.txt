@@ -137,3 +137,6 @@ C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\Swa
 C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\webapi.filmes.tarde.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Sampaio\Desktop\senai_sem2\API\webapi.filmes.tarde\obj\Debug\net7.0\webapi.filmes.tarde.xml
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\xunit.abstractions.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\xunit.core.dll
+C:\Users\42591939888\Desktop\senai_sem2\API\webapi.filmes.tarde\bin\Debug\net7.0\xunit.execution.dotnet.dll

@@ -60,19 +60,15 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Cria um objeto para recebe o Filme
+				//Cria um objeto para recebe o filme
 				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(id);
 
-				if (filmeBuscado == null)
-					{
-					return NotFound("O Filme buscado não foi encontrado.");
-					}
-				//Retorna o status code 200 Ok e o Filme no formato JSON
-				return Ok(filmeBuscado);
-				//return new OkObjectResult(FilmeBuscado);
-				//return StatusCode(200, FilmeBuscado);
+				//Retorna o status code 200 Ok e o filme no formato JSON
+				return filmeBuscado == null ? NotFound("O Filme buscado não foi encontrado.") : Ok(filmeBuscado);
 
-				//return _FilmeRepository.ListarTodos().Where(e => e.IdFilme == id);
+				//return new OkObjectResult(filmeBuscado);
+				//return StatusCode(200, filmeBuscado);
+
 				}
 			catch (Exception erro)
 				{
@@ -115,7 +111,15 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Faz a chamada para o método cadastrar
+
+				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(id);
+
+				if (filmeBuscado == null)
+					{
+					return NotFound("O Filme buscado não foi encontrado.");
+					}
+
+				//Faz a chamada para o método deletar
 				_filmeRepository.Deletar(id);
 
 				//Retorna o status code 204
@@ -136,7 +140,7 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Faz a chamada para o método cadastrar
+				//Faz a chamada para achar o objeto a ser atualizado
 				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(id);
 
 				if (filmeBuscado != null)
@@ -172,7 +176,7 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//Faz a chamada para o método cadastrar
+				//Faz a chamada para achar o objeto a ser atualizado
 				FilmeDomain filmeBuscado = _filmeRepository.BuscarPorId(filme.IdFilme);
 
 				if (filmeBuscado != null)

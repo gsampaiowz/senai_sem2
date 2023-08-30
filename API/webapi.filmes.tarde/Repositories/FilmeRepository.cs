@@ -17,8 +17,8 @@ namespace webapi.filmes.tarde.Repositories
 		///     - windows : Integrated Security = True
 		///     - SqlServer : User Id = sa; Pwd = Senha
 		/// </summary>
-		private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=FilmesTarde; Integrated Security = True;";
-		//private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
+		//private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=FilmesTarde; Integrated Security = True;";
+		private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
 
 		/// <summary>
 		/// Atualiza um filme atraves do seu id, passando pelo corpo JSON
