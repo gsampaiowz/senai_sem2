@@ -122,11 +122,8 @@ namespace webapi.filmes.tarde.Controllers
 
 				GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
 
-				if (generoBuscado == null)
-					{
-					return NotFound("O genero buscado não foi encontrado.");
-					}
-
+				if (generoBuscado == null) return NotFound("O genero buscado não foi encontrado.");
+				
 				//Faz a chamada para o método deletar
 				_generoRepository.Deletar(id);
 
