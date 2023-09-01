@@ -13,7 +13,7 @@ namespace webapi.filmes.tarde.Interfaces
 		/// <param name="email"></param>
 		/// <param name="senha"></param>
 		/// <returns></returns>
-		UsuarioDomain Login(string email, string senha);
+		UsuarioDomain Login(string? email, string? senha);
 		/// <summary>
 		/// 
 		/// </summary>
@@ -21,7 +21,7 @@ namespace webapi.filmes.tarde.Interfaces
 		/// <param name="senha"></param>
 		/// <param name="permissao"></param>
 		/// <returns></returns>
-		void Cadastrar(string email, string senha, bool permissao);
+		void Cadastrar(string? email, string? senha, bool? permissao);
 
 		/// <summary>
 		/// 

@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using webapi.filmes.tarde.Domains;
 using webapi.filmes.tarde.Interfaces;
 using webapi.filmes.tarde.Repositories;
@@ -26,15 +30,65 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpPost]
-		public IActionResult Login(string email, string senha)
+		public IActionResult Login(UsuarioDomain usuario)
 			{
 			try
 				{
-				UsuarioDomain usuarioBuscado = _usuarioRepository.Login(email, senha);
+				UsuarioDomain usuarioBuscado = _usuarioRepository.Login(usuario.Email, usuario.Senha);
 
-				if (usuarioBuscado != null) if (usuarioBuscado.Email == email & usuarioBuscado.Senha != senha) return Conflict("Senha incorreta!");
+				if (usuarioBuscado == null) return NotFound("Usuário não encontrado");
 
-				return usuarioBuscado == null ? NotFound("Usuário não encontrado") : Ok("Login efetuado com sucesso!");
+				if (usuarioBuscado != null) if (usuarioBuscado.Email == usuario.Email & usuarioBuscado.Senha != usuario.Senha) return Conflict("Senha incorreta!");
+
+				//Caso encontre o usuario buscado, prossegue para a criação do token
+
+				//Define os dados (informações, claims) que serão fornecidos no token - Payload
+
+				var claims = new[]
+					{
+					//Armazena na claim o id do usuario autenticado
+					new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado?.IdUsuario.ToString()),
+					//Armazena na claim o email do usuario autenticado
+					new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado?.Email),
+					//Armazena na claim o tipo de permissão do usuario autenticado
+					new Claim(ClaimTypes.Role, usuarioBuscado.Permissao.ToString()),
+					//Armazena na claim o tipo de permissão do usuario autenticado
+					new Claim("Claim Personalizada", "Valor Personalizada")
+					};
+
+				//Definir a chave de acesso ao token
+				var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("filmes-chave-autenticacao-webapi-dev"));
+
+				//Define as credenciais do token - Header
+				var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+				//Define a composição do token
+				var token = new JwtSecurityToken
+					(
+					//emissor do token
+					issuer: "webapi.filmes.tarde",
+
+					//destinatario do token
+					audience: "webapi.filmes.tarde",
+
+					//dados definidos anteriormente
+					claims: claims,
+
+					//tempo de expiração
+					expires: DateTime.Now.AddMinutes(30),
+
+					//credenciais do token
+					signingCredentials: creds
+
+					);
+
+				//Retorna um status code 200 (Ok) com o token criado
+				return Ok(new
+					{
+					token = new JwtSecurityTokenHandler().WriteToken(token),
+					expiration = DateTime.Now.AddMinutes(30),
+					}); ;
+
 				}
 			catch (Exception erro)
 				{
@@ -61,18 +115,16 @@ namespace webapi.filmes.tarde.Controllers
 		/// <summary>
 		/// Endpoint que acessa o metodo de cadastrar
 		/// </summary>
-		/// <param name="email"></param>
-		/// <param name="senha"></param>
-		/// <param name="permissao"></param>
+		/// <param name="usuario"></param>
 		/// <returns></returns>
 		[HttpPost("Cadastrar")]
-		public IActionResult Post(string email, string senha, bool permissao)
+		public IActionResult Post(UsuarioDomain usuario)
 			{
 			try
 				{
-				if (senha.Length < 8) return Conflict("Sua senha precisa de no mínimo 8 caracteres!");
+				//if (usuario.Senha?.Length < 8) return Conflict("Sua senha precisa de no mínimo 8 caracteres!");
 
-				_usuarioRepository.Cadastrar(email, senha, permissao);
+				_usuarioRepository.Cadastrar(usuario.Email, usuario.Senha, usuario.Permissao);
 
 				return StatusCode(201, "Cadastro efetuado com sucesso!");
 				}
@@ -151,7 +203,7 @@ namespace webapi.filmes.tarde.Controllers
 				_usuarioRepository.Deletar(id);
 
 				//Retorna o status code 204
-				return StatusCode(204);
+				return StatusCode(204, "Usuario deletado com sucesso.");
 				}
 			catch (Exception erro)
 				{
@@ -165,7 +217,7 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut("{id}")]
-		public IActionResult PutById(int id, UsuarioDomain usuario)
+		public IActionResult PutByUrl(int id, UsuarioDomain usuario)
 			{
 			try
 				{
@@ -179,7 +231,7 @@ namespace webapi.filmes.tarde.Controllers
 						{
 						_usuarioRepository.AtualizarIdUrl(id, usuario);
 
-						return NoContent();
+						return StatusCode(204, "Usuario atualizado com sucesso.");
 						}
 					catch (Exception erro)
 						{
@@ -201,7 +253,7 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Status Code</returns>
 		[HttpPut]
-		public IActionResult Put(UsuarioDomain usuario)
+		public IActionResult PutByBody(UsuarioDomain usuario)
 			{
 			try
 				{
@@ -215,7 +267,7 @@ namespace webapi.filmes.tarde.Controllers
 						{
 						_usuarioRepository.AtualizarIdCorpo(usuario);
 
-						return NoContent();
+						return StatusCode(204, "Usuario atualizado com sucesso.");
 						}
 					catch (Exception erro)
 						{

@@ -20,16 +20,18 @@ namespace webapi.filmes.tarde.Repositories
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdateIdBody = $"UPDATE Usuario SET Email = (@Email), Senha = (@Senha), Permissao = (@Permissao) WHERE IdUsuario LIKE (@IdUsuario)";
+			string queryUpdateIdBody = "UPDATE Usuario SET Email = (@Email), Senha = (@Senha), Permissao = (@Permissao) WHERE IdUsuario LIKE (@IdUsuario)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
 			using SqlCommand cmd = new(queryUpdateIdBody, con);
 
-			cmd.Parameters.AddWithValue("@Email", usuario.Email);
-			cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
-
 			//Abre a conexão com o banco de dados
 			con.Open();
+
+			cmd.Parameters.AddWithValue("@Email", usuario.Email);
+			cmd.Parameters.AddWithValue("@Senha", usuario.Senha);
+			cmd.Parameters.AddWithValue("@Permissao", usuario.Permissao);
+			cmd.Parameters.AddWithValue("@IdUsuario", usuario.IdUsuario);
 
 			//Apenas executa a instrução (query/consulta)
 			cmd.ExecuteNonQuery();
@@ -46,12 +48,14 @@ namespace webapi.filmes.tarde.Repositories
 			using SqlConnection con = new(StringConexao);
 
 			//Declara a instrução a ser executada
-			string queryUpdateIdUrl = $"UPDATE Usuario SET Email = (@Email) WHERE IdUsuario LIKE (@IdUsuario)";
+			string queryUpdateIdUrl = $"UPDATE Usuario SET Email = (@Email), Senha = (@Senha), Permissao = (@Permissao) WHERE IdUsuario LIKE (@IdUsuario)";
 
 			//Declara o SqlCommand passando a query que será executada e a conexão
 			using SqlCommand cmd = new(queryUpdateIdUrl, con);
 
 			cmd.Parameters.AddWithValue("@Email", usuario.Email);
+			cmd.Parameters.AddWithValue("@Senha", usuario.Senha);
+			cmd.Parameters.AddWithValue("@Permissao", usuario.Permissao);
 			cmd.Parameters.AddWithValue("@IdUsuario", id);
 
 			//Abre a conexão com o banco de dados
@@ -75,7 +79,7 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="senha"></param>
 		/// <param name="permissao"></param>
 		/// <returns></returns>
-		public void Cadastrar(string email, string senha, bool permissao)
+		public void Cadastrar(string? email, string? senha, bool? permissao)
 			{
 			using SqlConnection con = new(StringConexao);
 
@@ -166,7 +170,7 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="senha"></param>
 		/// <returns></returns>
 		/// <exception cref="NotImplementedException"></exception>
-		public UsuarioDomain Login(string email, string senha)
+		public UsuarioDomain Login(string? email, string? senha)
 			{
 			using SqlConnection con = new(StringConexao);
 

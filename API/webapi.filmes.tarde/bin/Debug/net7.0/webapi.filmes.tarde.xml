@@ -124,19 +124,17 @@
             
             </summary>
         </member>
-        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.Login(System.String,System.String)">
+        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.Login(webapi.filmes.tarde.Domains.UsuarioDomain)">
             <summary>
             Endpoint que acessa o método de Login
             </summary>
             <returns></returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.Post(System.String,System.String,System.Boolean)">
+        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.Post(webapi.filmes.tarde.Domains.UsuarioDomain)">
             <summary>
             Endpoint que acessa o metodo de cadastrar
             </summary>
-            <param name="email"></param>
-            <param name="senha"></param>
-            <param name="permissao"></param>
+            <param name="usuario"></param>
             <returns></returns>
         </member>
         <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.GetAll">
@@ -158,13 +156,13 @@
             </summary>
             <returns>Status Code</returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.PutById(System.Int32,webapi.filmes.tarde.Domains.UsuarioDomain)">
+        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.PutByUrl(System.Int32,webapi.filmes.tarde.Domains.UsuarioDomain)">
             <summary>
             Endpoint que acessa o método de atualizar usuario com id na url
             </summary>
             <returns>Status Code</returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.Put(webapi.filmes.tarde.Domains.UsuarioDomain)">
+        <member name="M:webapi.filmes.tarde.Controllers.UsuarioController.PutByBody(webapi.filmes.tarde.Domains.UsuarioDomain)">
             <summary>
             Endpoint que acessa o método de atualizar usuario com id no corpo JSON
             </summary>
@@ -336,7 +334,7 @@
             <param name="senha"></param>
             <returns></returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Interfaces.IUsuarioRepository.Cadastrar(System.String,System.String,System.Boolean)">
+        <member name="M:webapi.filmes.tarde.Interfaces.IUsuarioRepository.Cadastrar(System.String,System.String,System.Nullable{System.Boolean})">
             <summary>
             
             </summary>
@@ -508,7 +506,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Repositories.UsuarioRepository.Cadastrar(System.String,System.String,System.Boolean)">
+        <member name="M:webapi.filmes.tarde.Repositories.UsuarioRepository.Cadastrar(System.String,System.String,System.Nullable{System.Boolean})">
             <summary>
             
             </summary>

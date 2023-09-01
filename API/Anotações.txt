@@ -24,3 +24,7 @@ CONTROLLERS: Métodos controladores - autenticação - autorização
 INTERFACES: Definição dos métodos diagnósticos - contrato
 
 REPOSITORIES: Implementação dos métodos (Regras de negocio)
+
+AUTENTICAÇÃO = LOGADO!
+
+AUTORIZAÇÃO = PERMISSÃO
