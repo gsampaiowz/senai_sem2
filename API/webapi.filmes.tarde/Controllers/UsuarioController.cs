@@ -51,7 +51,7 @@ namespace webapi.filmes.tarde.Controllers
 					new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado?.Email),
 					//Armazena na claim o tipo de permissão do usuario autenticado
 					new Claim(ClaimTypes.Role, usuarioBuscado.Permissao.ToString()),
-					//Armazena na claim o tipo de permissão do usuario autenticado
+					//Armazena uma claim personalizada
 					new Claim("Claim Personalizada", "Valor Personalizada")
 					};
 
@@ -121,8 +121,6 @@ namespace webapi.filmes.tarde.Controllers
 			{
 			try
 				{
-				//if (usuario.Senha?.Length < 8) return Conflict("Sua senha precisa de no mínimo 8 caracteres!");
-
 				_usuarioRepository.Cadastrar(usuario.Email, usuario.Senha, usuario.Permissao);
 
 				return StatusCode(201, "Cadastro efetuado com sucesso!");
