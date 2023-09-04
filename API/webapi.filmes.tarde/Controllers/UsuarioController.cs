@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -38,7 +37,7 @@ namespace webapi.filmes.tarde.Controllers
 
 				if (usuarioBuscado == null) return NotFound("Usuário não encontrado");
 
-				if (usuarioBuscado != null) if (usuarioBuscado.Email == usuario.Email & usuarioBuscado.Senha != usuario.Senha) return Conflict("Senha incorreta!");
+				//if (usuarioBuscado != null) if (usuarioBuscado.Email == usuario.Email & usuarioBuscado.Senha != usuario.Senha) return Conflict("Senha incorreta!");
 
 				//Caso encontre o usuario buscado, prossegue para a criação do token
 

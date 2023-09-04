@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using webapi.filmes.tarde.Domains;
 using webapi.filmes.tarde.Interfaces;
 using webapi.filmes.tarde.Repositories;
@@ -39,6 +40,7 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Lista de generos e um status code</returns>
 		[HttpGet]
+		[Authorize]
 		public IActionResult GetAll()
 			{
 			try

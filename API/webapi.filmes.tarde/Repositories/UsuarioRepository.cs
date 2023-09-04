@@ -174,11 +174,12 @@ namespace webapi.filmes.tarde.Repositories
 			{
 			using SqlConnection con = new(StringConexao);
 
-			string queryLogin = $"SELECT IdUsuario, Email, Senha, Permissao FROM Usuario WHERE Email = (@email)";
+			string queryLogin = $"SELECT IdUsuario, Email, Senha, Permissao FROM Usuario WHERE Email = (@email) AND Senha = (@senha)";
 
 			using SqlCommand cmd = new(queryLogin, con);
 
 			cmd.Parameters.AddWithValue("@email", email);
+			cmd.Parameters.AddWithValue("@senha", senha);
 
 			con.Open();
 
@@ -193,7 +194,6 @@ namespace webapi.filmes.tarde.Repositories
 					{
 					IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
 					Email = rdr["Email"].ToString(),
-					Senha = rdr["Senha"].ToString(),
 					Permissao = Convert.ToBoolean(rdr["Permissao"]),
 					};
 				}
