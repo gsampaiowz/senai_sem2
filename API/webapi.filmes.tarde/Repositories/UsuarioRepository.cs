@@ -9,6 +9,7 @@ namespace webapi.filmes.tarde.Repositories
 	/// </summary>
 	public class UsuarioRepository : IUsuarioRepository
 		{
+		//private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=FilmesTarde; Integrated Security = True;";
 		private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
 
 		/// <summary>
