@@ -334,7 +334,7 @@
             <param name="senha"></param>
             <returns></returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Interfaces.IUsuarioRepository.Cadastrar(System.String,System.String,System.Nullable{System.Boolean})">
+        <member name="M:webapi.filmes.tarde.Interfaces.IUsuarioRepository.Cadastrar(System.String,System.String,System.String)">
             <summary>
             
             </summary>
@@ -506,7 +506,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:webapi.filmes.tarde.Repositories.UsuarioRepository.Cadastrar(System.String,System.String,System.Nullable{System.Boolean})">
+        <member name="M:webapi.filmes.tarde.Repositories.UsuarioRepository.Cadastrar(System.String,System.String,System.String)">
             <summary>
             
             </summary>

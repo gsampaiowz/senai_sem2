@@ -80,7 +80,7 @@ namespace webapi.filmes.tarde.Repositories
 		/// <param name="senha"></param>
 		/// <param name="permissao"></param>
 		/// <returns></returns>
-		public void Cadastrar(string? email, string? senha, bool? permissao)
+		public void Cadastrar(string? email, string? senha, string? permissao)
 			{
 			using SqlConnection con = new(StringConexao);
 
@@ -153,7 +153,7 @@ namespace webapi.filmes.tarde.Repositories
 						IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
 						Email = rdr["Email"].ToString(),
 						Senha = rdr["Senha"].ToString(),
-						Permissao = Convert.ToBoolean(rdr["Permissao"])
+						Permissao = rdr["Permissao"].ToString()
 						};
 
 					//Adiciona o objeto criado dentro da lista
@@ -195,7 +195,7 @@ namespace webapi.filmes.tarde.Repositories
 					{
 					IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
 					Email = rdr["Email"].ToString(),
-					Permissao = Convert.ToBoolean(rdr["Permissao"]),
+					Permissao = rdr["Permissao"].ToString(),
 					};
 				}
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using webapi.filmes.tarde.Domains;
 using webapi.filmes.tarde.Interfaces;
 using webapi.filmes.tarde.Repositories;
@@ -12,6 +13,8 @@ namespace webapi.filmes.tarde.Controllers
 	/// </summary>
 	[Route("api/[controller]")]
 	[ApiController]
+	[Produces("application/json")]
+	[Authorize(Roles = "ADM")]
 	public class FilmeController : ControllerBase
 		{
 		/// <summary>

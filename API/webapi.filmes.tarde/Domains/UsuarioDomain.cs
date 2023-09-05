@@ -28,6 +28,6 @@ namespace webapi.filmes.tarde.Domains
 		/// 
 		///</summary>
 		[Required(ErrorMessage = "O tipo de permissão do usuário é obrigatório!")]
-		public bool Permissao { get; set; }
+		public string? Permissao { get; set; }
 		}
 	}

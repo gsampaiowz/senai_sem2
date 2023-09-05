@@ -20,6 +20,7 @@ namespace webapi.filmes.tarde.Controllers
 	// Define que o tipo de resposta da API é JSON
 	// </summary>
 	[Produces("application/json")]
+	[Authorize(Roles = "ADM")]
 	public class GeneroController : ControllerBase
 		{
 		/// <summary>
@@ -40,7 +41,6 @@ namespace webapi.filmes.tarde.Controllers
 		/// </summary>
 		/// <returns>Lista de generos e um status code</returns>
 		[HttpGet]
-		[Authorize]
 		public IActionResult GetAll()
 			{
 			try
