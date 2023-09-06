@@ -4,6 +4,7 @@ namespace senai.inlock.webApi.Interfaces
     {
     public interface IUsuarioRepository
         {
+        UsuarioDomain Login (string? email, string? senha);
         List<UsuarioDomain> ListarTodos();
         UsuarioDomain BuscarPorId(int idUsuario);
         void Cadastrar(UsuarioDomain novoUsuario);
