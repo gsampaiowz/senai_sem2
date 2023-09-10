@@ -3,25 +3,26 @@ using senai.inlock.webApi.Interfaces;
 using System.Data.SqlClient;
 
 namespace senai.inlock.webApi.Repositories
-    {
+{
     public class JogoRepository : IJogoRepository
-        {
+    {
 
-        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
+        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=inlock_games; User ID=sa; Pwd=Senai@134;";
+        //private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=inlock_games; Integrated Security = True;";
 
         public void AtualizarIdCorpo(JogoDomain jogoAtualizado)
-            {
+        {
             throw new NotImplementedException();
-            }
+        }
 
         public void AtualizarIdUrl(int idJogo, JogoDomain jogoAtualizado)
-            {
+        {
             throw new NotImplementedException();
-            }
+        }
 
         public JogoDomain BuscarPorId(int idJogo) => ListarTodos().FirstOrDefault(e => e.IdJogo == idJogo)!;
         public void Cadastrar(JogoDomain novoJogo)
-            {
+        {
             using SqlConnection con = new(StringConexao);
 
             string queryInsert = "INSERT INTO Jogo(Nome, Descricao, DataLancamento, Valor, IdEstudio) VALUES (@Nome, @Descricao, @DataLancamento, @Valor, @IdEstudio)";
@@ -37,10 +38,10 @@ namespace senai.inlock.webApi.Repositories
             con.Open();
 
             cmd.ExecuteNonQuery();
-            }
+        }
 
         public void Deletar(int idJogo)
-            {
+        {
             using SqlConnection con = new(StringConexao);
 
             string queryDelete = "DELETE FROM Jogo WHERE IdJogo = @IdJogo";
@@ -52,10 +53,10 @@ namespace senai.inlock.webApi.Repositories
             con.Open();
 
             cmd.ExecuteNonQuery();
-            }
+        }
 
         public List<JogoDomain> ListarTodos()
-            {
+        {
             using SqlConnection con = new(StringConexao);
 
             string querySelectAll = "SELECT IdJogo, Nome, Descricao, DataLancamento, Valor, IdEstudio FROM Jogo";
@@ -69,21 +70,26 @@ namespace senai.inlock.webApi.Repositories
             List<JogoDomain> listaJogos = new();
 
             while (rdr.Read())
-                {
+            {
                 JogoDomain jogo = new()
-                    {
+                {
                     IdJogo = Convert.ToInt32(rdr[0]),
                     Nome = rdr[1].ToString(),
                     Descricao = rdr[2].ToString(),
                     DataLancamento = Convert.ToDateTime(rdr[3]),
                     Valor = Convert.ToDecimal(rdr[4]),
-                    IdEstudio = Convert.ToInt32(rdr[5])
-                    };
+                    IdEstudio = Convert.ToInt32(rdr[5]),
+                    Estudio = new EstudioDomain()
+                    {
+                        IdEstudio = Convert.ToInt32(rdr[5]),
+                        Nome = rdr[6].ToString()
+                    }
+                };
 
                 listaJogos.Add(jogo);
-                }
+            }
 
             return listaJogos;
-            }
         }
     }
+}

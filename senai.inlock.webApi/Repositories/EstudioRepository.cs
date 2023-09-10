@@ -7,7 +7,8 @@ namespace senai.inlock.webApi.Repositories
     public class EstudioRepository : IEstudioRepository
         {
 
-        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=FilmesTarde; User ID=sa; Pwd=Senai@134;";
+        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog = inlock_games; User ID=sa; Pwd=Senai@134;";
+        //private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog = inlock_games; Integrated Security = True;";
         public void AtualizarIdCorpo(EstudioDomain estudioAtualizado)
             {
             using SqlConnection con = new(StringConexao);
@@ -60,7 +61,7 @@ namespace senai.inlock.webApi.Repositories
 
             using SqlConnection con = new(StringConexao);
 
-            string querySelectAll = "SELECT IdEstudio, Nome FROM Estudio";
+            string querySelectAll = "SELECT * FROM Estudio";
 
             using SqlCommand cmd = new(querySelectAll, con);
 

@@ -4,5 +4,17 @@
         <name>senai.inlock.webApi</name>
     </assembly>
     <members>
+        <member name="M:senai.inlock.webApi.Controllers.UsuarioController.PutByUrl(System.Int32,senai.inlock.webApi.Domains.UsuarioDomain)">
+            <summary>
+            Endpoint que acessa o método de atualizar usuario com id na url
+            </summary>
+            <returns>Status Code</returns>
+        </member>
+        <member name="M:senai.inlock.webApi.Controllers.UsuarioController.PutByBody(senai.inlock.webApi.Domains.UsuarioDomain)">
+            <summary>
+            Endpoint que acessa o método de atualizar usuario com id no corpo JSON
+            </summary>
+            <returns>Status Code</returns>
+        </member>
     </members>
 </doc>
