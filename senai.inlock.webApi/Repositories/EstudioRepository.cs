@@ -4,24 +4,25 @@ using System.Data.SqlClient;
 
 namespace senai.inlock.webApi.Repositories
     {
+    /// <summary>
+    /// classe responsável pelo repositório dos estúdios
+    /// </summary>
     public class EstudioRepository : IEstudioRepository
         {
 
         private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog = inlock_games; User ID=sa; Pwd=Senai@134;";
         //private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog = inlock_games; Integrated Security = True;";
-        public void AtualizarIdCorpo(EstudioDomain estudioAtualizado)
-            {
-            using SqlConnection con = new(StringConexao);
-            }
 
-        public void AtualizarIdUrl(int idEstudio, EstudioDomain estudioAtualizado)
-            {
-            using SqlConnection con = new(StringConexao);
-
-            }
-
+        /// <summary>
+        /// método responsável por buscar um estúdio pelo seu id
+        /// </summary>
+        /// <param name="idEstudio"></param>
+        /// <returns></returns>
         public EstudioDomain BuscarPorId(int idEstudio) => ListarTodos().FirstOrDefault(e => e.IdEstudio == idEstudio)!;
-
+        /// <summary>
+        /// método responsável por cadastrar um novo estúdio
+        /// </summary>
+        /// <param name="novoEstudio"></param>
         public void Cadastrar(EstudioDomain novoEstudio)
             {
             using SqlConnection con = new(StringConexao);
@@ -38,7 +39,10 @@ namespace senai.inlock.webApi.Repositories
 
             cmd.ExecuteNonQuery();
             }
-
+        /// <summary>
+        /// método responsável por deletar um estúdio
+        /// </summary>
+        /// <param name="idEstudio"></param>
         public void Deletar(int idEstudio)
             {
             using SqlConnection con = new(StringConexao);
@@ -53,7 +57,10 @@ namespace senai.inlock.webApi.Repositories
 
             cmd.ExecuteNonQuery();
             }
-
+        /// <summary>
+        /// método responsável por listar todos os estúdios
+        /// </summary>
+        /// <returns></returns>
         public List<EstudioDomain> ListarTodos()
             {
 

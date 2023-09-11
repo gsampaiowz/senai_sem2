@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using senai.inlock.webApi.Domains;
 using senai.inlock.webApi.Interfaces;
 using senai.inlock.webApi.Repositories;
 
 namespace senai.inlock.webApi.Controllers
     {
+    /// <summary>
+    /// controller responsável pelos endpoints referentes aos estúdios
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -12,12 +16,17 @@ namespace senai.inlock.webApi.Controllers
         {
 
         private IEstudioRepository _estudioRepository { get; set; }
-
+        /// <summary>
+        /// construtor que instancia o objeto _estudioRepository para que haja a referência aos métodos do repositório
+        /// </summary>
         public EstudioController()
             {
             _estudioRepository = new EstudioRepository();
             }
-
+        /// <summary>
+        /// endpoint que lista todos os estúdios
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
             {
@@ -33,8 +42,13 @@ namespace senai.inlock.webApi.Controllers
                 return BadRequest(erro);
                 }
             }
-
+        /// <summary>
+        /// endpoint que busca um estúdio pelo seu id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult GetById(int id)
             {
             try
@@ -49,7 +63,11 @@ namespace senai.inlock.webApi.Controllers
                 return BadRequest(erro);
                 }
             }
-
+        /// <summary>
+        /// endpoint que cadastra um novo estúdio
+        /// </summary>
+        /// <param name="novoEstudio"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(EstudioDomain novoEstudio)
             {
@@ -65,7 +83,11 @@ namespace senai.inlock.webApi.Controllers
                 return BadRequest(erro);
                 }
             }
-
+        /// <summary>
+        /// endpoint que atualiza um estúdio existente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
             {

@@ -7,8 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 //Adiciona o serviço de controllers
 builder.Services.AddControllers();
 
-builder.Services.AddControllers().AddNewtonsoftJson();
-
 //Adiciona serviço de autenticação JWT Bearer
 builder.Services.AddAuthentication(options =>
 {
