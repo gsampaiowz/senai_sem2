@@ -10,8 +10,8 @@ namespace senai.inlock.webApi.Repositories
     public class EstudioRepository : IEstudioRepository
         {
 
-        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog = inlock_games; User ID=sa; Pwd=Senai@134;";
-        //private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog = inlock_games; Integrated Security = True;";
+        //private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog = inlock_games; User ID=sa; Pwd=Senai@134;";
+        private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog = inlock_games; Integrated Security = True;";
 
         /// <summary>
         /// método responsável por buscar um estúdio pelo seu id
@@ -34,8 +34,6 @@ namespace senai.inlock.webApi.Repositories
             using SqlCommand cmd = new(queryInsert, con);
 
             cmd.Parameters.AddWithValue("@Nome", novoEstudio.Nome);
-
-            con.Open();
 
             cmd.ExecuteNonQuery();
             }
@@ -81,8 +79,35 @@ namespace senai.inlock.webApi.Repositories
                 EstudioDomain estudio = new()
                     {
                     IdEstudio = Convert.ToInt32(rdr[0]),
-                    Nome = rdr[1].ToString()
+                    Nome = rdr[1].ToString(),
+                    ListaJogos = new List<JogoDomain>()
                     };
+
+                using SqlConnection conJogos = new(StringConexao);
+
+                string querySelectAllJogos = "SELECT * FROM Jogo WHERE IdEstudio = @IdEstudio";
+
+                using SqlCommand cmdJogos = new(querySelectAllJogos, conJogos);
+
+                cmdJogos.Parameters.AddWithValue("@IdEstudio", estudio.IdEstudio);
+
+                conJogos.Open();
+
+                SqlDataReader rdrJogos = cmdJogos.ExecuteReader();
+
+                while (rdrJogos.Read())
+                {
+                    JogoDomain jogo = new()
+                    {
+                        IdJogo = Convert.ToInt32(rdrJogos[0]),
+                        IdEstudio = Convert.ToInt32(rdrJogos[1]),
+                        Nome = rdrJogos[2].ToString(),
+                        Descricao = rdrJogos[3].ToString(),
+                        DataLancamento = Convert.ToDateTime(rdrJogos[4]),
+                        Valor = Convert.ToDecimal(rdrJogos[5]),
+                    };
+                    estudio.ListaJogos.Add(jogo);
+                    }
 
                 listaEstudios.Add(estudio);
                 }

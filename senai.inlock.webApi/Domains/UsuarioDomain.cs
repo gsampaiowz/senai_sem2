@@ -32,6 +32,6 @@ namespace senai.inlock.webApi.Domains
         /// <summary>
         /// Propriedade que representa o tipo de usuário
         /// </summary>
-        public TiposUsuarioDomain? TipoUsuario { get; set; }
+        public TiposUsuarioDomain TipoUsuario { get; set; }
         }
     }

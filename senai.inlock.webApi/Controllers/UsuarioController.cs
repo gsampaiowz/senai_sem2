@@ -21,10 +21,7 @@ namespace senai.inlock.webApi.Controllers
         /// <summary>
         /// construtor que instancia o objeto _usuarioRepository para que haja a referência aos métodos do repositório
         /// </summary>
-        public UsuarioController()
-            {
-            _usuarioRepository = new UsuarioRepository();
-            }
+        public UsuarioController() => _usuarioRepository = new UsuarioRepository();
         /// <summary>
         /// endpoint que lista todos os usuários
         /// </summary>
@@ -72,15 +69,16 @@ namespace senai.inlock.webApi.Controllers
             {
             try
                 {
-                UsuarioDomain usuario = _usuarioRepository.Login(novoUsuario.Email, novoUsuario.Senha);
+                UsuarioDomain usuarioBuscado = _usuarioRepository.Login(novoUsuario.Email, novoUsuario.Senha);
 
-                if (usuario == null) return NotFound("Email ou senha inválidos!");
+                if (usuarioBuscado == null)
+                    return NotFound("Usuário não encontrado");
 
                 var claims = new[]
                     {
-                    new Claim(JwtRegisteredClaimNames.Jti, usuario.IdUsuario.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, usuario.Email),
-                    new Claim(ClaimTypes.Role, usuario.TipoUsuario.Titulo.ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
+                    new Claim(ClaimTypes.Role, usuarioBuscado.TipoUsuario.Titulo.ToString()),
                     };
 
                 var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("jogo-chave-autenticacao-webapi-dev"));

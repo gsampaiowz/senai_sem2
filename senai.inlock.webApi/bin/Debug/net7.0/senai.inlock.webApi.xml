@@ -149,6 +149,11 @@
             Propriedade que representa o nome do estúdio
             </summary>
         </member>
+        <member name="P:senai.inlock.webApi.Domains.EstudioDomain.ListaJogos">
+            <summary>
+            Lista de jogos do estudio
+            </summary>
+        </member>
         <member name="T:senai.inlock.webApi.Domains.JogoDomain">
             <summary>
             Classe que representa a entidade (tabela) JOGO
