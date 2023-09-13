@@ -1791,19 +1791,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\42591939888\\.nuget\\packages\\": {}
+    "C:\\Users\\Sampaio\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\42591939888\\Desktop\\senai_sem2\\senai.inlock.webApi\\senai.inlock.webApi.csproj",
+      "projectUniqueName": "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\senai.inlock.webApi\\senai.inlock.webApi.csproj",
       "projectName": "senai.inlock.webApi",
-      "projectPath": "C:\\Users\\42591939888\\Desktop\\senai_sem2\\senai.inlock.webApi\\senai.inlock.webApi.csproj",
-      "packagesPath": "C:\\Users\\42591939888\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\42591939888\\Desktop\\senai_sem2\\senai.inlock.webApi\\obj\\",
+      "projectPath": "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\senai.inlock.webApi\\senai.inlock.webApi.csproj",
+      "packagesPath": "C:\\Users\\Sampaio\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sampaio\\Desktop\\senai_sem2\\senai.inlock.webApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\42591939888\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sampaio\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
