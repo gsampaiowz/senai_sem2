@@ -10,8 +10,8 @@ namespace senai.inlock.webApi.Repositories
     public class UsuarioRepository : IUsuarioRepository
     {
 
-        //private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=inlock_games; User ID=sa; Pwd=Senai@134;";
-        private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=inlock_games; Integrated Security = True;";
+        private readonly string StringConexao = "Data Source = NOTE10-S14\\SQLEXPRESS; Initial Catalog=inlock_games; User ID=sa; Pwd=Senai@134;";
+        //private readonly string StringConexao = "Data Source = SAMPAIO; Initial Catalog=inlock_games; Integrated Security = True;";
 
         /// <summary>
         /// método responsável por atualizar um usuário existente
