@@ -27,6 +27,8 @@ namespace webapi.inlock.codefirst.Domains
         [Column(TypeName = "SMALLMONEY")]
         public decimal Valor { get; set; }
 
+        public Guid IdEstudio { get; set; }
+
         //ref. da tabela Estúdio - FK
         [ForeignKey("IdEstudio")]
         public Estudio? Estudio { get; set; }
