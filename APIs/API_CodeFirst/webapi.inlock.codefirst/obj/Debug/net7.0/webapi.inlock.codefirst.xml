@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>webapi.inlock.codefirst</name>
+    </assembly>
+    <members>
+        <member name="T:webapi.inlock.codefirst.Migrations.BD">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.inlock.codefirst.Migrations.BD.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.inlock.codefirst.Migrations.BD.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.inlock.codefirst.Migrations.BD.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.inlock.codefirst.Util.Criptografia.GerarHash(System.String)">
+            <summary>
+            Gera uma hash a partir de uma senha
+            </summary>
+            <param name="senha"></param>
+            <returns></returns>
+        </member>
+        <member name="M:webapi.inlock.codefirst.Util.Criptografia.CompararHash(System.String,System.String)">
+            <summary>
+            Verifica se a hash da senha informada é igual á hash do banco
+            </summary>
+            <param name="senhaForm">Senha passada no form de login</param>
+            <param name="senhaBanco">Senha cadastrada no banco</param>
+            <returns>True ou false (1 or 0)</returns>
+        </member>
+    </members>
+</doc>
