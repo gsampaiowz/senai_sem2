@@ -8,13 +8,13 @@ USE Health_Clinic_Tarde;
 
 -- CRIAR AS TABELAS DO BANCO DE DADOS
 
-CREATE TABLE TiposDeUsuarios
+CREATE TABLE TipoDeUsuario
 (
 	IdTipoDeUsuario INT PRIMARY KEY IDENTITY,
 	NomeTipoDeUsuario VARCHAR(32) NOT NULL UNIQUE,
 );
 
-CREATE TABLE Usuarios
+CREATE TABLE Usuario
 (
 	IdUsuario INT PRIMARY KEY IDENTITY,
 	IdTipoDeUsuario INT FOREIGN KEY REFERENCES TiposDeUsuarios(IdTipoDeUsuario) NOT NULL,
@@ -23,13 +23,13 @@ CREATE TABLE Usuarios
 	Senha VARCHAR(64) NOT NULL,
 );
 
-CREATE TABLE Especialidades
+CREATE TABLE Especialidade
 (
 	IdEspecialidade INT PRIMARY KEY IDENTITY,
 	NomeEspecialidade VARCHAR(64) NOT NULL UNIQUE,
 );
 
-CREATE TABLE Clinicas
+CREATE TABLE Clinica
 (
 	IdClinica INT PRIMARY KEY IDENTITY,
 	Endereco VARCHAR(128) NOT NULL UNIQUE,
@@ -39,7 +39,7 @@ CREATE TABLE Clinicas
 	HoraEncerramento TIME NOT NULL,
 );
 
-CREATE TABLE Medicos
+CREATE TABLE Medico
 (
 	IdMedico INT PRIMARY KEY IDENTITY,
 	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL UNIQUE,
@@ -48,7 +48,7 @@ CREATE TABLE Medicos
 	CRM VARCHAR(6) NOT NULL,
 );
 
-CREATE TABLE Pacientes
+CREATE TABLE Paciente
 (
 	IdPaciente INT PRIMARY KEY IDENTITY,
 	IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario) NOT NULL UNIQUE,
@@ -60,25 +60,31 @@ CREATE TABLE Pacientes
 	Endereco VARCHAR(64) NOT NULL,
 );
 
-CREATE TABLE Situacoes
+CREATE TABLE Situacao
 (
 	IdSituacao INT PRIMARY KEY IDENTITY,
 	TituloSituacao VARCHAR(32) NOT NULL UNIQUE,
 );
 
-CREATE TABLE Consultas
+CREATE TABLE Consulta
 (
 	IdConsulta INT PRIMARY KEY IDENTITY,
 	IdMedico INT FOREIGN KEY REFERENCES Medicos(IdMedico) NOT NULL,
 	IdPaciente INT FOREIGN KEY REFERENCES Pacientes(IdPaciente) NOT NULL,
 	IdClinica INT FOREIGN KEY REFERENCES Clinicas(IdClinica) NOT NULL,
 	IdSituacao INT FOREIGN KEY REFERENCES Situacoes(IdSituacao) NOT NULL,
-	Prontuario VARCHAR(255) NOT NULL,
 	[Data] DATE NOT NULL,
 	Horario TIME NOT NULL,
 );
 
-CREATE TABLE Comentarios
+CREATE TABLE Prontuario
+(
+	IdProntuario INT PRIMARY KEY IDENTITY,
+	IdConsulta INT FOREIGN KEY REFERENCES Consultas(IdConsulta) NOT NULL,
+	Descricao TEXT NOT NULL,
+);
+
+CREATE TABLE Comentario
 (
 	IdComentario INT PRIMARY KEY IDENTITY,
 	IdConsulta INT FOREIGN KEY REFERENCES Consultas(IdConsulta) NOT NULL,

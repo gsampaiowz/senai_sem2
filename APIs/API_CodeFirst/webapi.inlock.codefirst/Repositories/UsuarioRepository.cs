@@ -1,4 +1,5 @@
-﻿using webapi.inlock.codefirst.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using webapi.inlock.codefirst.Contexts;
 using webapi.inlock.codefirst.Domains;
 using webapi.inlock.codefirst.Interfaces;
 using webapi.inlock.codefirst.Util;
@@ -17,7 +18,7 @@ namespace webapi.inlock.codefirst.Repositories
             {
             try
                 {
-                var usuarioBuscado = ctx.Usuario.FirstOrDefault(u => u.Email == email);
+                var usuarioBuscado = ctx.Usuario.Include(u => u.TipoUsuario).FirstOrDefault(u => u.Email == email);
 
                 if (usuarioBuscado != null)
                     {
