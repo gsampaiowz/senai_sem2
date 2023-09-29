@@ -1,6 +1,6 @@
 -- DML - DATA MANIPULATION LANGUAGE - LINGUAGEM DE MANIPULACAO DE DADOS
 
-USE Health_Clinic_Tarde;
+USE HealthClinic_Tarde;
 
 -- RESETAR ID
 DBCC CHECKIDENT('Consultas', RESEED, 0);
@@ -34,7 +34,7 @@ VALUES
 	(2,1,1,'123123'),
 	(4,2,2,'321321');
 
-INSERT INTO Situacao VALUES('Confirmada'),('Cancelada');
+INSERT INTO Situacao VALUES(NEWID(),'Confirmada'),(NEWID(),'Cancelada');
 
 INSERT INTO Consulta
 VALUES

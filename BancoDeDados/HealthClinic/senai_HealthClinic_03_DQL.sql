@@ -2,13 +2,13 @@
 
 -- CONSULTAR DADOS
 
-SELECT * FROM TiposDeUsuarios;
+SELECT * FROM TipoDeUsuario;
+SELECT * FROM Situacao;
 SELECT * FROM Usuarios;
 SELECT * FROM Especialidades;
 SELECT * FROM Clinicas;
 SELECT * FROM Medicos;
 SELECT * FROM Pacientes;
-SELECT * FROM Situacoes;
 SELECT * FROM Consultas;
 SELECT * FROM Comentarios;
 
