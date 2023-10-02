@@ -9,14 +9,6 @@ DBCC CHECKIDENT('Consultas', RESEED, 0);
 
 INSERT INTO TipoDeUsuario VALUES(NEWID(),'Administrador'),(NEWID(),'Medico'),(NEWID(),'Paciente');
 
-INSERT INTO Usuario
-VALUES
-	(1,'gabriel','gabriel@email.com','123'),
-	(2,'gustavo','gustavo@email.com','123'),
-	(3,'guilherme','gui@email.com','123'),
-	(2,'eduardo','edu@email.com','123'),
-	(3,'pedro','pedro@email.com','123');
-
 INSERT INTO Paciente
 VALUES
 	(3,'2000-01-01','00000000000','000000000','00000000000','00000000','Rua Ciclano, 0'),
