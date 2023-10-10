@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício</title>
+</head>
+
+<body>
+    <form onsubmit="DarSalve()">
+        <label for="nome">nome</label>
+        <input placeholder="nome" id="nome" name="nome" type="text">
+        <label for="nickname">nickname</label>
+        <input placeholder="nickname" id="nickname" name="nickname" type="text">
+        <button type="submit">run</button>
+        <b id="msg">dassa</b>
+    </form>
+
+    <script>
+        function DarSalve() {
+            event.preventDefault();
+            let nome = document.getElementById("nome").value;
+            let nickname = document.getElementById("nickname").value;
+            document.getElementById("msg").innerText = `Salve ${nickname}!`;
+        }
+    </script>
+</body>
+
+</html>

@@ -14,7 +14,7 @@
         <h1>Simple Calc</h1>
     </header>
     <main>
-        <form>
+        <form onsubmit="Calcular()">
             <div class="label__btn">
                 <label for="n1">
                     Primeiro Número:
@@ -39,7 +39,7 @@
                     <option value="div">/</option>
                 </select>
             </div>
-            <button onClick="Calcular()">Calcular</button>
+            <button type="submit">Calcular</button>
             <b id="result">Resultado: </b>
         </form>
 

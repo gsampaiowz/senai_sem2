@@ -18,6 +18,7 @@ main{
 
 form{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 32px;
     background-color: lightgray;

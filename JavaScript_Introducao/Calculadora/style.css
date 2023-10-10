@@ -1,33 +1,63 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
 }
 
-header{
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    box-shadow: 1px 1px 16px gray;
+header {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	box-shadow: 1px 1px 16px gray;
 }
 
-main{
-    padding: 32px 160px;
+main {
+	padding: 32px 160px;
+	animation: EnterPage .5s ease-in-out;
 }
 
-form{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 32px;
-    background-color: lightgray;
-    padding: 32px 64px;
-    border-radius: 8px;
-    align-items: center;
+main:only-child {
+    animation: ContentOpacity .5s ease-in-out;
 }
 
-input, button, select{
-    padding: 16px;
-    border-radius: 8px;
+@keyframes ContentOpacity {
+    1% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes EnterPage {
+	1% {
+		transform: scale(1, 0.0001);
+	}
+	100% {
+		transform: scale(1, 1);
+        opacity: 1;
+	}
+}
+
+div {
+	width: min-content;
+}
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 32px;
+	background-color: lightgray;
+	padding: 32px 64px;
+	border-radius: 8px;
+	align-items: center;
+}
+
+input,
+button,
+select {
+	padding: 16px;
+	border-radius: 8px;
 }
