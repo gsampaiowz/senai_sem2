@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Simple Calc</h1>
+    </header>
+    <main>
+        <form>
+            <div class="label__btn">
+                <label for="n1">
+                    Primeiro Número:
+                </label>
+                <input id="n1" type="number">
+            </div>
+            <div class="label__btn">
+                <label for="n2">
+                    Segundo Número:
+                </label>
+                <input id="n2" type="number">
+            </div>
+            <div class="label__select">
+                <label for="op">
+                    Operação:
+                </label>
+                <select name="op" id="op">
+                    <option>Selecione</option>
+                    <option value="soma">+</option>
+                    <option value="sub">-</option>
+                    <option value="mult">*</option>
+                    <option value="div">/</option>
+                </select>
+            </div>
+            <button onClick="Calcular()">Calcular</button>
+            <b id="result">Resultado: </b>
+        </form>
+
+    </main>
+</body>
+
+</html>
