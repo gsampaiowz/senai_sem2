@@ -14,15 +14,16 @@
         <label for="nickname">nickname</label>
         <input placeholder="nickname" id="nickname" name="nickname" type="text">
         <button type="submit">run</button>
-        <b id="msg">dassa</b>
+        <b id="msg"></b>
     </form>
 
     <script>
         function DarSalve() {
             event.preventDefault();
-            let nome = document.getElementById("nome").value;
             let nickname = document.getElementById("nickname").value;
-            document.getElementById("msg").innerText = `Salve ${nickname}!`;
+            let nome = document.getElementById("nome").value;
+            // msg = document.getElementById("msg").innerHTML = document.getElementById("msg").innerHTML.replace(msg, `Olá, ${nickname}`);
+            document.getElementById('msg').innerText = `Olá, ${nickname}`;
         }
     </script>
 </body>

@@ -3,6 +3,7 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-family: sans-serif;
+	animation: EnterPage 0.5s ease-in-out;
 }
 
 header {
@@ -14,29 +15,14 @@ header {
 
 main {
 	padding: 32px 160px;
-	animation: EnterPage .5s ease-in-out;
-}
-
-main:only-child {
-    animation: ContentOpacity .5s ease-in-out;
-}
-
-@keyframes ContentOpacity {
-    1% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
 
 @keyframes EnterPage {
-	1% {
-		transform: scale(1, 0.0001);
+	0% {
+		opacity: 0;
 	}
 	100% {
-		transform: scale(1, 1);
-        opacity: 1;
+		opacity: 1;
 	}
 }
 
@@ -49,10 +35,10 @@ form {
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 32px;
-	background-color: lightgray;
+	background-color: #d1d1d1;
 	padding: 32px 64px;
 	border-radius: 8px;
-	align-items: center;
+	align-items: end;
 }
 
 input,
@@ -60,4 +46,57 @@ button,
 select {
 	padding: 16px;
 	border-radius: 8px;
+	border: none;
+}
+
+input {
+	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+}
+
+button {
+	cursor: pointer;
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+select {
+	/* Reset */
+	/* Personalize */
+	width: 20rem;
+	padding: 1rem 4rem 1rem 1rem;
+	background: blue no-repeat right 0.8em center / 1.4em,
+		linear-gradient(to left, blue 3em, red 3em);
+	box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+@keyframes InSet{
+	100%{
+	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+	}
+}
+
+select::-ms-expand {
+	display: block;
+	color: #4a4a4a;
+}
+/* Remove focus outline */
+select:focus {
+	animation: InSet 1s ease-in-out;
+	outline: none;
+	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+}
+/* <option> colors */
+option::hover {
+	background-color: #4a4a4a;
+	transition: all 1s;
+}
+
+button:hover {
+	background-color: #4a4a4a;
+	color: white;
+	transition: 0.5s;
+}
+
+button:active {
+	box-shadow: inset 0px 0px 8px rgba(255,255, 255, 0.5);
 }

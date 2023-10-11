@@ -29,7 +29,8 @@ function Calcular() {
 			break;
 	}
 
-	if (isNaN(n1) || isNaN(n2)) result = "Preencha todos os campos!";
+	if (isNaN(n1) || isNaN(n2)) result = "Preencha os campos corretamente!";
+	if (n1.toString().includes(",") || n2.toString().includes(",")) result = "Preencha os campos corretamente!";
 
 	document.getElementById("result").innerHTML = result;
 }
