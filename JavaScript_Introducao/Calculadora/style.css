@@ -47,56 +47,52 @@ select {
 	padding: 16px;
 	border-radius: 8px;
 	border: none;
+	outline: none;
 }
 
 input {
-	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), inset 0 0 0px rgba(0, 0, 0, 0.25);
+	transition: box-shadow 1s;
+}
+
+input:focus {
+	box-shadow: 0 0 0px rgba(0, 0, 0, 0.25), inset 0 0 8px rgba(0, 0, 0, 0.25);
 }
 
 button {
+	transition: 0.5s;
 	cursor: pointer;
-	box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 select {
-	/* Reset */
-	/* Personalize */
-	width: 20rem;
-	padding: 1rem 4rem 1rem 1rem;
-	background: blue no-repeat right 0.8em center / 1.4em,
-		linear-gradient(to left, blue 3em, red 3em);
-	box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), inset 0 0 0px rgba(0, 0, 0, 0.25);
+	transition: box-shadow 1s;
 	cursor: pointer;
 }
 
-@keyframes InSet{
-	100%{
-	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+@keyframes InSet {
+	100% {
+		box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
 	}
 }
 
-select::-ms-expand {
-	display: block;
-	color: #4a4a4a;
-}
-/* Remove focus outline */
 select:focus {
-	animation: InSet 1s ease-in-out;
 	outline: none;
+	box-shadow: 0 0 0px rgba(0, 0, 0, 0.25), inset 0 0 8px rgba(0, 0, 0, 0.25);
 	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
 }
-/* <option> colors */
+
 option::hover {
 	background-color: #4a4a4a;
-	transition: all 1s;
 }
 
 button:hover {
 	background-color: #4a4a4a;
 	color: white;
-	transition: 0.5s;
 }
 
 button:active {
-	box-shadow: inset 0px 0px 8px rgba(255,255, 255, 0.5);
+	transition: 0.1s;
+	background-color: green;
 }
