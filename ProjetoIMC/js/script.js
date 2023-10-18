@@ -16,6 +16,12 @@ function listarUsuarios() {
   document.getElementById("corpo-tabela").innerHTML = linhas;
 }
 
+function limparForm(){
+  document.getElementById("nome").value = null;
+  document.getElementById("altura").value = null;
+  document.getElementById("peso").value = null;
+}
+
 function calcularImc(peso, altura) {
   return peso / altura ** 2;
 }
@@ -65,6 +71,8 @@ function calcular(e) {
   usuarios.push(usuario);
 
   listarUsuarios();
+
+  limparForm();
 }
 
 function deletarRegistros() {
