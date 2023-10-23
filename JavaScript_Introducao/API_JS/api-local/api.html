@@ -6,9 +6,14 @@
     <title>API</title>
   </head>
   <body>
-    <form onsubmit="chamarAPI()">
+    <form onsubmit="Cadastrar(event)">
       <label for="cep">CEP</label>
-      <input type="number" placeholder="Digite o CEP" id="cep" />
+      <input
+        type="number"
+        placeholder="Digite o CEP"
+        id="cep"
+        onblur="chamarAPI()"
+      />
       <span id="not-found"></span>
       <br />
       <label for="logradouro">Logradouro</label>
@@ -22,6 +27,15 @@
       <br />
       <label for="estado">Estado</label>
       <input type="text" placeholder="Digite o Estado" id="estado" />
+      <br />
+      <label for="nome">Nome</label>
+      <input type="text" placeholder="Digite o Nome" id="nome" />
+      <br />
+      <label for="numero-telefone">Número de telefone</label>
+      <input type="text" placeholder="Digite o Número de telefone" id="numero-telefone" />
+      <br />
+      <label for="numero-casa">Número da casa</label>
+      <input type="text" placeholder="Digite o Número da casa" id="numero-casa" />
       <button type="submit">Chamar API</button>
     </form>
 
@@ -34,6 +48,38 @@
       //   console.log('Bad Request')
       // })
 
+      const urlLocal = "http://localhost:3000/contatos";
+
+      async function Cadastrar(e) {
+        e.preventDefault(); //captura o evento de submit do form
+        //pegar os dados do form
+        const cep = document.getElementById("cep").value;
+        const endereco = document.getElementById("logradouro").value;
+        const bairro = document.getElementById("bairro").value;
+        const cidade = document.getElementById("cidade").value;
+        const estado = document.getElementById("estado").value;
+        const nome = document.getElementById("nome").value;
+        const numeroTelefone = document.getElementById("numero-telefone").value;
+        const numeroCasa = document.getElementById("numero-casa").value;
+
+        const objDados = { cep, endereco, bairro, cidade, estado, nome, numeroTelefone, numeroCasa };
+
+        try {
+          const promise = await fetch(urlLocal, {
+            //transforma objetos em string
+            body: JSON.stringify(objDados),
+            headers: { "Content-Type": "application/json" },
+            method: "post"
+          });
+
+          const retorno = promise.json();//pega o retorno da api
+          console.log(retorno);
+
+        } catch (error) {
+          console.log("Deu ruim: " + error);
+        }
+      }//fim da função cadastrar
+
       async function chamarAPI() {
         console.clear();
         event.preventDefault();
@@ -42,15 +88,15 @@
         const url = `https://viacep.com.br/ws/${cep}/json/`;
         try {
           const promise = await fetch(url);
-          const endereco = await promise.json();
+          const dados = await promise.json();
 
-          exibirEndereco(endereco);
+          exibirEndereco(dados);
 
           document.getElementById("not-found").innerText = "";
 
-          console.log(endereco);
+          console.log(dados);
         } catch (error) {
-          console.log("Bad Request");
+          console.log("Bad Request" + error);
           limparEndereco();
           document.getElementById("not-found").innerText = "CEP não encontrado";
         }

@@ -1,0 +1,23 @@
+{
+  "contatos": [
+    {
+      "cep": "09351330",
+      "endereco": "Rua Nevada",
+      "bairro": "Parque das Américas",
+      "cidade": "Mauá",
+      "estado": "SP",
+      "id": 1
+    },
+    {
+      "cep": "09351330",
+      "endereco": "Rua Nevada",
+      "bairro": "Parque das Américas",
+      "cidade": "Mauá",
+      "estado": "SP",
+      "nome": "Gabriel Sampaio",
+      "numeroTelefone": "11912341234",
+      "numeroCasa": "256",
+      "id": 2
+    }
+  ]
+}
