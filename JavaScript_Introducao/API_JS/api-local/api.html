@@ -12,7 +12,7 @@
         type="number"
         placeholder="Digite o CEP"
         id="cep"
-        onblur="chamarAPI()"
+        onblur="ChamarAPI()"
       />
       <span id="not-found"></span>
       <br />
@@ -80,7 +80,7 @@
         }
       }//fim da função cadastrar
 
-      async function chamarAPI() {
+      async function ChamarAPI() {
         console.clear();
         event.preventDefault();
 
