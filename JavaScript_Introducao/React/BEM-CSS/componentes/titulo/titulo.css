@@ -1,0 +1,30 @@
+.titulo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* border: 1px solid #000; */
+}
+
+.titulo__texto{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 2em;
+    text-transform: uppercase;
+    /* border: 1px solid red; */
+}
+
+.titulo__linha{
+    border-top: 3px solid red;
+    width: 200px;
+}
+
+.titulo__texto--branco {
+    color: white;
+    text-shadow: 0 0 4px black;
+}
+
+.titulo__linha--branco {
+    border-color: white;
+    box-shadow: 0 0 4px black;
+}
