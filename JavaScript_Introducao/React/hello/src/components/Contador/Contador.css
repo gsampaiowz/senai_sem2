@@ -1,0 +1,24 @@
+.contador{
+    height: 250px;
+    width: 250px;
+    border-radius: 20px;
+    border: 2px solid #821b47;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+
+    font: 30px Arial, sans-serif;
+}
+
+.contador__botao{
+    font: 40px Arial, sans-serif;
+    padding: 0 20px;
+    background: #821b47;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;    
+}
