@@ -1,0 +1,30 @@
+{
+  "contatos": [
+    {
+      "cep": "09351330",
+      "rua": "Rua Nevada",
+      "complemento": "teste",
+      "bairro": "Parque das Américas",
+      "cidade": "Mauá",
+      "UF": "SP",
+      "nomeCompleto": "Biel Sampaio",
+      "email": "gabriel@email.com",
+      "telefoneCompleto": "+55 (11) 912341234",
+      "anotacoes": "TESTE TESTE TESTE LOREM IPSUM LOREM IPSUM LOREM IPSUM",
+      "id": 1
+    },
+    {
+      "cep": "09351330",
+      "rua": "Rua Nevada",
+      "complemento": "restsets",
+      "bairro": "Parque das Américas",
+      "cidade": "Mauá",
+      "UF": "SP",
+      "nomeCompleto": "oskada jdsaiodjsa",
+      "email": "dsaoidsaiio",
+      "telefoneCompleto": "+55 (11) 943214321",
+      "anotacoes": "ufdju4y9832u987y89379hjkdsbjksfaksndsd",
+      "id": 2
+    }
+  ]
+}
