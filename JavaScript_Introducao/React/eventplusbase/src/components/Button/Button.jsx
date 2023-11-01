@@ -1,7 +1,13 @@
 import React from "react";
+import "./Button.css";
 
-const Button = () => {
-  return <button type="button"></button>;
+const Button = (props) => {
+  return (
+    <>
+      <button type={props.tipo}>{props.textoBotao}</button>
+      
+    </>
+  );
 };
 
 export default Button;

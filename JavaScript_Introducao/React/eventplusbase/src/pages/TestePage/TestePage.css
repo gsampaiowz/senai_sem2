@@ -1,0 +1,11 @@
+.teste-page{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    gap: 20px;
+}

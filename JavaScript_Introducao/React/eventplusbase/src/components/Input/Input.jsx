@@ -1,15 +1,19 @@
 import React from "react";
+import "./Input.css";
 
-const Input = () => {
+const Input = ({ tipo, id, nome, valor, dicaCampo, fnAltera }) => {
   return (
-    <div>
-      <Input
-        type="text"
-        id="numero1"
-        name="numero1"
-        placeholder="Primeiro Número"
-      />
-    </div>
+    <input
+      className="numero"
+      type={tipo}
+      id={id}
+      name={nome}
+      value={valor}
+      placeholder={dicaCampo}
+      onChange={(e) => {
+        fnAltera(e.target.value);
+      }} //
+    />
   );
 };
 

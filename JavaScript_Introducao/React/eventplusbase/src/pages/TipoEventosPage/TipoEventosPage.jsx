@@ -1,13 +1,11 @@
-import React from 'react';
-import Header from '../../components/Header/Header';
+import React from "react";
 
 const TipoEventosPage = () => {
-    return (
-        <div>
-            <Header />
-            <h1>TipoEventosPage</h1>
-        </div>
-    );
+  return (
+    <div>
+      <h1>TipoEventosPage</h1>
+    </div>
+  );
 };
 
 export default TipoEventosPage;
