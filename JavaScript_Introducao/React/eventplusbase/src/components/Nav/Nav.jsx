@@ -5,15 +5,17 @@ import "./Nav.css";
 import logoMobile from "../../assets/images/logo-white.svg";
 import logoDesktop from "../../assets/images/logo-pink.svg";
 
-const Nav = () => {
+const Nav = ({ setExibeNavBar, exibeNavBar }) => {
   return (
-    <nav className="navbar">
-      <span className="navbar__close">x</span>
+    <nav className={`navbar ${exibeNavBar ? "exibeNavbar" : ""}`}>
+      <span onClick={() => setExibeNavBar(false)} className="navbar__close">
+        x
+      </span>
 
       <Link to="/">
         <img
           className="eventlogo__logo-image"
-          src={window.innerWidth > 720 ? logoDesktop : logoMobile}
+          src={window.innerWidth > 992 ? logoDesktop : logoMobile}
           alt="Event Plus Logo"
         />
       </Link>

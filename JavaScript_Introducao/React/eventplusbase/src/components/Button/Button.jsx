@@ -1,11 +1,9 @@
-import React from "react";
 import "./Button.css";
 
-const Button = (props) => {
+const Button = ({ tipo, textoBotao }) => {
   return (
     <>
-      <button type={props.tipo}>{props.textoBotao}</button>
-      
+      <button type={tipo}>{textoBotao}</button>
     </>
   );
 };
