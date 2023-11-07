@@ -1,11 +1,13 @@
-import React from 'react';
+import React from "react";
+import Title from "../../components/Title/Title";
+import MainContent from "../../components/MainContent/MainContent";
 
 const EventosPage = () => {
-    return (
-        <div>
-            <h1>EventosPage</h1>
-        </div>
-    );
+  return (
+    <MainContent>
+      <Title titleText={"EventosPage"} additionalClass="margem-acima" />
+    </MainContent>
+  );
 };
 
 export default EventosPage;

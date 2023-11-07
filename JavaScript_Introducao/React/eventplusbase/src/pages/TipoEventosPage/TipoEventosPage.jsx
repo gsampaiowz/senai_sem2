@@ -1,10 +1,12 @@
 import React from "react";
+import Title from "./../../components/Title/Title";
+import MainContent from "./../../components/MainContent/MainContent";
 
 const TipoEventosPage = () => {
   return (
-    <div>
-      <h1>TipoEventosPage</h1>
-    </div>
+    <MainContent>
+      <Title titleText={"TipoEventosPage"} additionalClass="margem-acima" />
+    </MainContent>
   );
 };
 

@@ -15,7 +15,7 @@ const AppRoutes = () => {
         <Route element={<HomePage />} exact path="/" />
         <Route element={<LoginPage />} path="/login" />
         <Route element={<EventosPage />} path="/eventos" />
-        <Route element={<TipoEventosPage />} path="/tipoeventos" />
+        <Route element={<TipoEventosPage />} path="/tipos-de-eventos" />
       </Routes>
       <Footer/>
     </BrowserRouter>
