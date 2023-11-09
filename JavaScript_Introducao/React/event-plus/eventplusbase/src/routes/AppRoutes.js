@@ -6,6 +6,7 @@ import EventosPage from "../pages/EventosPage/EventosPage";
 import TipoEventosPage from "../pages/TipoEventosPage/TipoEventosPage";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import TestePage from "../pages/TestePage/TestePage";
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
         <Route element={<LoginPage />} path="/login" />
         <Route element={<EventosPage />} path="/eventos" />
         <Route element={<TipoEventosPage />} path="/tipos-de-eventos" />
+        <Route element={<TestePage />} path="/teste" />
       </Routes>
       <Footer/>
     </BrowserRouter>

@@ -64,7 +64,7 @@ namespace webapi.event_.Controllers
             {
                 _eventoRepository.Cadastrar(evento);
 
-                return StatusCode(201,evento);
+                return StatusCode(201, evento);
             }
             catch (Exception e)
             {
