@@ -6,17 +6,22 @@ import ContactSection from "./../../components/ContactSection/ContactSection";
 import NextEvent from "../../components/NextEvent/NextEvent";
 import Title from "../../components/Title/Title";
 import Container from "../../components/Container/Container";
+import api from "../../Services/Service";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+// Import styles
+import "swiper/css";
+import "swiper/css/pagination";
 import "./HomePage.css";
-import axios from "axios";
 
 const HomePage = () => {
   useEffect(() => {
     //chamar a api
     async function getProximosEventos() {
       try {
-        const promise = await axios.get(
-          "http://localhost:5000/api/Evento/ListarProximos"
-        );
+        const promise = await api.get("/Evento/ListarProximos");
         console.log(promise.data);
         setNextEvents(promise.data);
       } catch (error) {
@@ -26,7 +31,7 @@ const HomePage = () => {
     }
 
     getProximosEventos();
-    console.log("A HOME FOI MONTADA!")
+    console.log("A HOME FOI MONTADA!");
   }, []);
 
   // fake mock - api mocada
@@ -40,15 +45,28 @@ const HomePage = () => {
           <Title titleText={"Próximos Eventos"} />
 
           <div className="events-box">
-            {nextEvents.map((event) => (
-              <NextEvent
-                key={event.idEvento}
-                title={event.nomeEvento}
-                description={event.descricao}
-                eventDate={event.dataEvento}
-                idEvento={event.idEvento}
-              />
-            ))}
+            <Swiper
+              slidesPerView={3}
+              pagination={{
+                dynamicBullets: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {nextEvents.map((event) => (
+                <>
+                  <SwiperSlide>
+                    <NextEvent
+                      key={event.idEvento}
+                      title={event.nomeEvento}
+                      description={event.descricao}
+                      eventDate={event.dataEvento}
+                      idEvento={event.idEvento}
+                    />
+                  </SwiperSlide>
+                </>
+              ))}
+            </Swiper>
           </div>
         </Container>
         <VisionSection />
