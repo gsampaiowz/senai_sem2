@@ -8,10 +8,10 @@ import Title from "../../components/Title/Title";
 import Container from "../../components/Container/Container";
 import api from "../../Services/Service";
 
-// Import Swiper React components
+// Importando Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-// Import styles
+// Estilização
 import "swiper/css";
 import "swiper/css/pagination";
 import "./HomePage.css";
@@ -26,7 +26,7 @@ const HomePage = () => {
         setNextEvents(promise.data);
       } catch (error) {
         console.error("Erro : " + error);
-        alert("Erro ao carregar os eventos");
+        console.log("Erro ao carregar os eventos");
       }
     }
 
