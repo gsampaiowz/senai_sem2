@@ -3,7 +3,7 @@ import "./TableTp.css";
 import iconeLixo from "../../../assets/images/trash-delete.svg";
 import iconeEditar from "../../../assets/images/edit-pen.svg";
 
-const TableTp = ({dados, fnUpdate, fnDelete}) => {
+const TableTp = ({ dados, fnUpdate, fnDelete }) => {
   return (
     <table className="table-data">
       <thead className="table-data__head">
@@ -30,17 +30,18 @@ const TableTp = ({dados, fnUpdate, fnDelete}) => {
             <td className="table-data__data table-data__data--little">
               <img
                 className="table-data__icon"
-                src={iconeLixo}
+                src={iconeEditar}
                 alt="Ícone de lixeira para deletar"
-                onClick={() => fnDelete(tipoEvento.idTipoEvento)}
+                onClick={() => fnUpdate(tipoEvento)}
               />
             </td>
 
             <td className="table-data__data table-data__data--little">
               <img
                 className="table-data__icon"
-                src={iconeEditar}
+                src={iconeLixo}
                 alt="Ícone de caneta para editar"
+                onClick={() => fnDelete(tipoEvento.idTipoEvento)}
               />
             </td>
           </tr>
