@@ -22,7 +22,7 @@ const TableTp = ({ dados, fnUpdate, fnDelete }) => {
 
       <tbody>
         {dados.map((tipoEvento) => (
-          <tr className="table-data__head-row">
+          <tr key={tipoEvento.idTipoEvento} className="table-data__head-row">
             <td className="table-data__data table-data__data--big">
               {tipoEvento.titulo}
             </td>

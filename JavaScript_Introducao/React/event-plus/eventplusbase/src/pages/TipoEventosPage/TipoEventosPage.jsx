@@ -26,7 +26,25 @@ const TipoEventosPage = () => {
 
   const [notifyUser, setNotifyUser] = useState({});
 
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(true);
+
+  //METODO PARA LISTAR EVENTOS
+  async function getTiposEventos() {
+    setShowSpinner(true);
+    try {
+      const promise = await api.get("/TiposEvento");
+      setTiposEvento(promise.data);
+    } catch (error) {
+      console.error("Erro ao carregar tipos de evento: " + error);
+    }
+    setShowSpinner(false);
+  }
+
+  //LISTAGEM DE TIPOS DE EVENTOS
+  useEffect(() => {
+    //chamar a api
+    getTiposEventos();
+  }, []);
 
   //CADASTRAR TIPO DE EVENTO
 
@@ -51,6 +69,7 @@ const TipoEventosPage = () => {
     //chamar a api
     try {
       const promise = await api.post("/TiposEvento", { titulo });
+      getTiposEventos();
       setNotifyUser({
         titleNote: "Sucesso",
         textNote: `Cadastrado com sucesso!`,
@@ -73,10 +92,10 @@ const TipoEventosPage = () => {
   function showUpdateForm(tipoEvento) {
     setFrmEdit(true);
     setTitulo(tipoEvento.titulo);
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setIdTipoEvento(tipoEvento.idTipoEvento);
   }
-
+  //ATUALIZAR TIPO DE EVENTO
   async function handleUpdate(e) {
     e.preventDefault();
     setShowSpinner(true);
@@ -97,6 +116,7 @@ const TipoEventosPage = () => {
       const promise = await api.put(`/TiposEvento/${idTipoEvento}`, {
         titulo,
       });
+      getTiposEventos();
       setNotifyUser({
         titleNote: "Sucesso",
         textNote: `Atualizado com sucesso!`,
@@ -118,27 +138,12 @@ const TipoEventosPage = () => {
     setFrmEdit(false);
   }
 
-  useEffect(() => {
-    //chamar a api
-    async function getTitulos() {
-      setShowSpinner(true);
-      try {
-        const promise = await api.get("/TiposEvento");
-        setTiposEvento(promise.data);
-      } catch (error) {
-        console.error("Erro ao carregar tipos de evento: " + error);
-      }
-      setShowSpinner(false) ;
-    }
-    
-    getTitulos();
-  }, [tiposEvento]);
-
   async function handleDelete(id) {
     setShowSpinner(true);
     try {
       tiposEvento.filter((tipoEvento) => tipoEvento.idTipoEvento === id);
       const promise = await api.delete(`/TiposEvento/${id}`);
+      getTiposEventos();
       setNotifyUser({
         titleNote: "Sucesso",
         textNote: `Deletado com sucesso!`,
@@ -166,7 +171,10 @@ const TipoEventosPage = () => {
               additionalClass="margem-acima"
             />
 
-            <ImageIllustrator alterText="??????" imageRender={eventTypeImage} />
+            <ImageIllustrator
+              alterText="Homem e mulher interagindo com a tela de um computador"
+              imageRender={eventTypeImage}
+            />
 
             <form
               className="ftipo-evento"

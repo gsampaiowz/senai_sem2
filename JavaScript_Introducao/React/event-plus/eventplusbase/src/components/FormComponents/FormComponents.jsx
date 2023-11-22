@@ -34,7 +34,38 @@ export const Button = ({
   textButton,
   manipulationFunction,
 }) => {
-  return <button onClick={manipulationFunction} type={type} name={name} id={id} className={`button-component ${additionalClass}`}>
-    {textButton}
-  </button>;
+  return (
+    <button
+      onClick={manipulationFunction}
+      type={type}
+      name={name}
+      id={id}
+      className={`button-component ${additionalClass}`}
+    >
+      {textButton}
+    </button>
+  );
+};
+
+export const Select = ({
+  id,
+  required,
+  additionalClass = "",
+  name,
+  manipulationFunction,
+  arrayOptions,
+  sim
+}) => {
+  return (
+    <select
+      id={id}
+      required={required}
+      className={`input-component ${additionalClass}`}
+      name={name}
+    >
+      {arrayOptions.map((option) => (
+        <option key={option}>{option.text}</option>
+      ))}
+    </select>
+  );
 };
