@@ -35,23 +35,23 @@ const TableEventos = ({ dados, fnUpdate, fnDelete }) => {
       <tbody>
         {dados.map((evento) => (
           <tr className="table-data__head-row">
-            <td className="table-data__data table-data__data--big">
+            <td className="table-data__data table-data__data--little">
               {evento.nomeEvento}
             </td>
 
-            <td className="table-data__data table-data__data--big">
+            <td className="table-data__data table-data__data--little">
               {evento.descricao}
             </td>
 
-            <td className="table-data__data table-data__data--big">
+            <td className="table-data__data table-data__data--little">
               {evento.tiposEvento.titulo}
             </td>
 
-            <td className="table-data__data table-data__data--big">
+            <td className="table-data__data table-data__data--little">
               {evento.instituicao.nomeFantasia}
             </td>
 
-            <td className="table-data__data table-data__data--big">
+            <td className="table-data__data table-data__data--little">
               {evento.dataEvento}
             </td>
 

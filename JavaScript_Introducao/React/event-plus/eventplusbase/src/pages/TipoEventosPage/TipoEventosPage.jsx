@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Title from "./../../components/Title/Title";
 import MainContent from "./../../components/MainContent/MainContent";
-import "./TipoEventosPage.css";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import Notification from "../../components/Notification/Notification";
 
@@ -13,6 +12,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Input, Button } from "../../components/FormComponents/FormComponents";
 
 import api from "../../Services/Service";
+import "./TipoEventosPage.css";
 
 const TipoEventosPage = () => {
   //

@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Title from "./../../components/Title/Title";
 import MainContent from "./../../components/MainContent/MainContent";
-import "./EventosPage.css";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import Notification from "../../components/Notification/Notification";
 import Container from "../../components/Container/Container";
 import TableEventos from "./TableEventos/TableEventos";
 import eventImage from "../../assets/images/evento.svg";
 import Spinner from "../../components/Spinner/Spinner";
-import { Input, Button } from "../../components/FormComponents/FormComponents";
+import {
+  Input,
+  Button,
+  Select,
+  SelectTipo,
+  SelectInst,
+} from "../../components/FormComponents/FormComponents";
 import api from "../../Services/Service";
 
+import "./EventosPage.css";
 const EventosPage = () => {
   //
   const [frmEdit, setFrmEdit] = useState(false);
 
-  const [nome, setNome] = useState("");
+  const [nomeEvento, setNomeEvento] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [tipoEvento, setTipoEvento] = useState("");
+  const [idTipoEvento, setIdTipoEvento] = useState("");
   const [dataEvento, setDataEvento] = useState("");
-  const [instituicao, setInstituicao] = useState("");
+  const [idInstituicao, setIdInstituicao] = useState("");
 
   const [eventos, setEventos] = useState([]);
   const [tiposEvento, setTiposEvento] = useState([]);
@@ -82,7 +88,7 @@ const EventosPage = () => {
     // validar pelo menos 3 caracteres
     //chamar a api
 
-    if (nome.trim().length < 3) {
+    if (nomeEvento.trim().length < 3) {
       setNotifyUser({
         titleNote: "Nome inválido",
         textNote: `digite pelo menos 3 caracteres!`,
@@ -95,7 +101,20 @@ const EventosPage = () => {
     }
     //chamar a api
     try {
-      const promise = await api.post("/Evento", { nome, descricao, idTipoEvento : tipoEvento, dataEvento, idInstituicao : instituicao });
+      console.log(
+        nomeEvento,
+        descricao,
+        idTipoEvento,
+        dataEvento,
+        idInstituicao
+      );
+      const promise = await api.post("/Evento", {
+        nomeEvento,
+        descricao,
+        idTipoEvento,
+        dataEvento,
+        idInstituicao,
+      });
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -106,11 +125,11 @@ const EventosPage = () => {
         showMessage: true,
       });
     } catch (error) {
-      console.error(error + "Erro ao cadastrar evento");
+      console.error("Erro ao cadastrar evento: " + error);
     }
 
     //limpar o formulário
-    setNome("");
+    setNomeEvento("");
     setShowSpinner(false);
   }
 
@@ -118,7 +137,11 @@ const EventosPage = () => {
 
   function showUpdateForm(evento) {
     setFrmEdit(true);
-    setNome(evento.nomeEvento);
+    setNomeEvento(evento.nomeEvento);
+    setDescricao(evento.descricao);
+    document.getElementById("data-evento").value = new Date(evento.dataEvento).toDateString();
+    document.getElementById("tipo-evento").value = evento.tipoEvento.idTipoEvento;
+    document.getElementById("instituicao").value = evento.instituicao.idInstituicao;
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIdEvento(evento.idEvento);
   }
@@ -127,7 +150,7 @@ const EventosPage = () => {
     e.preventDefault();
     setShowSpinner(true);
 
-    if (nome.trim().length < 3) {
+    if (nomeEvento.trim().length < 3) {
       setNotifyUser({
         titleNote: "Nome inválido",
         textNote: `Digite pelo menos 3 caracteres!`,
@@ -140,8 +163,12 @@ const EventosPage = () => {
     }
 
     try {
-      const promise = await api.put(`/Evento/${idEvento}`, {
-        nome,
+      const promise = await api.put("/Evento", {
+        nomeEvento,
+        descricao,
+        idTipoEvento,
+        dataEvento,
+        idInstituicao,
       });
       getEventos();
       setNotifyUser({
@@ -152,7 +179,7 @@ const EventosPage = () => {
           "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
         showMessage: true,
       });
-      setNome("");
+      setNomeEvento("");
       setFrmEdit(false);
     } catch (error) {
       console.error("Erro ao atualizar evento: " + error);
@@ -212,58 +239,56 @@ const EventosPage = () => {
                 <>
                   <p>Tela de Cadastro</p>
                   <Input
-                    id="nome"
+                    id="nome-evento"
                     placeholder="Nome"
                     type="text"
-                    name="nome"
-                    value={nome}
+                    name="nome-evento"
+                    value={nomeEvento}
                     required
                     manipulationFunction={(e) => {
-                      setNome(e.target.value);
+                      setNomeEvento(e.target.value);
                     }}
                   />
                   <Input
-                    id="nome"
-                    placeholder="Nome"
+                    id="descricao"
+                    placeholder="Descrição"
                     type="text"
-                    name="nome"
-                    value={nome}
+                    name="descricao"
+                    value={descricao}
                     required
                     manipulationFunction={(e) => {
-                      setNome(e.target.value);
+                      setDescricao(e.target.value);
+                    }}
+                  />
+                  <SelectTipo
+                    id="tipo-evento"
+                    name="tipo-evento"
+                    object={tiposEvento}
+                    required
+                    value={idTipoEvento}
+                    manipulationFunction={(e) => {
+                      setIdTipoEvento(e.target.value);
+                    }}
+                  />
+                  <SelectInst
+                    value={idInstituicao}
+                    id="instituicao"
+                    name="instituicao"
+                    required
+                    object={instituicoes}
+                    manipulationFunction={(e) => {
+                      setIdInstituicao(e.target.value);
                     }}
                   />
                   <Input
-                    id="nome"
-                    placeholder="Nome"
-                    type="select"
-                    name="nome"
-                    value={nome}
-                    required
-                    manipulationFunction={(e) => {
-                      setNome(e.target.value);
-                    }}
-                  />
-                  <Input
-                    id="nome"
-                    placeholder="Nome"
-                    type="select"
-                    name="nome"
-                    value={nome}
-                    required
-                    manipulationFunction={(e) => {
-                      setNome(e.target.value);
-                    }}
-                  />
-                  <Input
-                    id="nome"
-                    placeholder="Nome"
+                    id="data-evento"
+                    placeholder="Data"
                     type="date"
-                    name="nome"
-                    value={nome}
+                    name="data-evento"
+                    value={dataEvento}
                     required
                     manipulationFunction={(e) => {
-                      setNome(e.target.value);
+                      setDataEvento(e.target.value);
                     }}
                   />
                   <Button
@@ -277,14 +302,56 @@ const EventosPage = () => {
                 <>
                   <p>Tela de Edição</p>
                   <Input
-                    id="nome"
+                    id="nome-evento"
                     placeholder="Nome"
                     type="text"
-                    name="nome"
-                    value={nome}
+                    name="nome-evento"
+                    value={nomeEvento}
                     required
                     manipulationFunction={(e) => {
-                      setNome(e.target.value);
+                      setNomeEvento(e.target.value);
+                    }}
+                  />
+                  <Input
+                    id="descricao"
+                    placeholder="Descrição"
+                    type="text"
+                    name="descricao"
+                    value={descricao}
+                    required
+                    manipulationFunction={(e) => {
+                      setDescricao(e.target.value);
+                    }}
+                  />
+                  <SelectTipo
+                    id="tipo-evento"
+                    name="tipo-evento"
+                    object={tiposEvento}
+                    required
+                    value={idTipoEvento}
+                    manipulationFunction={(e) => {
+                      setIdTipoEvento(e.target.value);
+                    }}
+                  />
+                  <SelectInst
+                    value={idInstituicao}
+                    id="instituicao"
+                    name="instituicao"
+                    required
+                    object={instituicoes}
+                    manipulationFunction={(e) => {
+                      setIdInstituicao(e.target.value);
+                    }}
+                  />
+                  <Input
+                    id="data-evento"
+                    placeholder="Data"
+                    type="date"
+                    name="data-evento"
+                    value={dataEvento}
+                    required
+                    manipulationFunction={(e) => {
+                      setDataEvento(e.target.value);
                     }}
                   />
                   <div className="buttons-editbox">

@@ -47,14 +47,44 @@ export const Button = ({
   );
 };
 
-export const Select = ({
+// export const Select = ({
+//   id,
+//   required,
+//   additionalClass = "",
+//   name,
+//   object = [],
+// }) => {
+//   return (
+//     <select
+//       id={id}
+//       required={required}
+//       className={`input-component ${additionalClass}`}
+//       name={name}
+//     >
+//       <option value="select">Selecione</option>
+//       {object.titulo == null
+//         ? object.map((option) => (
+//             <option value={option.idInstituicao} key={option.idInstituicao}>
+//               {option.nomeFantasia}
+//             </option>
+//           ))
+//         : object.nomeFantasia == null ? object.map((option) => (
+//             <option value={option.idTipoEvento} key={option.idTipoEvento}>
+//               {option.titulo}
+//             </option>
+//           )) : null}
+//     </select>
+//   );
+// };
+
+export const SelectInst = ({
   id,
   required,
   additionalClass = "",
   name,
+  value,
   manipulationFunction,
-  arrayOptions,
-  sim
+  object = [],
 }) => {
   return (
     <select
@@ -62,9 +92,42 @@ export const Select = ({
       required={required}
       className={`input-component ${additionalClass}`}
       name={name}
+      value={value}
+      onChange={manipulationFunction}
     >
-      {arrayOptions.map((option) => (
-        <option key={option}>{option.text}</option>
+      <option value="select">Selecione</option>
+      {object.map((option) => (
+        <option value={option.idInstituicao} key={option.idInstituicao}>
+          {option.nomeFantasia}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+export const SelectTipo = ({
+  id,
+  required,
+  additionalClass = "",
+  name,
+  value,
+  manipulationFunction,
+  object = [],
+}) => {
+  return (
+    <select
+      id={id}
+      required={required}
+      className={`input-component ${additionalClass}`}
+      name={name}
+      value={value}
+      onChange={manipulationFunction}
+    >
+      <option value="select">Selecione</option>
+      {object.map((option) => (
+        <option value={option.idTipoEvento} key={option.idTipoEvento}>
+          {option.titulo}
+        </option>
       ))}
     </select>
   );
