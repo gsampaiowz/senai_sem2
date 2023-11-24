@@ -34,7 +34,7 @@ const TableEventos = ({ dados, fnUpdate, fnDelete }) => {
 
       <tbody>
         {dados.map((evento) => (
-          <tr className="table-data__head-row">
+          <tr key={evento.idEvento} className="table-data__head-row">
             <td className="table-data__data table-data__data--little">
               {evento.nomeEvento}
             </td>
@@ -52,7 +52,7 @@ const TableEventos = ({ dados, fnUpdate, fnDelete }) => {
             </td>
 
             <td className="table-data__data table-data__data--little">
-              {evento.dataEvento}
+              {new Date(evento.dataEvento).toLocaleDateString()}
             </td>
 
             <td className="table-data__data table-data__data--little">

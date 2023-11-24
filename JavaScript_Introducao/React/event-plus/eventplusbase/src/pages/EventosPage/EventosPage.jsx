@@ -101,13 +101,6 @@ const EventosPage = () => {
     }
     //chamar a api
     try {
-      console.log(
-        nomeEvento,
-        descricao,
-        idTipoEvento,
-        dataEvento,
-        idInstituicao
-      );
       const promise = await api.post("/Evento", {
         nomeEvento,
         descricao,
@@ -135,15 +128,17 @@ const EventosPage = () => {
 
   //MOSTRAR FORMULÁRIO DE EDIÇÃO
 
-  function showUpdateForm(evento) {
+  function showUpdateForm(e) {
     setFrmEdit(true);
-    setNomeEvento(evento.nomeEvento);
-    setDescricao(evento.descricao);
-    document.getElementById("data-evento").value = new Date(evento.dataEvento).toDateString();
-    document.getElementById("tipo-evento").value = evento.tipoEvento.idTipoEvento;
-    document.getElementById("instituicao").value = evento.instituicao.idInstituicao;
+    setNomeEvento(e.nomeEvento);
+    setDescricao(e.descricao);
+    // document.getElementById("data-evento").value = new Date(evento.dataEvento).toLocaleDateString().split("/").reverse().join("-");
+    console.log(document.getElementById("data-evento").value);
+    setIdTipoEvento(e.tiposEvento.titulo);
+    setDataEvento(e.);
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setIdEvento(evento.idEvento);
+    setIdEvento(e.idEvento);
+    document.getElementById("data-evento").value = e.dataEvento.substr(0, 10);
   }
   //ATUALIZAR EVENTO
   async function handleUpdate(e) {
@@ -163,7 +158,7 @@ const EventosPage = () => {
     }
 
     try {
-      const promise = await api.put("/Evento", {
+      const promise = await api.put(`/Evento/${idEvento}`, {
         nomeEvento,
         descricao,
         idTipoEvento,
