@@ -11,8 +11,6 @@ import {
   Input,
   Button,
   Select,
-  SelectTipo,
-  SelectInst,
 } from "../../components/FormComponents/FormComponents";
 import api from "../../Services/Service";
 
@@ -132,13 +130,11 @@ const EventosPage = () => {
     setFrmEdit(true);
     setNomeEvento(e.nomeEvento);
     setDescricao(e.descricao);
-    // document.getElementById("data-evento").value = new Date(evento.dataEvento).toLocaleDateString().split("/").reverse().join("-");
-    console.log(document.getElementById("data-evento").value);
-    setIdTipoEvento(e.tiposEvento.titulo);
-    setDataEvento(e.);
+    setIdTipoEvento(e.idTipoEvento);
+    setIdInstituicao(e.idInstituicao);
+    setDataEvento(e.dataEvento.slice(0, 10));
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIdEvento(e.idEvento);
-    document.getElementById("data-evento").value = e.dataEvento.substr(0, 10);
   }
   //ATUALIZAR EVENTO
   async function handleUpdate(e) {
@@ -185,6 +181,11 @@ const EventosPage = () => {
 
   function cancelUpdate() {
     setFrmEdit(false);
+    setNomeEvento("");
+    setDescricao("");
+    setIdTipoEvento("");
+    setIdInstituicao("");
+    setDataEvento("");
   }
 
   async function handleDelete(id) {
@@ -255,21 +256,37 @@ const EventosPage = () => {
                       setDescricao(e.target.value);
                     }}
                   />
-                  <SelectTipo
+                  <Select
                     id="tipo-evento"
                     name="tipo-evento"
                     object={tiposEvento}
                     required
                     value={idTipoEvento}
+                    mapOption={(option) => (
+                      <option
+                        value={option.idTipoEvento}
+                        key={option.idTipoEvento}
+                      >
+                        {option.titulo}
+                      </option>
+                    )}
                     manipulationFunction={(e) => {
                       setIdTipoEvento(e.target.value);
                     }}
                   />
-                  <SelectInst
+                  <Select
                     value={idInstituicao}
                     id="instituicao"
                     name="instituicao"
                     required
+                    mapOption={(option) => (
+                      <option
+                        value={option.idInstituicao}
+                        key={option.idInstituicao}
+                      >
+                        {option.nomeFantasia}
+                      </option>
+                    )}
                     object={instituicoes}
                     manipulationFunction={(e) => {
                       setIdInstituicao(e.target.value);
@@ -318,21 +335,37 @@ const EventosPage = () => {
                       setDescricao(e.target.value);
                     }}
                   />
-                  <SelectTipo
+                  <Select
                     id="tipo-evento"
                     name="tipo-evento"
                     object={tiposEvento}
                     required
                     value={idTipoEvento}
+                    mapOption={(option) => (
+                      <option
+                        value={option.idTipoEvento}
+                        key={option.idTipoEvento}
+                      >
+                        {option.titulo}
+                      </option>
+                    )}
                     manipulationFunction={(e) => {
                       setIdTipoEvento(e.target.value);
                     }}
                   />
-                  <SelectInst
+                  <Select
                     value={idInstituicao}
                     id="instituicao"
                     name="instituicao"
                     required
+                    mapOption={(option) => (
+                      <option
+                        value={option.idInstituicao}
+                        key={option.idInstituicao}
+                      >
+                        {option.nomeFantasia}
+                      </option>
+                    )}
                     object={instituicoes}
                     manipulationFunction={(e) => {
                       setIdInstituicao(e.target.value);

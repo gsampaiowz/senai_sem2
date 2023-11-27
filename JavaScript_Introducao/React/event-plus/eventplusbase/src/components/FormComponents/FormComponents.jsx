@@ -47,11 +47,38 @@ export const Button = ({
   );
 };
 
-// export const Select = ({
+export const Select = ({
+  id,
+  required,
+  additionalClass = "",
+  name,
+  value,
+  manipulationFunction,
+  object = [],
+  mapOption,
+}) => {
+  return (
+    <select
+      id={id}
+      required={required}
+      className={`input-component ${additionalClass}`}
+      name={name}
+      value={value}
+      onChange={manipulationFunction}
+    >
+      <option value="select">Selecione</option>
+      {object.map(mapOption)}
+    </select>
+  );
+};
+
+// export const SelectInst = ({
 //   id,
 //   required,
 //   additionalClass = "",
 //   name,
+//   value,
+//   manipulationFunction,
 //   object = [],
 // }) => {
 //   return (
@@ -60,75 +87,43 @@ export const Button = ({
 //       required={required}
 //       className={`input-component ${additionalClass}`}
 //       name={name}
+//       value={value}
+//       onChange={manipulationFunction}
 //     >
 //       <option value="select">Selecione</option>
-//       {object.titulo == null
-//         ? object.map((option) => (
-//             <option value={option.idInstituicao} key={option.idInstituicao}>
-//               {option.nomeFantasia}
-//             </option>
-//           ))
-//         : object.nomeFantasia == null ? object.map((option) => (
-//             <option value={option.idTipoEvento} key={option.idTipoEvento}>
-//               {option.titulo}
-//             </option>
-//           )) : null}
+//       {object.map((option) => (
+//         <option value={option.idInstituicao} key={option.idInstituicao}>
+//           {option.nomeFantasia}
+//         </option>
+//       ))}
 //     </select>
 //   );
 // };
 
-export const SelectInst = ({
-  id,
-  required,
-  additionalClass = "",
-  name,
-  value,
-  manipulationFunction,
-  object = [],
-}) => {
-  return (
-    <select
-      id={id}
-      required={required}
-      className={`input-component ${additionalClass}`}
-      name={name}
-      value={value}
-      onChange={manipulationFunction}
-    >
-      <option value="select">Selecione</option>
-      {object.map((option) => (
-        <option value={option.idInstituicao} key={option.idInstituicao}>
-          {option.nomeFantasia}
-        </option>
-      ))}
-    </select>
-  );
-};
-
-export const SelectTipo = ({
-  id,
-  required,
-  additionalClass = "",
-  name,
-  value,
-  manipulationFunction,
-  object = [],
-}) => {
-  return (
-    <select
-      id={id}
-      required={required}
-      className={`input-component ${additionalClass}`}
-      name={name}
-      value={value}
-      onChange={manipulationFunction}
-    >
-      <option value="select">Selecione</option>
-      {object.map((option) => (
-        <option value={option.idTipoEvento} key={option.idTipoEvento}>
-          {option.titulo}
-        </option>
-      ))}
-    </select>
-  );
-};
+// export const SelectTipo = ({
+//   id,
+//   required,
+//   additionalClass = "",
+//   name,
+//   value,
+//   manipulationFunction,
+//   object = [],
+// }) => {
+//   return (
+//     <select
+//       id={id}
+//       required={required}
+//       className={`input-component ${additionalClass}`}
+//       name={name}
+//       value={value}
+//       onChange={manipulationFunction}
+//     >
+//       <option value="select">Selecione</option>
+//       {object.map((option) => (
+//         <option value={option.idTipoEvento} key={option.idTipoEvento}>
+//           {option.titulo}
+//         </option>
+//       ))}
+//     </select>
+//   );
+// };
