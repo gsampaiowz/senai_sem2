@@ -69,6 +69,7 @@ const TipoEventosPage = () => {
     //chamar a api
     try {
       const promise = await api.post("/TiposEvento", { titulo });
+      console.log(promise.data);
       getTiposEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -116,6 +117,7 @@ const TipoEventosPage = () => {
       const promise = await api.put(`/TiposEvento/${idTipoEvento}`, {
         titulo,
       });
+      console.log(promise.data);
       getTiposEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -143,6 +145,7 @@ const TipoEventosPage = () => {
     try {
       tiposEvento.filter((tipoEvento) => tipoEvento.idTipoEvento === id);
       const promise = await api.delete(`/TiposEvento/${id}`);
+      console.log(promise.data);
       getTiposEventos();
       setNotifyUser({
         titleNote: "Sucesso",

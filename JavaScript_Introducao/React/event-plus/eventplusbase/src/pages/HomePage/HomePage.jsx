@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MainContent from "../../components/MainContent/MainContent";
 import Banner from "../../components/Banner/Banner";
 import VisionSection from "../../components/VisionSection/VisionSection";
@@ -15,14 +15,17 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./HomePage.css";
+import { userContext } from "../../context/AuthContext";
 
 const HomePage = () => {
+  const { userData } = useContext(userContext);
+  console.log(userData);
+
   useEffect(() => {
     //chamar a api
     async function getProximosEventos() {
       try {
         const promise = await api.get("/Evento/ListarProximos");
-        console.log(promise.data);
         setNextEvents(promise.data);
       } catch (error) {
         console.error("Erro : " + error);
@@ -31,7 +34,6 @@ const HomePage = () => {
     }
 
     getProximosEventos();
-    console.log("A HOME FOI MONTADA!");
   }, []);
 
   // fake mock - api mocada

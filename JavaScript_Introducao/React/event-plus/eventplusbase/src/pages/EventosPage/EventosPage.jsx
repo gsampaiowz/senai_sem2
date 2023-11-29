@@ -106,6 +106,7 @@ const EventosPage = () => {
         dataEvento,
         idInstituicao,
       });
+      console.log(promise.data);
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -136,6 +137,7 @@ const EventosPage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIdEvento(e.idEvento);
   }
+
   //ATUALIZAR EVENTO
   async function handleUpdate(e) {
     e.preventDefault();
@@ -161,6 +163,7 @@ const EventosPage = () => {
         dataEvento,
         idInstituicao,
       });
+      console.log(promise.datas);
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -179,6 +182,7 @@ const EventosPage = () => {
     setShowSpinner(false);
   }
 
+  //CANCELA EDIÇÃO
   function cancelUpdate() {
     setFrmEdit(false);
     setNomeEvento("");
@@ -188,11 +192,13 @@ const EventosPage = () => {
     setDataEvento("");
   }
 
+  //DELETAR EVENTO
   async function handleDelete(id) {
     setShowSpinner(true);
     try {
       eventos.filter((tipoEvento) => tipoEvento.idTipoEvento === id);
       const promise = await api.delete(`/Evento/${id}`);
+      console.log(promise.data);
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",
