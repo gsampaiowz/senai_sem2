@@ -1,13 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import logo from "../../assets/images/logo-pink.svg";
 import { Input, Button } from "../../components/FormComponents/FormComponents";
 import imageLogin from "../../assets/images/login.svg"
 
-import "./LoginPage.css";
 import api from "../../Services/Service";
 import Notification from "../../components/Notification/Notification";
 import { userContext, userDecodeToken } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "adm@email.com", senha: "123123" });
@@ -15,6 +16,14 @@ const LoginPage = () => {
   const [notifyUser, setNotifyUser] = useState({});
 
   const {userData, setUserData} = useContext(userContext)
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(userData.name){
+      navigate("/")
+    }
+  }, [userData, navigate]);
 
   async function handleSubmit(e){
     e.preventDefault();
@@ -29,7 +38,7 @@ const LoginPage = () => {
         const userFullToken = userDecodeToken(promise.data.token);
         setUserData(userFullToken); //guarda os dados decodificados (payload)
         localStorage.setItem("token", JSON.stringify(userFullToken));
-        console.log(userFullToken);
+        navigate("/") //manda o usuário para a página inicial
 
         setNotifyUser({
           titleNote: "Sucesso",

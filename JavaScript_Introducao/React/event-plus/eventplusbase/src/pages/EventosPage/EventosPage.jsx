@@ -116,12 +116,16 @@ const EventosPage = () => {
           "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
         showMessage: true,
       });
+      setNomeEvento("");
+      setDescricao("");
+      setIdTipoEvento("");
+      setIdInstituicao("");
+      setDataEvento("");
     } catch (error) {
       console.error("Erro ao cadastrar evento: " + error);
     }
 
     //limpar o formulário
-    setNomeEvento("");
     setShowSpinner(false);
   }
 

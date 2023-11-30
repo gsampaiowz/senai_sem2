@@ -32,7 +32,6 @@ const HomePage = () => {
         console.log("Erro ao carregar os eventos");
       }
     }
-
     getProximosEventos();
   }, []);
 
@@ -48,25 +47,33 @@ const HomePage = () => {
 
           <div className="events-box">
             <Swiper
-              slidesPerView={3}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+                992: {
+                  slidesPerView: 3,
+                },
+              }}
+              spaceBetween={20}
               pagination={{
                 dynamicBullets: true,
+                clickable: true,
               }}
               modules={[Pagination]}
               className="mySwiper"
             >
-              {nextEvents.map((event) => (
-                <>
-                  <SwiperSlide>
-                    <NextEvent
-                      key={event.idEvento}
-                      title={event.nomeEvento}
-                      description={event.descricao}
-                      eventDate={event.dataEvento}
-                      idEvento={event.idEvento}
-                    />
-                  </SwiperSlide>
-                </>
+              {nextEvents.map((event, index) => (
+                <SwiperSlide key={index}>
+                  <NextEvent
+                    style={{ flex: 1 }}
+                    key={event.idEvento}
+                    title={event.nomeEvento}
+                    description={event.descricao}
+                    eventDate={event.dataEvento}
+                    idEvento={event.idEvento}
+                  />
+                </SwiperSlide>
               ))}
             </Swiper>
           </div>

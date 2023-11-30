@@ -138,6 +138,7 @@ const TipoEventosPage = () => {
 
   function cancelUpdate() {
     setFrmEdit(false);
+    setTitulo("");
   }
 
   async function handleDelete(id) {
