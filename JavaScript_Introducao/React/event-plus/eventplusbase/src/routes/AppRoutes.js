@@ -7,6 +7,7 @@ import TipoEventosPage from "../pages/TipoEventosPage/TipoEventosPage";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import TestePage from "../pages/TestePage/TestePage";
+import { PrivateRoute } from "./PrivateRoute";
 
 const AppRoutes = () => {
   return (
@@ -15,11 +16,33 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<HomePage />} exact path="/" />
         <Route element={<LoginPage />} path="/login" />
-        <Route element={<EventosPage />} path="/eventos" />
-        <Route element={<TipoEventosPage />} path="/tipos-de-eventos" />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <EventosPage />
+            </PrivateRoute>
+          }
+          path="/eventos-aluno"
+        />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <EventosPage />
+            </PrivateRoute>
+          }
+          path="/eventos"
+        />
+        <Route
+          element={
+            <PrivateRoute redirectTo="/">
+              <TipoEventosPage />
+            </PrivateRoute>
+          }
+          path="/tipos-de-eventos"
+        />
         <Route element={<TestePage />} path="/teste" />
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   );
 };

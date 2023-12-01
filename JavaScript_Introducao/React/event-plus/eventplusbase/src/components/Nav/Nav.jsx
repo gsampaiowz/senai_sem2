@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 
 import logoMobile from "../../assets/images/logo-white.svg";
 import logoDesktop from "../../assets/images/logo-pink.svg";
+import { userContext } from "../../context/AuthContext";
 
 const Nav = ({ setExibeNavBar, exibeNavBar }) => {
+  const { userData, setUserData } = useContext(userContext);
+
   return (
     <nav className={`navbar ${exibeNavBar ? "exibeNavbar" : ""}`}>
       <span onClick={() => setExibeNavBar(false)} className="navbar__close">
@@ -24,12 +27,22 @@ const Nav = ({ setExibeNavBar, exibeNavBar }) => {
         <Link to="/" className="navbar__item">
           Home
         </Link>
-        <Link to="/eventos" className="navbar__item">
-          Eventos
-        </Link>
-        <Link to="/tipos-de-eventos" className="navbar__item">
-          Tipos de eventos
-        </Link>
+        {userData.role === "adm" ? (
+          <>
+            <Link to="/eventos" className="navbar__item">
+              Eventos
+            </Link>
+
+            <Link to="/tipos-de-eventos" className="navbar__item">
+              Tipos de eventos
+            </Link>
+          </>
+        ) : (
+          <Link to="/eventos-aluno" className="navbar__item">
+            Eventos Aluno
+          </Link>
+        )}
+
         <Link to="/login" className="navbar__item">
           Login
         </Link>
