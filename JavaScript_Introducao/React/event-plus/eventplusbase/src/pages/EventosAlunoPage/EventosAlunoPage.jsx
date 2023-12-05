@@ -15,17 +15,17 @@ const EventosAlunoPage = () => {
   const [eventos, setEventos] = useState([]);
   const [meusEventos, setMeusEventos] = useState([]);
   // select mocado
-  const [quaisEventos, setQuaisEventos] = useState([
+  const quaisEventos = [
     { value: "1", text: "Todos os eventos" },
     { value: "2", text: "Meus eventos" },
-  ]);
+  ]
 
   const [tipoEvento, setTipoEvento] = useState("1"); //código do tipo do Evento escolhido
   const [showSpinner, setShowSpinner] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   // recupera os dados globais do usuário
-  const { userData, setUserData } = useContext(userContext);
+  const { userData } = useContext(userContext);
 
   //METODO PARA LISTAR EVENTOS
   async function getEventos() {
@@ -46,29 +46,43 @@ const EventosAlunoPage = () => {
         `/PresencasEvento/ListarMinhas/${userData.userId}`
       );
 
-      let novosEventos = [...meusEventos];
+      let novosEventos = [];
       promise.data.forEach((e) => {
-        novosEventos.push(e.evento);
+        novosEventos.push({...e.evento, situacao: e.situacao});
       });
       setMeusEventos(novosEventos);
-      console.log(meusEventos);
+
+      const dadosMarcados = verificaPresenca(eventos, promise.data);
+      console.clear();
+      console.log(dadosMarcados);
+
     } catch (error) {
       console.error("Erro ao carregar eventos: " + error);
     }
     setShowSpinner(false);
   }
 
+  const verificaPresenca = (arrAllEvents, eventsUser) => {
+    for (let x = 0; x < arrAllEvents.length; x++) {
+      //para cada evento (todos)
+      //verifica se o aluno está participando do evento atual (x)
+      for (let i = 0; i < eventsUser.length; i++) {
+        if (arrAllEvents[x].idEvento === eventsUser[i].idEvento) {
+          arrAllEvents[x].situacao = true;
+          break;
+        }
+      }
+    }
+
+    return arrAllEvents;
+  };
+
   //LISTAGEM DE EVENTOS
   useEffect(() => {
     //chamar a api
     getEventos();
     getMeusEventos();
-  }, []);
-
-  // toggle meus eventos ou todos os eventos
-  function myEvents(tpEvent) {
-    setTipoEvento(tpEvent);
-  }
+  }, [userData]);
 
   async function loadMyComentary(idComentary) {
     return "????";
@@ -102,7 +116,7 @@ const EventosAlunoPage = () => {
               </option>
             )}
             manipulationFunction={(e) => {
-              myEvents(e.target.value);
+             setTipoEvento(e.target.value);
             }} // aqui só a variável state
             value={tipoEvento}
             additionalClass="select-tp-evento"

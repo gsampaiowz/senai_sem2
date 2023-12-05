@@ -10,8 +10,6 @@ function App() {
     const token = localStorage.getItem("token");
 
     setUserData(token === null ? {} : JSON.parse(token));
-
-
   }, []);
   return (
     <userContext.Provider value={{ userData, setUserData }}>
