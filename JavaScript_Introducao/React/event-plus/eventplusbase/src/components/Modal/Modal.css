@@ -45,7 +45,14 @@
     font-family: Poppins-SemiBold;
     font-size: 0.875rem;
     text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
   }
+
+  .modal__close{
+    cursor: pointer;
+  }
+
   .comentary {
     display: flex;
     justify-content: space-between;

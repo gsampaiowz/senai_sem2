@@ -26,32 +26,49 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
         </tr>
       </thead>
       <tbody>
-        {dados.map((e) => {
-          return (
+        {dados.length === 0 ? (
+          <tr className="tbal-data__head-row" key={Math.random()}>
+            <td className="tbal-data__data tbal-data__data--big"></td>
+            <td className="tbal-data__data tbal-data__data--big">
+              Você ainda não cadastrou nenhuma presença
+            </td>
+            <td className="tbal-data__data tbal-data__data--big"></td>
+          </tr>
+        ) : (
+          dados.map((e) => (
             <tr className="tbal-data__head-row" key={Math.random()}>
               <td className="tbal-data__data tbal-data__data--big">
                 {e.nomeEvento}
               </td>
-              
+
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
                 {/* {e.dataEvento} */}
                 {new Date(e.dataEvento).toLocaleDateString("pt-BR")}
               </td>
 
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
-                <img
-                  className="tbal-data__icon"
-                  idevento={e.idEvento}
-                  src={comentaryIcon}
-                  alt=""
-                  onClick={fnShowModal}
+                {e.situacao ? (
+                  <img
+                    className="tbal-data__icon"
+                    src={comentaryIcon}
+                    alt=""
+                    onClick={() => fnShowModal(e.idEvento)}
+                  />
+                ) : null}
+                <ToggleSwitch
+                  toggleActive={e.situacao}
+                  manipulationFunction={() => {
+                    fnConnect(
+                      e.idEvento,
+                      e.idPresencaEvento,
+                      e.situacao ? false : true
+                    );
+                  }}
                 />
-
-                <ToggleSwitch toggleActive={e.situacao} manipulationFunction={fnConnect} />
               </td>
             </tr>
-          );
-        })}
+          ))
+        )}
       </tbody>
     </table>
   );

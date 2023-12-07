@@ -6,11 +6,14 @@ import { Tooltip } from "react-tooltip";
 
 //new Date(eventDate).toLocaleDateString()
 
-const NextEvent = ({ title, description, eventDate, idEvento }) => {
-  function conectar(idEvento) {
-    alert(`Conectando ao evento ${idEvento}`);
-  }
-
+const NextEvent = ({
+  conectar,
+  idSituacao,
+  title,
+  description,
+  eventDate,
+  idEvento,
+}) => {
   return (
     <article className="event-card">
       <h2 className="event-card__title">{title}</h2>
@@ -26,14 +29,8 @@ const NextEvent = ({ title, description, eventDate, idEvento }) => {
       </p>
       <p className="event-card__description">{dateFormatDbToView(eventDate)}</p>
 
-      <a
-        href="/"
-        className="event-card__connect-link"
-        onClick={() => {
-          conectar(idEvento);
-        }}
-      >
-        Conectar
+      <a href="/" className="event-card__connect-link" onClick={conectar}>
+        {idSituacao ? "Desconectar" : "Conectar"}
       </a>
     </article>
   );

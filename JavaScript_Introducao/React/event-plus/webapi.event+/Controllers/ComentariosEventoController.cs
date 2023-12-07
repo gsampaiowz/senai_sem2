@@ -9,50 +9,23 @@ namespace webapi.event_.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class PresencasEventoController : ControllerBase
+    public class ComentariosEventoController : ControllerBase
     {
-        private IPresencasEventoRepository _presencasEventoRepository { get; set; }
+        private ComentariosEventoRepository _comentariosEventoRepository { get; set; }
 
-        public PresencasEventoController() => _presencasEventoRepository = new PresencaRepository();
+        public ComentariosEventoController() => _comentariosEventoRepository = new ComentariosEventoRepository();
 
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                return Ok(_presencasEventoRepository.Listar());
+                return Ok(_comentariosEventoRepository.Listar());
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
-            }
-        }
-
-        [HttpPost]
-        public IActionResult Post(PresencasEvento presencasEvento)
-        {
-            try
-            {
-                _presencasEventoRepository.Inscrever(presencasEvento);
-
-                return StatusCode(201);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet("ListarMinhas/{id}")]
-        public IActionResult GetMy(Guid id)
-        {
-            try
-            {
-                return Ok(_presencasEventoRepository.ListarMinhas(id));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
+                throw;
             }
         }
 
@@ -61,12 +34,42 @@ namespace webapi.event_.Controllers
         {
             try
             {
-                return Ok(_presencasEventoRepository.BuscarPorId(id));
+                return Ok(_comentariosEventoRepository.BuscarPorId(id));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+                throw;
+            }
+        }
 
+        [HttpGet("BuscarPorIdUsuario")]
+        public IActionResult GetByIdUser(Guid idUsuario, Guid idEvento)
+        {
+            try
+            {
+                return Ok(_comentariosEventoRepository.BuscarPorIdUsuario(idUsuario, idEvento));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+                throw;
+            }
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Post(ComentariosEvento comentario)
+        {
+            try
+            {
+                _comentariosEventoRepository.Cadastrar(comentario);
+                return StatusCode(201, comentario);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
                 throw;
             }
         }
@@ -76,7 +79,7 @@ namespace webapi.event_.Controllers
         {
             try
             {
-                _presencasEventoRepository.Deletar(id);
+                _comentariosEventoRepository.Deletar(id);
                 return StatusCode(204);
             }
             catch (Exception e)

@@ -19,24 +19,76 @@ import { userContext } from "../../context/AuthContext";
 
 const HomePage = () => {
   const { userData } = useContext(userContext);
-  console.log(userData);
 
   useEffect(() => {
     //chamar a api
-    async function getProximosEventos() {
-      try {
-        const promise = await api.get("/Evento/ListarProximos");
-        setNextEvents(promise.data);
-      } catch (error) {
-        console.error("Erro : " + error);
-        console.log("Erro ao carregar os eventos");
+    getProximosEventos();
+  }, [userData]);
+
+  async function getProximosEventos() {
+    try {
+      const promise = await api.get("/Evento/ListarProximos");
+      const promiseEventos = await api.get(
+        `/PresencasEvento/ListarMinhas/${userData.userId}`
+      );
+      verificaPresenca(promise.data, promiseEventos.data);
+
+      // let novosEventos = [];
+      // promiseEventos.data.forEach((e) => {
+      //   novosEventos.push({
+      //     ...e.evento,
+      //     idPresencaEvento: e.idPresencaEvento,
+      //     situacao: e.situacao,
+      //   });
+      // });
+
+      setNextEvents(promise.data);
+    } catch (error) {
+      console.error("Erro ao carregar os eventos: " + error);
+    }
+  }
+  // array de objetos - proximos eventos
+  const [nextEvents, setNextEvents] = useState([]);
+
+  //verificar presença
+  const verificaPresenca = (arrAllEvents, eventsUser) => {
+    for (let x = 0; x < arrAllEvents.length; x++) {
+      //para cada evento (todos)
+      //verifica se o aluno está participando do evento atual (x)
+      for (let i = 0; i < eventsUser.length; i++) {
+        if (arrAllEvents[x].idEvento === eventsUser[i].evento.idEvento) {
+          arrAllEvents[x].situacao = true;
+          arrAllEvents[x].idPresencaEvento = eventsUser[i].idPresencaEvento;
+          break;
+        }
       }
     }
-    getProximosEventos();
-  }, []);
 
-  // fake mock - api mocada
-  const [nextEvents, setNextEvents] = useState([]);
+    return arrAllEvents;
+  };
+
+  async function handleConnect(idEvent, idPresent, connect = false) {
+    if (connect === true) {
+      try {
+        await api.post("/PresencasEvento", {
+          situacao: true,
+          idUsuario: userData.userId,
+          idEvento: idEvent,
+        });
+        getProximosEventos();
+      } catch (error) {
+        console.log("Erro ao conectar" + error);
+      }
+      return;
+    }
+    //unconnect
+    try {
+      await api.delete(`/PresencasEvento/${idPresent}`);
+      getProximosEventos();
+    } catch (error) {
+      console.log("Erro ao desconectar" + error);
+    }
+  }
 
   return (
     <MainContent>
@@ -72,6 +124,17 @@ const HomePage = () => {
                     description={event.descricao}
                     eventDate={event.dataEvento}
                     idEvento={event.idEvento}
+                    idSituacao={event.situacao}
+                    conectar={(e) => {
+                      e.preventDefault();
+                      
+                      return(handleConnect(
+                        event.idEvento,
+                        event.idPresencaEvento,
+                        event.situacao ? false : true
+                      ))
+                      
+                    }}
                   />
                 </SwiperSlide>
               ))}
