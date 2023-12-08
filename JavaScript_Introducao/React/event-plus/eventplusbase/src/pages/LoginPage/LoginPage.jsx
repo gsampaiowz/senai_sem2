@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-  const [user, setUser] = useState({ email: "adm@email.com", senha: "123123" });
+  const [user, setUser] = useState({ email: "adm@email.com", senha: "adm123" });
 
   const [notifyUser, setNotifyUser] = useState({});
 

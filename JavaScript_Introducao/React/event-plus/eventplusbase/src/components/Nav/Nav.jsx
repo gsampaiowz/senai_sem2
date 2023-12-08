@@ -7,7 +7,7 @@ import logoDesktop from "../../assets/images/logo-pink.svg";
 import { userContext } from "../../context/AuthContext";
 
 const Nav = ({ setExibeNavBar, exibeNavBar }) => {
-  const { userData, setUserData } = useContext(userContext);
+  const { userData } = useContext(userContext);
 
   return (
     <nav className={`navbar ${exibeNavBar ? "exibeNavbar" : ""}`}>
@@ -27,7 +27,7 @@ const Nav = ({ setExibeNavBar, exibeNavBar }) => {
         <Link to="/" className="navbar__item">
           Home
         </Link>
-        {userData.role === "adm" ? (
+        {userData.role === "administrador" ? (
           <>
             <Link to="/eventos" className="navbar__item">
               Eventos
@@ -37,7 +37,7 @@ const Nav = ({ setExibeNavBar, exibeNavBar }) => {
               Tipos de eventos
             </Link>
           </>
-        ) : userData.role === "comum" ? (
+        ) : userData.role === "aluno" ? (
           <Link to="/eventos-aluno" className="navbar__item">
             Eventos Aluno
           </Link>

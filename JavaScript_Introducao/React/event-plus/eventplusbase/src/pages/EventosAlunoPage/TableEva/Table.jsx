@@ -1,10 +1,8 @@
 import React from "react";
 import comentaryIcon from "../../../assets/images/comentary-icon.svg";
-import trashDelete from "../../../assets/images/trash-delete.svg";
 import ToggleSwitch from "../../../components/Toggle/Toggle";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
-import { Tooltip } from "react-tooltip";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 import "./Table.css";
@@ -47,7 +45,7 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
               </td>
 
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
-                {e.situacao ? (
+                {new Date(e.dataEvento) < new Date() ? (
                   <img
                     className="tbal-data__icon"
                     src={comentaryIcon}
@@ -55,16 +53,18 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
                     onClick={() => fnShowModal(e.idEvento)}
                   />
                 ) : null}
-                <ToggleSwitch
-                  toggleActive={e.situacao}
-                  manipulationFunction={() => {
-                    fnConnect(
-                      e.idEvento,
-                      e.idPresencaEvento,
-                      e.situacao ? false : true
-                    );
-                  }}
-                />
+                {new Date(e.dataEvento) > new Date() ? (
+                  <ToggleSwitch
+                    toggleActive={e.situacao}
+                    manipulationFunction={() => {
+                      fnConnect(
+                        e.idEvento,
+                        e.idPresencaEvento,
+                        e.situacao ? false : true
+                      );
+                    }}
+                  />
+                ) : null}
               </td>
             </tr>
           ))

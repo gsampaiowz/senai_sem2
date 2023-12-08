@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import MainContent from "../../components/MainContent/MainContent";
 import Title from "../../components/Title/Title";
 import Table from "./TableEva/Table";
@@ -10,6 +10,7 @@ import api from "../../Services/Service";
 
 import "./EventosAlunoPage.css";
 import { userContext } from "../../context/AuthContext";
+import Notification from "../../components/Notification/Notification";
 
 const EventosAlunoPage = () => {
   const [eventos, setEventos] = useState([]);
@@ -19,8 +20,11 @@ const EventosAlunoPage = () => {
     { value: "2", text: "Meus eventos" },
   ];
 
-  const [idEventoComentario, setIdEventoComentario] = useState("")
-  const [comentario, setComentario] = useState("")
+  const [notifyUser, setNotifyUser] = useState({});
+
+  const [idEventoComentario, setIdEventoComentario] = useState("");
+  const [comentario, setComentario] = useState("");
+  const [idComentario, setIdComentario] = useState("");
 
   const [tipoEvento, setTipoEvento] = useState("1"); //código do tipo do Evento escolhido
   const [showSpinner, setShowSpinner] = useState(false);
@@ -29,7 +33,7 @@ const EventosAlunoPage = () => {
   // recupera os dados globais do usuário
   const { userData } = useContext(userContext);
 
-  async function getEventos() {
+  const getEventos = useCallback(async () => {
     setShowSpinner(true);
     try {
       const promise = await api.get("/Evento");
@@ -55,7 +59,7 @@ const EventosAlunoPage = () => {
       console.error("Erro ao carregar eventos: " + error);
     }
     setShowSpinner(false);
-  }
+  }, [userData, tipoEvento])
 
   //verificar presença
   const verificaPresenca = (arrAllEvents, eventsUser) => {
@@ -78,30 +82,84 @@ const EventosAlunoPage = () => {
   useEffect(() => {
     //chamar a api
     getEventos();
-  }, [userData, tipoEvento]);
+  }, [userData, tipoEvento, getEventos]);
 
   const showHideModal = (idEvento) => {
     setShowModal(showModal ? false : true);
-    setIdEventoComentario(idEvento)
+    setIdEventoComentario(idEvento);
   };
 
   async function loadMyComentary() {
     const promiseComentario = await api.get(
       `/ComentariosEvento/BuscarPorIdUsuario?idUsuario=${userData.userId}&idEvento=${idEventoComentario}`
     );
-    setComentario(promiseComentario.data.descricao)
+    setComentario(promiseComentario.data.descricao);
+    setIdComentario(promiseComentario.data.idComentarioEvento);
   }
 
   const commentaryRemove = async () => {
-    alert("Remover o comentário");
+    if (idComentario === undefined) {
+      setNotifyUser({
+        titleNote: "Aviso",
+        textNote: `Não há comentário para deletar`,
+        imgIcon: "warning",
+        imgAlt:
+          "Imagem de ilustração de aviso. Moça pisando em um símbolo de exclamação.",
+        showMessage: true,
+      });
+      return;
+    }
+    try {
+      await api.delete(`/ComentariosEvento/${idComentario}`);
+      setComentario();
+      setNotifyUser({
+        titleNote: "Comentário apagado!",
+        textNote: `Sua presença no evento foi cancelada com sucesso.`,
+        imgIcon: "success",
+        imgAlt:
+          "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+        showMessage: true,
+      });
+    } catch (error) {
+      console.log("Erro ao apagar comentário" + error);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Falha ao conectar!`,
+        imgIcon: "danger",
+        imgAlt: "Imagem de ilustração de perigo.",
+        showMessage: true,
+      });
+    }
   };
 
   const commentaryAdd = async (commentary) => {
-    await api.post(`/ComentariosEvento/`, {descricao: commentary, exibe: true, idUsuario: userData.userId, idEvento: idEventoComentario})
+    if (commentary.length < 3) return;
+    const promise = await api.post(`/ComentariosEvento/`, {
+      descricao: commentary,
+      exibe: true,
+      idUsuario: userData.userId,
+      idEvento: idEventoComentario,
+    });
+    setComentario(commentary);
+    setIdComentario(promise.data.idComentarioEvento);
+    setNotifyUser({
+      titleNote: "Presença confirmada!",
+      textNote: `Sua presença no evento foi confirmada com sucesso!`,
+      imgIcon: "success",
+      imgAlt:
+        "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+      showMessage: true,
+    });
   };
 
   const commentaryEdit = async (commentary) => {
-    alert("Edit comentário");
+    // await api.put(`/ComentariosEvento/${idComentario}`, {
+    //   descricao: commentary,
+    //   exibe: true,
+    //   idUsuario: userData.userId,
+    //   idEvento: idEventoComentario,
+    // });
+    // setComentario(commentary);
   };
 
   async function handleConnect(idEvent, idPresent, connect = false) {
@@ -113,8 +171,23 @@ const EventosAlunoPage = () => {
           idEvento: idEvent,
         });
         getEventos();
+        setNotifyUser({
+          titleNote: "Presença confirmada!",
+          textNote: `Sua presença no evento foi confirmada com sucesso!`,
+          imgIcon: "success",
+          imgAlt:
+            "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+          showMessage: true,
+        });
       } catch (error) {
         console.log("Erro ao conectar" + error);
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Falha ao conectar!`,
+          imgIcon: "danger",
+          imgAlt: "Imagem de ilustração de perigo.",
+          showMessage: true,
+        });
       }
       return;
     }
@@ -122,14 +195,30 @@ const EventosAlunoPage = () => {
     try {
       await api.delete(`/PresencasEvento/${idPresent}`);
       getEventos();
+      setNotifyUser({
+        titleNote: "Presença cancelada!",
+        textNote: `Sua presença no evento foi cancelada com sucesso.`,
+        imgIcon: "success",
+        imgAlt:
+          "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+        showMessage: true,
+      });
     } catch (error) {
       console.log("Erro ao desconectar" + error);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Falha ao desconectar!`,
+        imgIcon: "danger",
+        imgAlt: "Imagem de ilustração de perigo.",
+        showMessage: true,
+      });
     }
   }
 
   return (
     <>
       <MainContent>
+        <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
         <Container>
           <Title titleText={"Eventos"} additionalClass="margem-acima" />
 

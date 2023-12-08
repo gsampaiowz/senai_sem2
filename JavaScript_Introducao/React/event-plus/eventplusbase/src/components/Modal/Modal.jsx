@@ -9,7 +9,7 @@ const Modal = ({
   comentaryText = "Não informado.",
   showHideModal = false,
   fnGet = null,
-  fnDelete = null,
+  fnDelete,
   fnPost = null,
   fnPut = null,
 }) => {
@@ -17,7 +17,7 @@ const Modal = ({
 
   useEffect(() => {
     fnGet();
-  }, []);
+  }, [fnGet]);
 
   return (
     <div className="modal">
@@ -35,7 +35,7 @@ const Modal = ({
             src={trashDelete}
             className="comentary__icon-delete"
             alt="Ícone de uma lixeira"
-            onClick={fnDelete}
+            onClick={() => fnDelete()}
           />
 
           <p className="comentary__text">{comentaryText}</p>
@@ -52,7 +52,7 @@ const Modal = ({
 
         <Button
           textButton={
-            comentaryText !== "Não informado." ? "Editar" : "Comentar"
+            comentaryText !== "Não informado." ? "Apague para comentar novamente" : "Comentar"
           }
           additionalClass="comentary__button"
           manipulationFunction={

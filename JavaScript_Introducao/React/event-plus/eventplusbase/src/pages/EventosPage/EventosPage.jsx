@@ -214,6 +214,14 @@ const EventosPage = () => {
       });
     } catch (error) {
       console.error("Erro ao deletar tipo de evento: " + error);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Falha ao deletar!`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de perigo.",
+        showMessage: true,
+      });
     }
     setShowSpinner(false);
   }
