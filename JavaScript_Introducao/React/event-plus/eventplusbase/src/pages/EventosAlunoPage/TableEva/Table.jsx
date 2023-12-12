@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import comentaryIcon from "../../../assets/images/comentary-icon.svg";
 import ToggleSwitch from "../../../components/Toggle/Toggle";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
+import { FaEye } from "react-icons/fa";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 import "./Table.css";
+import { useNavigate } from "react-router-dom";
+import { userContext } from "../../../context/AuthContext";
 
 const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
+  const navigate = useNavigate();
   return (
     <table className="tbal-data">
       <thead className="tbal-data__head">
@@ -28,12 +32,12 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
           <tr className="tbal-data__head-row" key={Math.random()}>
             <td className="tbal-data__data tbal-data__data--big"></td>
             <td className="tbal-data__data tbal-data__data--big">
-              Você ainda não cadastrou nenhuma presença
+              Não há nenhum evento aqui.
             </td>
             <td className="tbal-data__data tbal-data__data--big"></td>
           </tr>
         ) : (
-          dados.map((e) => (
+          dados.sort((a, b) => (a.dataEvento < b.dataEvento ? 1 : a.dataEvento > b.dataEvento ? -1 : 0)).map((e) => (
             <tr className="tbal-data__head-row" key={Math.random()}>
               <td className="tbal-data__data tbal-data__data--big">
                 {e.nomeEvento}
@@ -65,6 +69,7 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
                     }}
                   />
                 ) : null}
+                <FaEye onClick={() => navigate(`/detalhes-evento/${e.idEvento}`)} style={{cursor: "pointer"}} size={20}/>
               </td>
             </tr>
           ))

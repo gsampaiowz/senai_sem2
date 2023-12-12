@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import MainContent from "../../components/MainContent/MainContent";
 import Banner from "../../components/Banner/Banner";
 import VisionSection from "../../components/VisionSection/VisionSection";
@@ -19,36 +19,28 @@ import { userContext } from "../../context/AuthContext";
 
 const HomePage = () => {
   const { userData } = useContext(userContext);
+  
+  // array de objetos - proximos eventos
+  const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    //chamar a api
-    getProximosEventos();
-  }, [userData]);
-
-  async function getProximosEventos() {
+  const getEventos = useCallback(async () => {
     try {
-      const promise = await api.get("/Evento/ListarProximos");
+      const promise = await api.get("/Evento");
       const promiseEventos = await api.get(
         `/PresencasEvento/ListarMinhas/${userData.userId}`
       );
       verificaPresenca(promise.data, promiseEventos.data);
 
-      // let novosEventos = [];
-      // promiseEventos.data.forEach((e) => {
-      //   novosEventos.push({
-      //     ...e.evento,
-      //     idPresencaEvento: e.idPresencaEvento,
-      //     situacao: e.situacao,
-      //   });
-      // });
-
-      setNextEvents(promise.data);
+      setEvents(promise.data);
     } catch (error) {
       console.error("Erro ao carregar os eventos: " + error);
     }
-  }
-  // array de objetos - proximos eventos
-  const [nextEvents, setNextEvents] = useState([]);
+  }, [userData])
+
+  useEffect(() => {
+    //chamar a api
+    getEventos();
+  }, [userData, getEventos]);
 
   //verificar presença
   const verificaPresenca = (arrAllEvents, eventsUser) => {
@@ -75,7 +67,7 @@ const HomePage = () => {
           idUsuario: userData.userId,
           idEvento: idEvent,
         });
-        getProximosEventos();
+        getEventos();
       } catch (error) {
         console.log("Erro ao conectar" + error);
       }
@@ -84,7 +76,7 @@ const HomePage = () => {
     //unconnect
     try {
       await api.delete(`/PresencasEvento/${idPresent}`);
-      getProximosEventos();
+      getEventos();
     } catch (error) {
       console.log("Erro ao desconectar" + error);
     }
@@ -115,7 +107,53 @@ const HomePage = () => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {nextEvents.map((event, index) => (
+              {events.filter((e) => e.dataEvento >= new Date().toJSON()).map((event, index) => (
+                <SwiperSlide key={index}>
+                  <NextEvent
+                    style={{ flex: 1 }}
+                    key={event.idEvento}
+                    title={event.nomeEvento}
+                    description={event.descricao}
+                    eventDate={event.dataEvento}
+                    idEvento={event.idEvento}
+                    idSituacao={event.situacao}
+                    conectar={(e) => {
+                      e.preventDefault();
+                      
+                      return(handleConnect(
+                        event.idEvento,
+                        event.idPresencaEvento,
+                        event.situacao ? false : true
+                      ))
+                      
+                    }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          <Title titleText={"Eventos passados"} additionalClass="margem-acima"/>
+
+          <div className="events-box">
+            <Swiper
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+                992: {
+                  slidesPerView: 3,
+                },
+              }}
+              spaceBetween={20}
+              pagination={{
+                dynamicBullets: true,
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {events.filter((e) => e.dataEvento < new Date().toJSON()).map((event, index) => (
                 <SwiperSlide key={index}>
                   <NextEvent
                     style={{ flex: 1 }}

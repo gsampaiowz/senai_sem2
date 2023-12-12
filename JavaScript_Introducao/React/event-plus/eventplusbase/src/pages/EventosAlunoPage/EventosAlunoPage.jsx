@@ -225,6 +225,7 @@ const EventosAlunoPage = () => {
           <Select
             id="id-tipo-evento"
             name="tipo-evento"
+            hasDefaultOption={false}
             required={true}
             object={quaisEventos}
             mapOption={(option) => (

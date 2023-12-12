@@ -9,6 +9,7 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import TestePage from "../pages/TestePage/TestePage";
 import { PrivateRoute } from "./PrivateRoute";
+import DetalhesEvento from "../pages/DetalhesEvento/DetalhesEvento";
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<HomePage />} exact path="/" />
         <Route element={<LoginPage />} path="/login" />
+        <Route element={<DetalhesEvento/>} path="/detalhes-evento/:eventId"/>
         <Route
           element={
             <PrivateRoute redirectTo="/">

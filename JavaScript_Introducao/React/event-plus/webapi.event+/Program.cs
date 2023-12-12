@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Azure.CognitiveServices.ContentModerator;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -50,10 +51,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
 
 //Adicione o gerador do Swagger à coleção de serviços
 builder.Services.AddSwaggerGen(options =>
@@ -71,6 +70,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
+    //Adicionar dentro de AddSwaggerGen
     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
     //Configura o Swagger para usar o arquivo XML gerado
@@ -116,6 +116,14 @@ builder.Services.AddCors(options =>
         });
 });
 
+//HABILITA O SERVIÇO DE MODERADOR DE CONTEÚDO DO AZURE
+builder.Services.AddSingleton(provider => new ContentModeratorClient(
+    new ApiKeyServiceClientCredentials("9809dfc85be94e2ea1bcc47d6430c4b7")) //ele espera um parametro key, que é a chave q temos la na plataforma azure depois de criar o recurso "Content Moderator"
+{
+    Endpoint = "https://eventcontentmoderatorvini.cognitiveservices.azure.com/" //link que também está no recurso criado do azure
+}
+    );
+
 var app = builder.Build();
 
 //Alterar dados do Swagger para a seguinte configuração
@@ -130,13 +138,6 @@ app.UseSwagger(options =>
 });
 
 app.UseSwaggerUI();
-
-//Para atender à interface do usuário do Swagger na raiz do aplicativo
-app.UseSwaggerUI(options =>
-{
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    options.RoutePrefix = string.Empty;
-});
 
 //Para atender à interface do usuário do Swagger na raiz do aplicativo
 app.UseSwaggerUI(options =>

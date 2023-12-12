@@ -42,10 +42,6 @@ const Nav = ({ setExibeNavBar, exibeNavBar }) => {
             Eventos Aluno
           </Link>
         ) : null}
-
-        <Link to="/login" className="navbar__item">
-          Login
-        </Link>
       </div>
     </nav>
   );

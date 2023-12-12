@@ -55,6 +55,7 @@ export const Select = ({
   value,
   manipulationFunction,
   object = [],
+  hasDefaultOption = true,
   mapOption,
 }) => {
   return (
@@ -66,7 +67,7 @@ export const Select = ({
       value={value}
       onChange={manipulationFunction}
     >
-      <option value="select">Selecione</option>
+      {hasDefaultOption ? <option value="select">Selecione</option> : null}
       {object.map(mapOption)}
     </select>
   );
