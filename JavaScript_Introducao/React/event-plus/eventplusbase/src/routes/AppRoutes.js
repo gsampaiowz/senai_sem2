@@ -18,7 +18,7 @@ const AppRoutes = () => {
       <Routes>
         <Route element={<HomePage />} exact path="/" />
         <Route element={<LoginPage />} path="/login" />
-        <Route element={<DetalhesEvento/>} path="/detalhes-evento/:eventId"/>
+        <Route element={<DetalhesEvento/>} path="/detalhes-evento/:idEvento"/>
         <Route
           element={
             <PrivateRoute redirectTo="/">

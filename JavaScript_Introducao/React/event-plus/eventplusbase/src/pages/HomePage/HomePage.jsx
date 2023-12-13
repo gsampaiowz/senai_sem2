@@ -16,26 +16,31 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./HomePage.css";
 import { userContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const { userData } = useContext(userContext);
-  
+
   // array de objetos - proximos eventos
   const [events, setEvents] = useState([]);
+
+  const navigate = useNavigate();
 
   const getEventos = useCallback(async () => {
     try {
       const promise = await api.get("/Evento");
-      const promiseEventos = await api.get(
-        `/PresencasEvento/ListarMinhas/${userData.userId}`
-      );
-      verificaPresenca(promise.data, promiseEventos.data);
+      if (userData.userId) {
+        const promiseEventos = await api.get(
+          `/PresencasEvento/ListarMinhas/${userData.userId}`
+        );
+        verificaPresenca(promise.data, promiseEventos.data);
+      }
 
       setEvents(promise.data);
     } catch (error) {
       console.error("Erro ao carregar os eventos: " + error);
     }
-  }, [userData])
+  }, [userData]);
 
   useEffect(() => {
     //chamar a api
@@ -107,33 +112,37 @@ const HomePage = () => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {events.filter((e) => e.dataEvento >= new Date().toJSON()).map((event, index) => (
-                <SwiperSlide key={index}>
-                  <NextEvent
-                    style={{ flex: 1 }}
-                    key={event.idEvento}
-                    title={event.nomeEvento}
-                    description={event.descricao}
-                    eventDate={event.dataEvento}
-                    idEvento={event.idEvento}
-                    idSituacao={event.situacao}
-                    conectar={(e) => {
-                      e.preventDefault();
-                      
-                      return(handleConnect(
-                        event.idEvento,
-                        event.idPresencaEvento,
-                        event.situacao ? false : true
-                      ))
-                      
-                    }}
-                  />
-                </SwiperSlide>
-              ))}
+              {events
+                .filter((e) => e.dataEvento >= new Date().toJSON())
+                .map((event, index) => (
+                  <SwiperSlide key={index}>
+                    <NextEvent
+                      style={{ flex: 1 }}
+                      key={event.idEvento}
+                      title={event.nomeEvento}
+                      description={event.descricao}
+                      eventDate={event.dataEvento}
+                      idEvento={event.idEvento}
+                      idSituacao={event.situacao}
+                      conectar={(e) => {
+                        e.preventDefault();
+
+                        return userData.userId ? handleConnect(
+                          event.idEvento,
+                          event.idPresencaEvento,
+                          event.situacao ? false : true
+                        ) : navigate("/login");
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </div>
 
-          <Title titleText={"Eventos passados"} additionalClass="margem-acima"/>
+          <Title
+            titleText={"Eventos passados"}
+            additionalClass="margem-acima"
+          />
 
           <div className="events-box">
             <Swiper
@@ -153,29 +162,21 @@ const HomePage = () => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {events.filter((e) => e.dataEvento < new Date().toJSON()).map((event, index) => (
-                <SwiperSlide key={index}>
-                  <NextEvent
-                    style={{ flex: 1 }}
-                    key={event.idEvento}
-                    title={event.nomeEvento}
-                    description={event.descricao}
-                    eventDate={event.dataEvento}
-                    idEvento={event.idEvento}
-                    idSituacao={event.situacao}
-                    conectar={(e) => {
-                      e.preventDefault();
-                      
-                      return(handleConnect(
-                        event.idEvento,
-                        event.idPresencaEvento,
-                        event.situacao ? false : true
-                      ))
-                      
-                    }}
-                  />
-                </SwiperSlide>
-              ))}
+              {events
+                .filter((e) => e.dataEvento < new Date().toJSON())
+                .map((event, index) => (
+                  <SwiperSlide key={index}>
+                    <NextEvent
+                      style={{ flex: 1 }}
+                      key={event.idEvento}
+                      title={event.nomeEvento}
+                      description={event.descricao}
+                      eventDate={event.dataEvento}
+                      idEvento={event.idEvento}
+                      idSituacao={event.situacao}
+                    />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </div>
         </Container>

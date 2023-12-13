@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./NextEvent.css";
 import dateFormatDbToView from "../../Utils/stringFunction";
 
 import { Tooltip } from "react-tooltip";
-
-//new Date(eventDate).toLocaleDateString()
+import { userContext } from "../../context/AuthContext";
 
 const NextEvent = ({
   conectar,
@@ -14,6 +13,7 @@ const NextEvent = ({
   eventDate,
   idEvento,
 }) => {
+  const { userData } = useContext(userContext);
   return (
     <article className="event-card">
       <h2 className="event-card__title">{title}</h2>
@@ -25,13 +25,15 @@ const NextEvent = ({
         data-tooltip-place="top"
       >
         <Tooltip id={idEvento} className="tooltip" />
-        {description.substr(0, 16)}...
+        {description}
       </p>
       <p className="event-card__description">{dateFormatDbToView(eventDate)}</p>
 
-      <a href="/" className="event-card__connect-link" onClick={conectar}>
-        {idSituacao ? "Desconectar" : "Conectar"}
-      </a>
+      {new Date().toJSON() > new Date(eventDate).toJSON() ? null : (
+        <a href="/" className="event-card__connect-link" onClick={conectar}>
+          {!userData.userId ? "Login" : idSituacao ? "Desconectar" : "Conectar"}
+        </a>
+      )}
     </article>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import comentaryIcon from "../../../assets/images/comentary-icon.svg";
 import ToggleSwitch from "../../../components/Toggle/Toggle";
 // importa a biblioteca de tootips ()
@@ -8,7 +8,6 @@ import { FaEye } from "react-icons/fa";
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 import "./Table.css";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../../../context/AuthContext";
 
 const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
   const navigate = useNavigate();
@@ -69,7 +68,7 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
                     }}
                   />
                 ) : null}
-                <FaEye onClick={() => navigate(`/detalhes-evento/${e.idEvento}`)} style={{cursor: "pointer"}} size={20}/>
+                <FaEye color="#201849" onClick={() => navigate(`/detalhes-evento/${e.idEvento}`)} style={{cursor: "pointer"}} size={20}/>
               </td>
             </tr>
           ))
