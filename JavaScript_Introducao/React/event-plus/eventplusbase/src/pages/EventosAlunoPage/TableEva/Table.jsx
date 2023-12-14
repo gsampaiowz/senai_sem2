@@ -30,7 +30,7 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
         {dados.length === 0 ? (
           <tr className="tbal-data__head-row" key={Math.random()}>
             <td className="tbal-data__data tbal-data__data--big"></td>
-            <td className="tbal-data__data tbal-data__data--big">
+            <td style={{justifyContent: "center"}} className="tbal-data__data tbal-data__data--big">
               Não há nenhum evento aqui.
             </td>
             <td className="tbal-data__data tbal-data__data--big"></td>

@@ -107,7 +107,28 @@ namespace webapi.event_.Repositories
             }
         }
 
-        public List<ComentariosEvento> Listar()
+        public void Atualizar(Guid id, ComentariosEvento comentariosEvento)
+        {
+            try
+            {
+                ComentariosEvento comentariosEventoBuscado = _context.ComentariosEvento.Find(id)!;
+
+                if (comentariosEventoBuscado != null)
+                {
+                    comentariosEventoBuscado.Exibe = comentariosEvento.Exibe;
+                }
+
+                _context.ComentariosEvento.Update(comentariosEventoBuscado!);
+
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public List<ComentariosEvento> Listar(Guid id)
         {
 
             try
@@ -131,7 +152,7 @@ namespace webapi.event_.Repositories
                             NomeEvento = c.Evento!.NomeEvento,
                         }
 
-                    }).ToList();
+                    }).Where(c => c.IdEvento == id).ToList();
             }
             catch (Exception)
             {
@@ -140,7 +161,7 @@ namespace webapi.event_.Repositories
             }
         }
 
-        public List<ComentariosEvento> ListarSomenteExibe()
+        public List<ComentariosEvento> ListarSomenteExibe(Guid id)
         {
 
             try
@@ -164,7 +185,7 @@ namespace webapi.event_.Repositories
                             NomeEvento = c.Evento!.NomeEvento,
                         }
 
-                    }).Where(c => c.Exibe == true).ToList();
+                    }).Where(c => c.Exibe == true && c.IdEvento == id).ToList();
             }
             catch (Exception)
             {

@@ -134,7 +134,7 @@ const EventosAlunoPage = () => {
 
   const commentaryAdd = async (commentary) => {
     if (commentary.length < 3) return;
-    const promise = await api.post(`/ComentariosEvento/`, {
+    const promise = await api.post(`/ComentariosEvento/Cadastra IA`, {
       descricao: commentary,
       exibe: true,
       idUsuario: userData.userId,
