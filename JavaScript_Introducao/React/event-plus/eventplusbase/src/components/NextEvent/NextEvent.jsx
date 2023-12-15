@@ -4,6 +4,7 @@ import dateFormatDbToView from "../../Utils/stringFunction";
 
 import { Tooltip } from "react-tooltip";
 import { userContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const NextEvent = ({
   conectar,
@@ -18,13 +19,13 @@ const NextEvent = ({
     <article className="event-card">
       <h2 className="event-card__title">{title}</h2>
 
+      <Tooltip id={idEvento} className="tooltip" />
       <p
         className="event-card__description"
         data-tooltip-id={idEvento}
         data-tooltip-content={description}
         data-tooltip-place="top"
       >
-        <Tooltip id={idEvento} className="tooltip" />
         {description}
       </p>
       <p className="event-card__description">{dateFormatDbToView(eventDate)}</p>
@@ -34,6 +35,13 @@ const NextEvent = ({
           {!userData.userId ? "Login" : idSituacao ? "Desconectar" : "Conectar"}
         </a>
       )}
+      <Link
+        style={{ marginBottom: 0, fontSize: 16 }}
+        to={`/detalhes-evento/${idEvento}`}
+        className="event-card__connect-link"
+      >
+        Visualizar
+      </Link>
     </article>
   );
 };

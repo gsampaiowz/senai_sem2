@@ -23,3 +23,10 @@
     overflow: auto;
     margin-top: 50px;
 }
+
+.sem-comentarios{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    color: var(--color-white);
+}

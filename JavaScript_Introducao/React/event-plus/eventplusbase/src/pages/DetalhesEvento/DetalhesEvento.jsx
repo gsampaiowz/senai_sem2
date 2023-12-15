@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./DetalhesEvento.css";
 import Container from "../../components/Container/Container";
 import MainContent from "../../components/MainContent/MainContent";
@@ -6,9 +6,11 @@ import Title from "../../components/Title/Title";
 import api from "../../Services/Service";
 import { useParams } from "react-router-dom";
 import TableComentarios from "./TableComentarios/TableComentarios";
+import { userContext } from "./../../context/AuthContext";
 
 const DetalhesEvento = () => {
   const { idEvento } = useParams();
+  const { userData } = useContext(userContext);
 
   const [evento, setEvento] = useState({});
   const [tipoEvento, setTipoEvento] = useState("");
@@ -29,12 +31,16 @@ const DetalhesEvento = () => {
 
   const getComentario = useCallback(async () => {
     try {
-      const promise = await api.get(`/ComentariosEvento/ListarSomenteExibe?id=${idEvento}`);
-      setComentarios(promise.data);
+      const promise = await api.get(`/ComentariosEvento?id=${idEvento}`);
+
+      const promiseExibe = await api.get(
+        `/ComentariosEvento/ListarSomenteExibe?id=${idEvento}`
+      );
+      userData.role === "administrador" ? setComentarios(promise.data) : setComentarios(promiseExibe.data);
     } catch (error) {
       console.log("Erro ao buscar comentario", error);
     }
-  }, [idEvento]);
+  }, [idEvento, userData]);
 
   const deleteComentario = async (idComentario) => {
     try {
@@ -46,8 +52,11 @@ const DetalhesEvento = () => {
 
   const exibeComentario = async (idComentario, descricao, exibe = false) => {
     try {
-      await api.put(`/ComentariosEvento?id=${idComentario}`,{descricao, exibe});
-      getComentario()
+      await api.put(`/ComentariosEvento?id=${idComentario}`, {
+        descricao,
+        exibe,
+      });
+      getComentario();
     } catch (error) {
       console.log("Erro ao deletar comentario", error);
     }
@@ -56,7 +65,7 @@ const DetalhesEvento = () => {
   useEffect(() => {
     getEvento();
     getComentario();
-  }, [idEvento, getEvento, getComentario]);
+  }, [idEvento, getEvento, getComentario, userData]);
 
   return (
     <MainContent>
@@ -91,8 +100,19 @@ const DetalhesEvento = () => {
             titleText={"Lista de comentários"}
             color="white"
           ></Title>
-
-          <TableComentarios fnExibe={exibeComentario} dados={comentarios} fnDelete={deleteComentario} />
+          {new Date(evento.dataEvento).toJSON() > new Date().toJSON() ? (
+            <p className="sem-comentarios">Esse evento ainda não aconteceu.</p>
+          ) : comentarios.length === 0 ? (
+            <p className="sem-comentarios">
+              Esse evento não possui comentários
+            </p>
+          ) : (
+            <TableComentarios
+              fnExibe={exibeComentario}
+              dados={comentarios}
+              fnDelete={deleteComentario}
+            />
+          )}
         </Container>
       </section>
     </MainContent>
