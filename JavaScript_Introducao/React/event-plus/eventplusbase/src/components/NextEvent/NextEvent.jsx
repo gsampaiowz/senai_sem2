@@ -34,9 +34,9 @@ const NextEvent = ({
       new Date(
         eventDate
       ).toJSON() ? null : !userData.userId ? null : idSituacao ? (
-        <a href="/" className="event-card__connect-link" onClick={conectar}>Conectar</a>
-      ) : (
         <a href="/" className="event-card__connect-link" onClick={conectar}>Desconectar</a>
+      ) : (
+        <a href="/" className="event-card__connect-link" onClick={conectar}>Conectar</a>
       )}
       <Link
         style={{ marginBottom: 0, fontSize: 16 }}
