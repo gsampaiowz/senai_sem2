@@ -26,3 +26,7 @@
     width: 20px;
     cursor: pointer;
 }
+
+.perfil-usuario a.active{
+    border-bottom: 2px solid var(--color-red);
+}

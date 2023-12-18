@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./PerfilUsuario.css";
 import iconeLogout from "../../assets/images/icone-logout.svg";
 import { userContext } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink ,useNavigate } from "react-router-dom";
 
 const PerfilUsuario = () => {
   const { userData, setUserData } = useContext(userContext);
@@ -30,9 +30,9 @@ const PerfilUsuario = () => {
           />
         </>
       ) : (
-        <Link className="perfil-usuario__menuitem" to="/login">
+        <NavLink className="perfil-usuario__menuitem" to="/login">
           Login
-        </Link>
+        </NavLink>
       )}
     </div>
   );

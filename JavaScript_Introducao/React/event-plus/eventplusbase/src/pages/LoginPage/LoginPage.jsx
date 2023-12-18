@@ -9,7 +9,7 @@ import Notification from "../../components/Notification/Notification";
 import { userContext, userDecodeToken } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", senha: "" });
@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const idAluno = "64d8b0e8-9ae2-46cc-8415-fbf22fc90353";
+  const idAluno = "42b222f3-ec59-4dda-950c-981ae8d70ecf";
 
   useEffect(() => {
     if (userData.name) {
@@ -123,7 +123,7 @@ const LoginPage = () => {
         showMessage: true,
       });
     } catch (error) {
-      console.error("Erro no cadastro: " + error);
+      console.log( error);
       setNotifyUser({
         titleNote: "Falha",
         textNote: `Falha ao cadastrar!`,
@@ -142,6 +142,7 @@ const LoginPage = () => {
         transition={{ duration: 0.5 }}
       >
         <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
+
         <div className="login">
           <div className="login__illustration">
             <div className="login__illustration-rotate"></div>
