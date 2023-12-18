@@ -87,7 +87,7 @@ namespace webapi.event_.Repositories
         {
             try
             {
-                Evento eventoBuscado = _context.Evento.Find()! ;
+                Evento eventoBuscado = _context.Evento.Find(id)! ;
 
                 if (eventoBuscado != null)
                 {

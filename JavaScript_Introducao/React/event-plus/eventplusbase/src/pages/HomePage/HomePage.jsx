@@ -18,6 +18,7 @@ import "./HomePage.css";
 import { userContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Notification from "../../components/Notification/Notification";
 
 const HomePage = () => {
   const { userData } = useContext(userContext);
@@ -76,8 +77,23 @@ const HomePage = () => {
           idEvento: idEvent,
         });
         getEventos();
+        setNotifyUser({
+          titleNote: "Presença confirmada!",
+          textNote: `Sua presença no evento foi confirmada com sucesso!`,
+          imgIcon: "success",
+          imgAlt:
+            "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+          showMessage: true,
+        });
       } catch (error) {
         console.log("Erro ao conectar" + error);
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Falha ao conectar!`,
+          imgIcon: "danger",
+          imgAlt: "Imagem de ilustração de perigo.",
+          showMessage: true,
+        });
       }
       return;
     }
@@ -85,13 +101,29 @@ const HomePage = () => {
     try {
       await api.delete(`/PresencasEvento/${idPresent}`);
       getEventos();
+      setNotifyUser({
+        titleNote: "Presença cancelada!",
+        textNote: `Sua presença no evento foi cancelada com sucesso.`,
+        imgIcon: "success",
+        imgAlt:
+          "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+        showMessage: true,
+      });
     } catch (error) {
       console.log("Erro ao desconectar" + error);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Falha ao desconectar!`,
+        imgIcon: "danger",
+        imgAlt: "Imagem de ilustração de perigo.",
+        showMessage: true,
+      });
     }
   }
 
   return (
     <MainContent>
+      <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

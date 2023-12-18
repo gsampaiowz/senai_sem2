@@ -100,14 +100,13 @@ const EventosPage = () => {
     }
     //chamar a api
     try {
-      const promise = await api.post("/Evento", {
+      await api.post("/Evento", {
         nomeEvento,
         descricao,
         idTipoEvento,
         dataEvento,
         idInstituicao,
       });
-      console.log(promise.data);
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -161,14 +160,13 @@ const EventosPage = () => {
     }
 
     try {
-      const promise = await api.put(`/Evento/${idEvento}`, {
+      await api.put(`/Evento/${idEvento}`, {
         nomeEvento,
         descricao,
         idTipoEvento,
         dataEvento,
         idInstituicao,
       });
-      console.log(promise.datas);
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",
@@ -202,8 +200,7 @@ const EventosPage = () => {
     setShowSpinner(true);
     try {
       eventos.filter((tipoEvento) => tipoEvento.idTipoEvento === id);
-      const promise = await api.delete(`/Evento/${id}`);
-      console.log(promise.data);
+      await api.delete(`/Evento/${id}`);
       getEventos();
       setNotifyUser({
         titleNote: "Sucesso",

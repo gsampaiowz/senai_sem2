@@ -8,11 +8,13 @@ import { useParams } from "react-router-dom";
 import detalhesSVG from "../../assets/images/detalhes-evento.svg";
 import TableComentarios from "./TableComentarios/TableComentarios";
 import { userContext } from "./../../context/AuthContext";
-import ImageIllustrator from './../../components/ImageIllustrator/ImageIllustrator';
+import ImageIllustrator from "./../../components/ImageIllustrator/ImageIllustrator";
+import Notification from "../../components/Notification/Notification";
 
 const DetalhesEvento = () => {
   const { idEvento } = useParams();
   const { userData } = useContext(userContext);
+  const [notifyUser, setNotifyUser] = useState({});
 
   const [evento, setEvento] = useState({});
   const [tipoEvento, setTipoEvento] = useState("");
@@ -50,8 +52,23 @@ const DetalhesEvento = () => {
     try {
       await api.delete(`/ComentariosEvento/${idComentario}`);
       getComentario();
+      setNotifyUser({
+        titleNote: "Sucesso",
+        textNote: `Deletado com sucesso!`,
+        imgIcon: "success",
+        imgAlt:
+          "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+        showMessage: true,
+      });
     } catch (error) {
       console.log("Erro ao deletar comentario", error);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Falha ao deletar!`,
+        imgIcon: "danger",
+        imgAlt: "Imagem de ilustração de perigo.",
+        showMessage: true,
+      });
     }
   };
 
@@ -74,10 +91,15 @@ const DetalhesEvento = () => {
 
   return (
     <MainContent>
+      <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
       <section className="detalhes-evento-main">
         <Container>
           <div className="detalhes-evento-page-flex">
-            <ImageIllustrator alterText="Imagem referente a detalhes" imageRender={detalhesSVG} additionalClass="imagem-detalhes-evento"/>
+            <ImageIllustrator
+              alterText="Imagem referente a detalhes"
+              imageRender={detalhesSVG}
+              additionalClass="imagem-detalhes-evento"
+            />
 
             <div className="detalhes-evento-page">
               <Title titleText={`Evento: ${evento.nomeEvento}`} />
@@ -106,7 +128,7 @@ const DetalhesEvento = () => {
             additionalClass="margem-acima"
             titleText={"Lista de comentários"}
             color="white"
-          ></Title>
+          />
           {new Date(evento.dataEvento).toJSON() > new Date().toJSON() ? (
             <p className="sem-comentarios">Esse evento ainda não aconteceu.</p>
           ) : comentarios.length === 0 ? (
