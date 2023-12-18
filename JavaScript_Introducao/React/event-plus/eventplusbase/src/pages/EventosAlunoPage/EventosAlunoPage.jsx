@@ -115,7 +115,7 @@ const EventosAlunoPage = () => {
       setComentario();
       setNotifyUser({
         titleNote: "Comentário apagado!",
-        textNote: `Sua presença no evento foi cancelada com sucesso.`,
+        textNote: `Seu comentário foi apagado com sucesso.`,
         imgIcon: "success",
         imgAlt:
           "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
@@ -125,7 +125,7 @@ const EventosAlunoPage = () => {
       console.log("Erro ao apagar comentário" + error);
       setNotifyUser({
         titleNote: "Erro",
-        textNote: `Falha ao conectar!`,
+          textNote: `Falha ao comentar!`,
         imgIcon: "danger",
         imgAlt: "Imagem de ilustração de perigo.",
         showMessage: true,

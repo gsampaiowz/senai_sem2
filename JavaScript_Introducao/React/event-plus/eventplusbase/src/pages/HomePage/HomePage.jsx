@@ -22,6 +22,8 @@ import { motion } from "framer-motion";
 const HomePage = () => {
   const { userData } = useContext(userContext);
 
+  const [notifyUser, setNotifyUser] = useState({});
+
   // array de objetos - proximos eventos
   const [events, setEvents] = useState([]);
 
