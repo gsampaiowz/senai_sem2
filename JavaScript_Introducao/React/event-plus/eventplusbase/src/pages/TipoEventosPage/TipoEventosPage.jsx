@@ -13,6 +13,7 @@ import { Input, Button } from "../../components/FormComponents/FormComponents";
 
 import api from "../../Services/Service";
 import "./TipoEventosPage.css";
+import { motion } from 'framer-motion';
 
 const TipoEventosPage = () => {
   //
@@ -164,6 +165,11 @@ const TipoEventosPage = () => {
 
   return (
     <MainContent>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
       {/* Cadastro de tipo de eventos */}
       <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
       {showSpinner ? <Spinner /> : null}
@@ -255,6 +261,7 @@ const TipoEventosPage = () => {
           />
         </Container>
       </section>
+      </motion.div>
     </MainContent>
   );
 };

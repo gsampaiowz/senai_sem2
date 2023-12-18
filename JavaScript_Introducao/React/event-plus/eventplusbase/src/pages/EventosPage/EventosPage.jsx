@@ -15,6 +15,7 @@ import {
 import api from "../../Services/Service";
 
 import "./EventosPage.css";
+import { motion } from 'framer-motion';
 const EventosPage = () => {
   //
   const [frmEdit, setFrmEdit] = useState(false);
@@ -218,8 +219,7 @@ const EventosPage = () => {
         titleNote: "Erro",
         textNote: `Falha ao deletar!`,
         imgIcon: "danger",
-        imgAlt:
-          "Imagem de ilustração de perigo.",
+        imgAlt: "Imagem de ilustração de perigo.",
         showMessage: true,
       });
     }
@@ -228,213 +228,219 @@ const EventosPage = () => {
 
   return (
     <MainContent>
-      {/* Cadastro de eventos */}
-      <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
-      {showSpinner ? <Spinner /> : null}
-      <section className="cadastro-evento-section">
-        <Container>
-          <div className="cadastro-evento__box">
-            <Title
-              titleText={"Página de Eventos"}
-              additionalClass="margem-acima"
-            />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Cadastro de eventos */}
+        <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
+        {showSpinner ? <Spinner /> : null}
+        <section className="cadastro-evento-section">
+          <Container>
+            <div className="cadastro-evento__box">
+              <Title
+                titleText={"Página de Eventos"}
+                additionalClass="margem-acima"
+              />
 
-            <ImageIllustrator
-              alterText="Homem interagindo com uma plataforma"
-              imageRender={eventImage}
-            />
+              <ImageIllustrator
+                alterText="Homem interagindo com uma plataforma"
+                imageRender={eventImage}
+              />
 
-            <form
-              className="ftipo-evento"
-              onSubmit={frmEdit ? handleUpdate : handleSubmit}
-              action=""
-            >
-              {!frmEdit ? (
-                <>
-                  <p>Tela de Cadastro</p>
-                  <Input
-                    id="nome-evento"
-                    placeholder="Nome"
-                    type="text"
-                    name="nome-evento"
-                    value={nomeEvento}
-                    required
-                    manipulationFunction={(e) => {
-                      setNomeEvento(e.target.value);
-                    }}
-                  />
-                  <Input
-                    id="descricao"
-                    placeholder="Descrição"
-                    type="text"
-                    name="descricao"
-                    value={descricao}
-                    required
-                    manipulationFunction={(e) => {
-                      setDescricao(e.target.value);
-                    }}
-                  />
-                  <Select
-                    id="tipo-evento"
-                    name="tipo-evento"
-                    object={tiposEvento}
-                    required
-                    value={idTipoEvento}
-                    mapOption={(option) => (
-                      <option
-                        value={option.idTipoEvento}
-                        key={option.idTipoEvento}
-                      >
-                        {option.titulo}
-                      </option>
-                    )}
-                    manipulationFunction={(e) => {
-                      setIdTipoEvento(e.target.value);
-                    }}
-                  />
-                  <Select
-                    value={idInstituicao}
-                    id="instituicao"
-                    name="instituicao"
-                    required
-                    mapOption={(option) => (
-                      <option
-                        value={option.idInstituicao}
-                        key={option.idInstituicao}
-                      >
-                        {option.nomeFantasia}
-                      </option>
-                    )}
-                    object={instituicoes}
-                    manipulationFunction={(e) => {
-                      setIdInstituicao(e.target.value);
-                    }}
-                  />
-                  <Input
-                    id="data-evento"
-                    placeholder="Data"
-                    type="date"
-                    name="data-evento"
-                    value={dataEvento}
-                    required
-                    manipulationFunction={(e) => {
-                      setDataEvento(e.target.value);
-                    }}
-                  />
-                  <Button
-                    id="cadastrar"
-                    type="submit"
-                    name="cadastrar"
-                    textButton="Cadastrar"
-                  />
-                </>
-              ) : (
-                <>
-                  <p>Tela de Edição</p>
-                  <Input
-                    id="nome-evento"
-                    placeholder="Nome"
-                    type="text"
-                    name="nome-evento"
-                    value={nomeEvento}
-                    required
-                    manipulationFunction={(e) => {
-                      setNomeEvento(e.target.value);
-                    }}
-                  />
-                  <Input
-                    id="descricao"
-                    placeholder="Descrição"
-                    type="text"
-                    name="descricao"
-                    value={descricao}
-                    required
-                    manipulationFunction={(e) => {
-                      setDescricao(e.target.value);
-                    }}
-                  />
-                  <Select
-                    id="tipo-evento"
-                    name="tipo-evento"
-                    object={tiposEvento}
-                    required
-                    value={idTipoEvento}
-                    mapOption={(option) => (
-                      <option
-                        value={option.idTipoEvento}
-                        key={option.idTipoEvento}
-                      >
-                        {option.titulo}
-                      </option>
-                    )}
-                    manipulationFunction={(e) => {
-                      setIdTipoEvento(e.target.value);
-                    }}
-                  />
-                  <Select
-                    value={idInstituicao}
-                    id="instituicao"
-                    name="instituicao"
-                    required
-                    mapOption={(option) => (
-                      <option
-                        value={option.idInstituicao}
-                        key={option.idInstituicao}
-                      >
-                        {option.nomeFantasia}
-                      </option>
-                    )}
-                    object={instituicoes}
-                    manipulationFunction={(e) => {
-                      setIdInstituicao(e.target.value);
-                    }}
-                  />
-                  <Input
-                    id="data-evento"
-                    placeholder="Data"
-                    type="date"
-                    name="data-evento"
-                    value={dataEvento}
-                    required
-                    manipulationFunction={(e) => {
-                      setDataEvento(e.target.value);
-                    }}
-                  />
-                  <div className="buttons-editbox">
+              <form
+                className="ftipo-evento"
+                onSubmit={frmEdit ? handleUpdate : handleSubmit}
+                action=""
+              >
+                {!frmEdit ? (
+                  <>
+                    <p>Tela de Cadastro</p>
+                    <Input
+                      id="nome-evento"
+                      placeholder="Nome"
+                      type="text"
+                      name="nome-evento"
+                      value={nomeEvento}
+                      required
+                      manipulationFunction={(e) => {
+                        setNomeEvento(e.target.value);
+                      }}
+                    />
+                    <Input
+                      id="descricao"
+                      placeholder="Descrição"
+                      type="text"
+                      name="descricao"
+                      value={descricao}
+                      required
+                      manipulationFunction={(e) => {
+                        setDescricao(e.target.value);
+                      }}
+                    />
+                    <Select
+                      id="tipo-evento"
+                      name="tipo-evento"
+                      object={tiposEvento}
+                      required
+                      value={idTipoEvento}
+                      mapOption={(option) => (
+                        <option
+                          value={option.idTipoEvento}
+                          key={option.idTipoEvento}
+                        >
+                          {option.titulo}
+                        </option>
+                      )}
+                      manipulationFunction={(e) => {
+                        setIdTipoEvento(e.target.value);
+                      }}
+                    />
+                    <Select
+                      value={idInstituicao}
+                      id="instituicao"
+                      name="instituicao"
+                      required
+                      mapOption={(option) => (
+                        <option
+                          value={option.idInstituicao}
+                          key={option.idInstituicao}
+                        >
+                          {option.nomeFantasia}
+                        </option>
+                      )}
+                      object={instituicoes}
+                      manipulationFunction={(e) => {
+                        setIdInstituicao(e.target.value);
+                      }}
+                    />
+                    <Input
+                      id="data-evento"
+                      placeholder="Data"
+                      type="date"
+                      name="data-evento"
+                      value={dataEvento}
+                      required
+                      manipulationFunction={(e) => {
+                        setDataEvento(e.target.value);
+                      }}
+                    />
                     <Button
-                      id="editar"
+                      id="cadastrar"
                       type="submit"
-                      name="editar"
-                      textButton="Editar"
+                      name="cadastrar"
+                      textButton="Cadastrar"
                     />
-                    <Button
-                      id="cancelar"
-                      type="reset"
-                      manipulationFunction={cancelUpdate}
-                      additionalClass="button-component--middle"
-                      name="cancelar"
-                      textButton="Cancelar"
+                  </>
+                ) : (
+                  <>
+                    <p>Tela de Edição</p>
+                    <Input
+                      id="nome-evento"
+                      placeholder="Nome"
+                      type="text"
+                      name="nome-evento"
+                      value={nomeEvento}
+                      required
+                      manipulationFunction={(e) => {
+                        setNomeEvento(e.target.value);
+                      }}
                     />
-                  </div>
-                </>
-              )}
-            </form>
-          </div>
-        </Container>
-      </section>
+                    <Input
+                      id="descricao"
+                      placeholder="Descrição"
+                      type="text"
+                      name="descricao"
+                      value={descricao}
+                      required
+                      manipulationFunction={(e) => {
+                        setDescricao(e.target.value);
+                      }}
+                    />
+                    <Select
+                      id="tipo-evento"
+                      name="tipo-evento"
+                      object={tiposEvento}
+                      required
+                      value={idTipoEvento}
+                      mapOption={(option) => (
+                        <option
+                          value={option.idTipoEvento}
+                          key={option.idTipoEvento}
+                        >
+                          {option.titulo}
+                        </option>
+                      )}
+                      manipulationFunction={(e) => {
+                        setIdTipoEvento(e.target.value);
+                      }}
+                    />
+                    <Select
+                      value={idInstituicao}
+                      id="instituicao"
+                      name="instituicao"
+                      required
+                      mapOption={(option) => (
+                        <option
+                          value={option.idInstituicao}
+                          key={option.idInstituicao}
+                        >
+                          {option.nomeFantasia}
+                        </option>
+                      )}
+                      object={instituicoes}
+                      manipulationFunction={(e) => {
+                        setIdInstituicao(e.target.value);
+                      }}
+                    />
+                    <Input
+                      id="data-evento"
+                      placeholder="Data"
+                      type="date"
+                      name="data-evento"
+                      value={dataEvento}
+                      required
+                      manipulationFunction={(e) => {
+                        setDataEvento(e.target.value);
+                      }}
+                    />
+                    <div className="buttons-editbox">
+                      <Button
+                        id="editar"
+                        type="submit"
+                        name="editar"
+                        textButton="Editar"
+                      />
+                      <Button
+                        id="cancelar"
+                        type="reset"
+                        manipulationFunction={cancelUpdate}
+                        additionalClass="button-component--middle"
+                        name="cancelar"
+                        textButton="Cancelar"
+                      />
+                    </div>
+                  </>
+                )}
+              </form>
+            </div>
+          </Container>
+        </section>
 
-      {/* Listagem de tipo de eventos */}
-      <section className="lista-eventos-section">
-        <Container>
-          <Title titleText={"Lista de Eventos"} color="white" />
+        {/* Listagem de tipo de eventos */}
+        <section className="lista-eventos-section">
+          <Container>
+            <Title titleText={"Lista de Eventos"} color="white" />
 
-          <TableEventos
-            dados={eventos}
-            fnDelete={handleDelete}
-            fnUpdate={showUpdateForm}
-          />
-        </Container>
-      </section>
+            <TableEventos
+              dados={eventos}
+              fnDelete={handleDelete}
+              fnUpdate={showUpdateForm}
+            />
+          </Container>
+        </section>
+      </motion.div>
     </MainContent>
   );
 };

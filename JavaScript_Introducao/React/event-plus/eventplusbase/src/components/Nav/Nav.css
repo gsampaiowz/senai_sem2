@@ -41,6 +41,7 @@
 .exibeNavbar {
     left: 0 !important;
     opacity: 1 !important;
+    z-index: 10;
 }
 
 /* link do logotipo */
@@ -63,6 +64,10 @@
 
     /* border: 1px solid blue; */
 }
+.navbar a.active{
+    border-width: 5px;
+}
+
 /* links da navbar */
 .navbar__item {
     width: auto;
@@ -74,7 +79,7 @@
     color: var(--color-white);
     text-decoration: none;
 
-    border-bottom: 2px solid #201849;
+    border-bottom: 2px solid var(--color-white);
 }
 
 
@@ -94,6 +99,10 @@
 
         background-color: transparent;
         /* border: 2px solid red; */
+    }
+
+    .navbar a.active{
+        border-bottom: 2px solid var(--color-red);
     }
 
     .eventlogo {
@@ -122,5 +131,9 @@
         font-size: 0.875rem;
         color: var(--color-dark-blue);
         border: none;
+    }
+
+    .navbar__close{
+        display: none;
     }
 }

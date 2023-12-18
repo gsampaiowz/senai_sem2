@@ -9,14 +9,9 @@
 }
 
 .perfil-usuario {
-    width: 135px;
-    /* height: 40px; */
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
     align-items: center;
-    /* border: 1px solid black; */
-
-
 }
 
 .perfil-usuario__menuitem {
@@ -30,6 +25,4 @@
 .perfil-usuario__icon {
     width: 20px;
     cursor: pointer;
-    margin-top: 5px;
 }
-/* 201849 */

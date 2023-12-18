@@ -17,6 +17,7 @@ import "swiper/css/pagination";
 import "./HomePage.css";
 import { userContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
   const { userData } = useContext(userContext);
@@ -89,100 +90,108 @@ const HomePage = () => {
 
   return (
     <MainContent>
-      <Banner />
-      <section className="proximos-eventos">
-        <Container>
-          <Title titleText={"Próximos Eventos"} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Banner />
+        <section className="proximos-eventos">
+          <Container>
+            <Title titleText={"Próximos Eventos"} />
 
-          <div className="events-box">
-            <Swiper
-              breakpoints={{
-                320: {
-                  slidesPerView: 1,
-                },
-                992: {
-                  slidesPerView: 3,
-                },
-              }}
-              spaceBetween={20}
-              pagination={{
-                dynamicBullets: true,
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {events
-                .filter((e) => e.dataEvento >= new Date().toJSON())
-                .map((event, index) => (
-                  <SwiperSlide key={index}>
-                    <NextEvent
-                      style={{ flex: 1 }}
-                      key={event.idEvento}
-                      title={event.nomeEvento}
-                      description={event.descricao}
-                      eventDate={event.dataEvento}
-                      idEvento={event.idEvento}
-                      idSituacao={event.situacao}
-                      conectar={(e) => {
-                        e.preventDefault();
+            <div className="events-box">
+              <Swiper
+                breakpoints={{
+                  320: {
+                    slidesPerView: 1,
+                  },
+                  992: {
+                    slidesPerView: 3,
+                  },
+                }}
+                spaceBetween={20}
+                pagination={{
+                  dynamicBullets: true,
+                  clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+              >
+                {events
+                  .filter((e) => e.dataEvento >= new Date().toJSON())
+                  .map((event, index) => (
+                    <SwiperSlide key={index}>
+                      <NextEvent
+                        style={{ flex: 1 }}
+                        key={event.idEvento}
+                        title={event.nomeEvento}
+                        description={event.descricao}
+                        eventDate={event.dataEvento}
+                        idEvento={event.idEvento}
+                        idSituacao={event.situacao}
+                        conectar={(e) => {
+                          e.preventDefault();
 
-                        return userData.userId ? handleConnect(
-                          event.idEvento,
-                          event.idPresencaEvento,
-                          event.situacao ? false : true
-                        ) : navigate("/login");
-                      }}
-                    />
-                  </SwiperSlide>
-                ))}
-            </Swiper>
-          </div>
+                          return userData.userId
+                            ? handleConnect(
+                                event.idEvento,
+                                event.idPresencaEvento,
+                                event.situacao ? false : true
+                              )
+                            : navigate("/login");
+                        }}
+                      />
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>
 
-          <Title
-            titleText={"Eventos passados"}
-            additionalClass="margem-acima"
-          />
+            <Title
+              titleText={"Eventos passados"}
+              additionalClass="margem-acima"
+            />
 
-          <div className="events-box">
-            <Swiper
-              breakpoints={{
-                320: {
-                  slidesPerView: 1,
-                },
-                992: {
-                  slidesPerView: 3,
-                },
-              }}
-              spaceBetween={20}
-              pagination={{
-                dynamicBullets: true,
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {events
-                .filter((e) => e.dataEvento < new Date().toJSON())
-                .map((event, index) => (
-                  <SwiperSlide key={index}>
-                    <NextEvent
-                      style={{ flex: 1 }}
-                      key={event.idEvento}
-                      title={event.nomeEvento}
-                      description={event.descricao}
-                      eventDate={event.dataEvento}
-                      idEvento={event.idEvento}
-                      idSituacao={event.situacao}
-                    />
-                  </SwiperSlide>
-                ))}
-            </Swiper>
-          </div>
-        </Container>
-        <VisionSection />
-        <ContactSection />
-      </section>
+            <div className="events-box">
+              <Swiper
+                breakpoints={{
+                  320: {
+                    slidesPerView: 1,
+                  },
+                  992: {
+                    slidesPerView: 3,
+                  },
+                }}
+                spaceBetween={20}
+                pagination={{
+                  dynamicBullets: true,
+                  clickable: true,
+                }}
+                modules={[Pagination]}
+                className="mySwiper"
+              >
+                {events
+                  .filter((e) => e.dataEvento < new Date().toJSON())
+                  .map((event, index) => (
+                    <SwiperSlide key={index}>
+                      <NextEvent
+                        style={{ flex: 1 }}
+                        key={event.idEvento}
+                        title={event.nomeEvento}
+                        description={event.descricao}
+                        eventDate={event.dataEvento}
+                        idEvento={event.idEvento}
+                        idSituacao={event.situacao}
+                      />
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>
+          </Container>
+          <VisionSection />
+          <ContactSection />
+        </section>
+      </motion.div>
     </MainContent>
   );
 };

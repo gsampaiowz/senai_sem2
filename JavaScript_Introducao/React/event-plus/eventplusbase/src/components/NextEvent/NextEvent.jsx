@@ -30,10 +30,13 @@ const NextEvent = ({
       </p>
       <p className="event-card__description">{dateFormatDbToView(eventDate)}</p>
 
-      {new Date().toJSON() > new Date(eventDate).toJSON() ? null : (
-        <a href="/" className="event-card__connect-link" onClick={conectar}>
-          {!userData.userId ? "Login" : idSituacao ? "Desconectar" : "Conectar"}
-        </a>
+      {userData.role === "administrador" ? null : new Date().toJSON() >
+      new Date(
+        eventDate
+      ).toJSON() ? null : !userData.userId ? null : idSituacao ? (
+        <a href="/" className="event-card__connect-link" onClick={conectar}>Conectar</a>
+      ) : (
+        <a href="/" className="event-card__connect-link" onClick={conectar}>Desconectar</a>
       )}
       <Link
         style={{ marginBottom: 0, fontSize: 16 }}

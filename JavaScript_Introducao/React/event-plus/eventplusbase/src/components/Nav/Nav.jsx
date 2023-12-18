@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import "./Nav.css";
 
 import logoMobile from "../../assets/images/logo-white.svg";
@@ -8,6 +8,14 @@ import { userContext } from "../../context/AuthContext";
 
 const Nav = ({ setExibeNavBar, exibeNavBar }) => {
   const { userData } = useContext(userContext);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.onresize = handleResize;
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <nav className={`navbar ${exibeNavBar ? "exibeNavbar" : ""}`}>
@@ -18,29 +26,29 @@ const Nav = ({ setExibeNavBar, exibeNavBar }) => {
       <Link to="/">
         <img
           className="eventlogo__logo-image"
-          src={window.innerWidth > 992 ? logoDesktop : logoMobile}
+          src={windowWidth > 992 ? logoDesktop : logoMobile}
           alt="Event Plus Logo"
         />
       </Link>
 
       <div className="navbar__items-box">
-        <Link to="/" className="navbar__item">
+        <NavLink to="/" className="navbar__item">
           Home
-        </Link>
+        </NavLink>
         {userData.role === "administrador" ? (
           <>
-            <Link to="/eventos" className="navbar__item">
+            <NavLink to="/eventos" className="navbar__item">
               Eventos
-            </Link>
+            </NavLink>
 
-            <Link to="/tipos-de-eventos" className="navbar__item">
+            <NavLink to="/tipos-de-eventos" className="navbar__item">
               Tipos de eventos
-            </Link>
+            </NavLink>
           </>
         ) : userData.role === "aluno" ? (
-          <Link to="/eventos-aluno" className="navbar__item">
+          <NavLink to="/eventos-aluno" className="navbar__item">
             Eventos Aluno
-          </Link>
+          </NavLink>
         ) : null}
       </div>
     </nav>

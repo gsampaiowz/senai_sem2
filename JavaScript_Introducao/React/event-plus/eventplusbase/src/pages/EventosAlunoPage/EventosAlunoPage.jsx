@@ -11,6 +11,7 @@ import api from "../../Services/Service";
 import "./EventosAlunoPage.css";
 import { userContext } from "../../context/AuthContext";
 import Notification from "../../components/Notification/Notification";
+import { motion } from 'framer-motion';
 
 const EventosAlunoPage = () => {
   const [eventos, setEventos] = useState([]);
@@ -143,8 +144,8 @@ const EventosAlunoPage = () => {
     setComentario(commentary);
     setIdComentario(promise.data.idComentarioEvento);
     setNotifyUser({
-      titleNote: "Presença confirmada!",
-      textNote: `Sua presença no evento foi confirmada com sucesso!`,
+      titleNote: "Comentário adicionado!",
+      textNote: `Comentário adicionado com sucesso!`,
       imgIcon: "success",
       imgAlt:
         "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
@@ -218,6 +219,11 @@ const EventosAlunoPage = () => {
   return (
     <>
       <MainContent>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <Notification {...notifyUser} setNotifyUser={setNotifyUser} />
         <Container>
           <Title titleText={"Eventos"} additionalClass="margem-acima" />
@@ -245,6 +251,7 @@ const EventosAlunoPage = () => {
             fnShowModal={showHideModal}
           />
         </Container>
+        </motion.div>
       </MainContent>
 
       {/* SPINNER -Feito com position */}

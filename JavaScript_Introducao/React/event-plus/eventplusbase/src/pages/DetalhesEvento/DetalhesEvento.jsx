@@ -5,8 +5,10 @@ import MainContent from "../../components/MainContent/MainContent";
 import Title from "../../components/Title/Title";
 import api from "../../Services/Service";
 import { useParams } from "react-router-dom";
+import detalhesSVG from "../../assets/images/detalhes-evento.svg";
 import TableComentarios from "./TableComentarios/TableComentarios";
 import { userContext } from "./../../context/AuthContext";
+import ImageIllustrator from './../../components/ImageIllustrator/ImageIllustrator';
 
 const DetalhesEvento = () => {
   const { idEvento } = useParams();
@@ -36,7 +38,9 @@ const DetalhesEvento = () => {
       const promiseExibe = await api.get(
         `/ComentariosEvento/ListarSomenteExibe?id=${idEvento}`
       );
-      userData.role === "administrador" ? setComentarios(promise.data) : setComentarios(promiseExibe.data);
+      userData.role === "administrador"
+        ? setComentarios(promise.data)
+        : setComentarios(promiseExibe.data);
     } catch (error) {
       console.log("Erro ao buscar comentario", error);
     }
@@ -45,6 +49,7 @@ const DetalhesEvento = () => {
   const deleteComentario = async (idComentario) => {
     try {
       await api.delete(`/ComentariosEvento/${idComentario}`);
+      getComentario();
     } catch (error) {
       console.log("Erro ao deletar comentario", error);
     }
@@ -71,25 +76,27 @@ const DetalhesEvento = () => {
     <MainContent>
       <section className="detalhes-evento-main">
         <Container>
-          <div className="detalhes-evento-page">
-            <Title
-              additionalClass="margem-acima"
-              titleText={`Evento: ${evento.nomeEvento}`}
-            />
-            <div className="detalhes-evento-flex">
+          <div className="detalhes-evento-page-flex">
+            <ImageIllustrator alterText="Imagem referente a detalhes" imageRender={detalhesSVG} additionalClass="imagem-detalhes-evento"/>
+
+            <div className="detalhes-evento-page">
+              <Title titleText={`Evento: ${evento.nomeEvento}`} />
+              <div className="detalhes-evento-flex">
+                <p className="detalhe-evento-propriedade">
+                  <b>Data: </b>
+                  {new Date(evento.dataEvento).toLocaleDateString()}
+                </p>
+                <p className="detalhe-evento-propriedade">
+                  <b>Tipo evento:</b> {tipoEvento}
+                </p>
+                <p className="detalhe-evento-propriedade">
+                  <b>Instituição:</b> {instituicao}
+                </p>
+              </div>
               <p className="detalhe-evento-propriedade">
-                <b>Data:</b> {new Date(evento.dataEvento).toLocaleDateString()}
-              </p>
-              <p className="detalhe-evento-propriedade">
-                <b>Tipo evento:</b> {tipoEvento}
-              </p>
-              <p className="detalhe-evento-propriedade">
-                <b>Instituição:</b> {instituicao}
+                <b>Descrição:</b> <br /> {evento.descricao}
               </p>
             </div>
-            <p className="detalhe-evento-propriedade">
-              <b>Descrição:</b> <br /> {evento.descricao}
-            </p>
           </div>
         </Container>
       </section>
